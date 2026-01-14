@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Character Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'SimHei', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .top-bar {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .debug-panel {
+            display: none;
+            width: 300px;
+            max-height: 80vh;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            overflow-y: auto;
+            color: #ffffff;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            backdrop-filter: blur(10px);
+        }
+
+        .debug-panel h3 {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .debug-panel pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+        }
+
+        .character-wrapper {
+            position: relative;
+            width: 60vmin;
+            height: 60vmin;
+            max-width: 600px;
+            max-height: 600px;
+        }
+
+        #character-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            z-index: 1;
+            font-family: 'KaiTi', '楷体', 'STKaiti', 'Microsoft YaHei', 'SimHei', 'Arial', sans-serif;
+            user-select: none;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.15);
+            line-height: 1;
+            transform: translate(107px, 90px);
+        }
+
+        #character-target {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        #next-stroke-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-family: 'Microsoft YaHei', 'SimHei', 'Arial', sans-serif;
+        }
+
+        #next-stroke-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        #next-stroke-btn:active {
+            transform: scale(0.95);
+        }
+
+        #next-stroke-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .character-wrapper {
+                width: 70vmin;
+                height: 70vmin;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .character-wrapper {
+                width: 50vmin;
+                height: 50vmin;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <button id="next-stroke-btn">Next Stroke</button>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <div class="character-wrapper">
+                <div id="character-background">中</div>
+                <div id="character-target"></div>
+            </div>
+        </div>
+        <div class="debug-panel">
+            <h3>Character Data (Debug)</h3>
+            <pre id="stroke-data-debug">Loading...</pre>
+        </div>
+    </div>
+
+    <!-- Load HanziWriter library -->
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.2.0/dist/hanzi-writer.min.js"></script>
+    <script>
+        const character = '中';
+        let writer;
+        let currentStrokeIndex = 0;
+        let totalStrokes = 0;
+        
+        function initWriter() {
+            if (typeof HanziWriter === 'undefined') {
+                setTimeout(initWriter, 100);
+                return;
+            }
+
+            writer = HanziWriter.create('character-target', character, {
+                width: 600,
+                height: 600,
+                padding: 50,
+                strokeColor: '#ffffff',
+                strokeWidth: 20,
+                radicalColor: '#ffffff',
+                showOutline: false,
+                showCharacter: false,
+                strokeAnimationSpeed: 1,
+                delayBetweenStrokes: 0
+            });
+
+            // Set background character size to match HanziWriter exactly
+            // Try 720 to make it bigger
+            function updateBackgroundSize() {
+                const wrapper = document.querySelector('.character-wrapper');
+                const background = document.getElementById('character-background');
+                if (wrapper && background) {
+                    const wrapperWidth = wrapper.offsetWidth;
+                    // Calculate font size: 720/600 = 120% of container
+                    const fontSize = (wrapperWidth * 720) / 600;
+                    background.style.fontSize = fontSize + 'px';
+                }
+            }
+            
+            // Update on load and resize
+            updateBackgroundSize();
+            window.addEventListener('resize', updateBackgroundSize);
+
+            // Get total number of strokes
+            writer.quiz({
+                onComplete: function() {
+                    // This callback helps us know when data is loaded
+                }
+            });
+
+            // Wait for data to load, then get stroke count and display debug info
+            setTimeout(() => {
+                let charData = null;
+                
+                // Try multiple ways to get character data
+                console.log('=== Trying to get character data ===');
+                console.log('writer:', writer);
+                console.log('writer.getCharacterData:', writer && writer.getCharacterData);
+                
+                if (writer && writer.getCharacterData) {
+                    charData = writer.getCharacterData();
+                    console.log('charData from getCharacterData():', charData);
+                    if (charData && charData.strokes) {
+                        totalStrokes = charData.strokes.length;
+                    }
+                }
+                
+                // Try accessing internal properties
+                if (!charData && writer._charData) {
+                    charData = writer._charData;
+                    console.log('charData from _charData:', charData);
+                    if (charData && charData.strokes) {
+                        totalStrokes = charData.strokes.length;
+                    }
+                }
+                
+                // Try other possible properties
+                if (!charData) {
+                    console.log('Checking writer properties:', Object.keys(writer));
+                    if (writer.charData) {
+                        charData = writer.charData;
+                        console.log('charData from charData:', charData);
+                    }
+                }
+                
+                // Log final result
+                console.log('=== Final character data ===');
+                console.log('charData:', charData);
+                console.log('totalStrokes:', totalStrokes);
+                
+                if (charData) {
+                    console.log('Full character data JSON:', JSON.stringify(charData, null, 2));
+                } else {
+                    console.log('Character data not available');
+                }
+                
+                // Display all character data in debug panel
+                const debugPanel = document.getElementById('stroke-data-debug');
+                if (charData) {
+                    debugPanel.textContent = JSON.stringify(charData, null, 2);
+                } else {
+                    debugPanel.textContent = 'Character data not available yet. Check console.';
+                }
+            }, 500);
+
+            // Button click handler
+            const btn = document.getElementById('next-stroke-btn');
+            btn.addEventListener('click', drawNextStroke);
+        }
+
+        function drawNextStroke() {
+            if (!writer) return;
+
+            const btn = document.getElementById('next-stroke-btn');
+            
+            // If we don't know total strokes yet, try to animate and get it
+            if (totalStrokes === 0) {
+                // Try to get stroke data
+                if (writer._charData && writer._charData.strokes) {
+                    totalStrokes = writer._charData.strokes.length;
+                } else {
+                    // Fallback: animate one stroke and increment
+                    writer.animateStroke(currentStrokeIndex, {
+                        onComplete: function() {
+                            currentStrokeIndex++;
+                            if (currentStrokeIndex >= 5) { // "中" has 5 strokes
+                                btn.disabled = true;
+                                btn.textContent = 'Complete';
+                            }
+                        }
+                    });
+                    return;
+                }
+            }
+
+            // Check if all strokes are done
+            if (currentStrokeIndex >= totalStrokes) {
+                btn.disabled = true;
+                btn.textContent = 'Complete';
+                return;
+            }
+
+            // Animate the current stroke
+            btn.disabled = true;
+            writer.animateStroke(currentStrokeIndex, {
+                onComplete: function() {
+                    currentStrokeIndex++;
+                    btn.disabled = false;
+                    
+                    if (currentStrokeIndex >= totalStrokes) {
+                        btn.textContent = 'Complete';
+                        btn.disabled = true;
+                    } else {
+                        btn.textContent = `Next Stroke (${currentStrokeIndex + 1}/${totalStrokes})`;
+                    }
+                }
+            });
+        }
+
+        // Start when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initWriter);
+        } else {
+            initWriter();
+        }
+    </script>
+</body>
+</html>
