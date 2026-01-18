@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chinese Character Homepage</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>中</text></svg>">
     <style>
@@ -10,6 +10,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        html {
+            -webkit-overflow-scrolling: touch;
+            overflow-y: scroll;
         }
 
         body {
@@ -143,8 +148,10 @@
             z-index: 9999;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            padding: 20px 0; /* Add padding for better mobile spacing */
         }
 
         #level-selection-overlay.hidden {
@@ -929,6 +936,48 @@
                 width: 90vmin;
                 height: 90vmin;
             }
+            
+            /* Level selection mobile optimization */
+            #level-selection-overlay {
+                padding: 10px 0;
+            }
+            
+            #level-selection-container {
+                width: 95%;
+                padding: 20px 10px;
+            }
+            
+            #level-selection-title {
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+            
+            #levels-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 10px 0;
+            }
+            
+            .level-card {
+                padding: 20px;
+            }
+            
+            .level-id {
+                font-size: 32px;
+            }
+            
+            .level-name {
+                font-size: 20px;
+            }
+            
+            .level-description {
+                font-size: 13px;
+            }
+            
+            .level-start-btn {
+                font-size: 16px;
+                padding: 12px 30px;
+            }
         }
 
         @media (min-width: 1200px) {
@@ -1097,7 +1146,8 @@
         // Level loading and selection functions
         async function loadLevelConfig() {
             try {
-                const response = await fetch('level_config.json');
+                // Add cache-busting parameter to force reload of latest data
+                const response = await fetch(`level_config.json?v=${Date.now()}`);
                 levelConfig = await response.json();
                 console.log('Level config loaded:', levelConfig);
                 return levelConfig;
@@ -2681,7 +2731,8 @@
             // Load stroke data from all_strokes.json file
             try {
                 console.log('Fetching all_strokes.json...');
-                const response = await fetch('all_strokes.json');
+                // Add cache-busting parameter to force reload of latest data
+                const response = await fetch(`all_strokes.json?v=${Date.now()}`);
                 console.log('Response status:', response.status, response.statusText);
                 
                 if (response.ok) {
