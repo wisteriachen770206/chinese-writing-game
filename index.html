@@ -152,6 +152,7 @@
             overflow-y: auto;
             -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
             padding: 20px 0; /* Add padding for better mobile spacing */
+            touch-action: auto; /* Allow all touch interactions */
         }
 
         #level-selection-overlay.hidden {
@@ -195,6 +196,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            touch-action: auto; /* Allow touch interactions */
         }
 
         .level-card:hover {
@@ -324,6 +326,7 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            touch-action: auto; /* Allow touch interactions */
         }
 
         .level-start-btn:hover {
@@ -3474,7 +3477,25 @@
             }
 
             function handleStart(e) {
-                // Don't trigger on button clicks or music toggle
+                // Check if level selection overlay is visible
+                const levelSelectionOverlay = document.getElementById('level-selection-overlay');
+                if (levelSelectionOverlay && !levelSelectionOverlay.classList.contains('hidden')) {
+                    return; // Don't handle drag if level selection is visible
+                }
+                
+                // Check if game over overlay is visible
+                const gameOverOverlay = document.getElementById('game-over-overlay');
+                if (gameOverOverlay && !gameOverOverlay.classList.contains('hidden')) {
+                    return; // Don't handle drag if game over is visible
+                }
+                
+                // Check if level complete overlay is visible
+                const levelCompleteOverlay = document.getElementById('level-complete-overlay');
+                if (levelCompleteOverlay && !levelCompleteOverlay.classList.contains('hidden')) {
+                    return; // Don't handle drag if level complete is visible
+                }
+                
+                // Don't trigger on button clicks, UI elements, or overlay screens
                 if (e.target && (
                     e.target.id === 'next-stroke-btn' || 
                     (e.target.closest && e.target.closest('#next-stroke-btn')) ||
@@ -3506,7 +3527,28 @@
             }
 
             async function handleEnd(e) {
-                // Don't trigger on button clicks or music toggle
+                // Check if level selection overlay is visible
+                const levelSelectionOverlay = document.getElementById('level-selection-overlay');
+                if (levelSelectionOverlay && !levelSelectionOverlay.classList.contains('hidden')) {
+                    isDragging = false;
+                    return; // Don't handle drag if level selection is visible
+                }
+                
+                // Check if game over overlay is visible
+                const gameOverOverlay = document.getElementById('game-over-overlay');
+                if (gameOverOverlay && !gameOverOverlay.classList.contains('hidden')) {
+                    isDragging = false;
+                    return; // Don't handle drag if game over is visible
+                }
+                
+                // Check if level complete overlay is visible
+                const levelCompleteOverlay = document.getElementById('level-complete-overlay');
+                if (levelCompleteOverlay && !levelCompleteOverlay.classList.contains('hidden')) {
+                    isDragging = false;
+                    return; // Don't handle drag if level complete is visible
+                }
+                
+                // Don't trigger on button clicks or UI elements
                 if (e.target && (
                     e.target.id === 'next-stroke-btn' || 
                     (e.target.closest && e.target.closest('#next-stroke-btn')) ||
