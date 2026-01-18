@@ -197,10 +197,42 @@ def get_character_data_from_api(character):
 
 def process_stroke_data(char_data):
     """Process character data using the same logic as processStrokeData in index.html"""
-    if not char_data or 'strokes' not in char_data:
+    if not char_data:
         return {'strokes': []}
     
     processed_strokes = []
+    
+    # Handle graphics.txt format (has medians at top level)
+    if 'medians' in char_data and isinstance(char_data['medians'], list):
+        # Process using medians (one median array per stroke)
+        for i, median in enumerate(char_data['medians']):
+            if not median or len(median) == 0:
+                continue
+            
+            # Convert median points to our format
+            extracted_points = [{'x': float(m[0]), 'y': float(m[1])} for m in median]
+            
+            # Calculate stroke angle
+            angle_data = calculate_stroke_angle(extracted_points)
+            
+            if angle_data:
+                processed_strokes.append({
+                    'index': i,
+                    'startPoint': angle_data['startPoint'],
+                    'endPoint': angle_data['endPoint'],
+                    'direction': angle_data['direction'],
+                    'angle': angle_data['angle'],
+                    'angleDegrees': angle_data['angleDegrees'],
+                    'length': angle_data['length'],
+                    'source': 'medians',
+                    'pointsCount': len(extracted_points)
+                })
+        
+        return {'strokes': processed_strokes}
+    
+    # Handle other formats (strokes with embedded data)
+    if 'strokes' not in char_data:
+        return {'strokes': []}
     
     # Process each stroke
     for i, raw_stroke in enumerate(char_data['strokes']):

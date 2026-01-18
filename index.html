@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chinese Character Homepage</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>中</text></svg>">
     <style>
         * {
             margin: 0;
@@ -42,6 +43,535 @@
             pointer-events: none;
         }
 
+        /* HP Bar Styles */
+        #hp-bar-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        #hp-bar-container.visible {
+            display: flex;
+        }
+
+        #hp-bar-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #hp-bar-background {
+            width: 200px;
+            height: 24px;
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        #hp-bar-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease, background 0.3s ease;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        #hp-bar-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            min-width: 70px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Timer Styles */
+        #timer-container {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        #timer-container.visible {
+            display: flex;
+        }
+
+        #timer-icon {
+            font-size: 20px;
+        }
+
+        #timer-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            min-width: 60px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Level Selection Screen */
+        #level-selection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        #level-selection-overlay.hidden {
+            display: none;
+        }
+        
+        /* Hide main content when level selection is shown */
+        #level-selection-overlay:not(.hidden) ~ .top-bar,
+        #level-selection-overlay:not(.hidden) ~ .main-content {
+            display: none;
+        }
+
+        #level-selection-container {
+            max-width: 1200px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        #level-selection-title {
+            font-size: 60px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .level-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .level-card.difficulty-easy::before {
+            background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+        }
+
+        .level-card.difficulty-medium::before {
+            background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .level-card.difficulty-hard::before {
+            background: linear-gradient(90deg, #ef4444 0%, #f87171 100%);
+        }
+
+        .level-card.difficulty-expert::before {
+            background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%);
+        }
+
+        .level-id {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 48px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.05);
+        }
+
+        .level-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 10px;
+            padding-right: 60px;
+        }
+
+        .level-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .level-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        .level-stat {
+            text-align: center;
+        }
+
+        .level-stat-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .level-stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-top: 5px;
+        }
+
+        .level-difficulty {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-difficulty.easy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .level-difficulty.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .level-difficulty.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .level-difficulty.expert {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .level-start-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Game Over Overlay */
+        #game-over-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        #game-over-overlay.hidden {
+            display: none;
+        }
+
+        #game-over-content {
+            text-align: center;
+            animation: slideIn 1s ease-out;
+        }
+
+        #game-over-title {
+            font-size: 80px;
+            font-weight: bold;
+            color: #ef4444;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.8),
+                         0 0 40px rgba(239, 68, 68, 0.6),
+                         0 0 60px rgba(239, 68, 68, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        #game-over-message {
+            font-size: 24px;
+            color: #ffffff;
+            margin: 30px 0;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards;
+        }
+
+        #restart-btn {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: 3px solid #ffffff;
+            border-radius: 15px;
+            padding: 15px 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 1s 1s forwards, float 2s 2s infinite;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.5);
+        }
+
+        #restart-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(239, 68, 68, 0.8);
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Level Complete Overlay */
+        #level-complete-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        #level-complete-overlay.hidden {
+            display: none;
+        }
+
+        #level-complete-content {
+            text-align: center;
+            animation: slideIn 1s ease-out;
+            max-width: 450px;
+            padding: 25px;
+        }
+
+        #level-complete-title {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 15px 0;
+            text-shadow: 0 0 40px rgba(251, 191, 36, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        #level-complete-subtitle {
+            font-size: 22px;
+            font-weight: bold;
+            color: #10b981;
+            margin: 0 0 20px 0;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+        }
+
+        #level-complete-stats {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards;
+        }
+
+        .level-complete-stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .level-complete-stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .level-complete-stat-label {
+            font-size: 16px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .level-complete-stat-value {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        #level-complete-next-info {
+            font-size: 18px;
+            color: #fbbf24;
+            margin: 20px 0 15px 0;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeIn 1s 1s forwards;
+        }
+
+        #level-complete-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1s 1.2s forwards;
+        }
+
+        .level-complete-btn {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 12px;
+            padding: 12px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: float 2s 2.5s infinite;
+        }
+
+        #level-complete-next-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5);
+        }
+
+        #level-complete-next-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(16, 185, 129, 0.8);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        #level-complete-menu-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        #level-complete-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(99, 102, 241, 0.8);
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.2);
+            }
+        }
+
         .top-bar {
             padding: 20px;
             display: flex;
@@ -59,7 +589,7 @@
             border-radius: 25px;
             padding: 8px 15px;
             backdrop-filter: blur(10px);
-            opacity: 0.3;
+            opacity: 0.7;
         }
         
         .music-toggle {
@@ -92,6 +622,31 @@
             transform: translateX(24px);
         }
         
+        .voice-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            padding: 0;
+        }
+        
+        .voice-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .voice-btn:active {
+            transform: scale(0.95);
+        }
 
         .main-content {
             flex: 1;
@@ -385,8 +940,67 @@
     </style>
 </head>
 <body>
+    <!-- HP Bar -->
+    <div id="hp-bar-container">
+        <div id="hp-bar-label">HP</div>
+        <div id="hp-bar-background">
+            <div id="hp-bar-fill"></div>
+        </div>
+        <div id="hp-bar-text">100 / 100</div>
+    </div>
+    
+    <!-- Timer -->
+    <div id="timer-container">
+        <div id="timer-icon">⏱️</div>
+        <div id="timer-text">00:00</div>
+    </div>
+    
+    <!-- Level Selection Screen -->
+    <div id="level-selection-overlay">
+        <div id="level-selection-container">
+            <h1 id="level-selection-title">Select Level</h1>
+            <div id="levels-grid"></div>
+        </div>
+    </div>
+    
+    <!-- Game Over Overlay -->
+    <div id="game-over-overlay" class="hidden">
+        <div id="game-over-content">
+            <h1 id="game-over-title">GAME OVER</h1>
+            <p id="game-over-message">Your HP reached 0!</p>
+            <button id="restart-btn">Restart</button>
+        </div>
+    </div>
+
+    <div id="level-complete-overlay" class="hidden">
+        <div id="level-complete-content">
+            <h1 id="level-complete-title">🎉 LEVEL COMPLETE! 🎉</h1>
+            <div id="level-complete-subtitle">Level 1: Basic Strokes</div>
+            <div id="level-complete-stats">
+                <div class="level-complete-stat-row">
+                    <span class="level-complete-stat-label">⏱️ Time</span>
+                    <span class="level-complete-stat-value" id="level-complete-time">0:00</span>
+                </div>
+                <div class="level-complete-stat-row">
+                    <span class="level-complete-stat-label">❤️ HP Remaining</span>
+                    <span class="level-complete-stat-value" id="level-complete-hp">100 / 100</span>
+                </div>
+                <div class="level-complete-stat-row">
+                    <span class="level-complete-stat-label">✏️ Characters Completed</span>
+                    <span class="level-complete-stat-value" id="level-complete-chars">6</span>
+                </div>
+            </div>
+            <div id="level-complete-next-info">Ready for the next challenge?</div>
+            <div id="level-complete-buttons">
+                <button id="level-complete-next-btn" class="level-complete-btn">Next Level</button>
+                <button id="level-complete-menu-btn" class="level-complete-btn">Level Select</button>
+            </div>
+        </div>
+    </div>
+    
     <div class="top-bar">
         <div id="next-stroke-btn">Next Stroke</div>
+        <button id="voice-btn" class="voice-btn" title="Read current character">🔊</button>
         <div class="music-control">
             <div class="music-icon">🎵</div>
             <div class="music-toggle" id="music-toggle"></div>
@@ -431,6 +1045,358 @@
         
         // LocalStorage key for saving progress
         const STORAGE_KEY = 'hanziWriter_currentCharacterIndex';
+        
+        // HP Bar system
+        let maxHP = 100;
+        let currentHP = 100;
+        let isGameOver = false;
+        
+        // Level system
+        let levelConfig = null;
+        let currentLevel = null;
+        
+        // Timer system
+        let timerStartTime = null;
+        let timerInterval = null;
+        let timerElapsedSeconds = 0;
+        
+        function startTimer() {
+            timerStartTime = Date.now();
+            timerElapsedSeconds = 0;
+            updateTimerDisplay();
+            
+            // Update timer every second
+            timerInterval = setInterval(() => {
+                timerElapsedSeconds = Math.floor((Date.now() - timerStartTime) / 1000);
+                updateTimerDisplay();
+            }, 1000);
+        }
+        
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+        
+        function resetTimer() {
+            stopTimer();
+            timerElapsedSeconds = 0;
+            updateTimerDisplay();
+        }
+        
+        function updateTimerDisplay() {
+            const timerText = document.getElementById('timer-text');
+            if (timerText) {
+                const minutes = Math.floor(timerElapsedSeconds / 60);
+                const seconds = timerElapsedSeconds % 60;
+                timerText.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }
+        
+        // Level loading and selection functions
+        async function loadLevelConfig() {
+            try {
+                const response = await fetch('level_config.json');
+                levelConfig = await response.json();
+                console.log('Level config loaded:', levelConfig);
+                return levelConfig;
+            } catch (error) {
+                console.error('Error loading level config:', error);
+                return null;
+            }
+        }
+        
+        function displayLevelSelection() {
+            const levelsGrid = document.getElementById('levels-grid');
+            if (!levelsGrid || !levelConfig) return;
+            
+            levelsGrid.innerHTML = '';
+            
+            levelConfig.levels.forEach(level => {
+                const card = document.createElement('div');
+                card.className = `level-card difficulty-${level.difficulty}`;
+                card.innerHTML = `
+                    <div class="level-id">${level.id}</div>
+                    <div class="level-name">${level.name}</div>
+                    <div class="level-description">${level.description}</div>
+                    <div class="level-stats">
+                        <div class="level-stat">
+                            <div class="level-stat-label">Characters</div>
+                            <div class="level-stat-value">${level.numCharacters}</div>
+                        </div>
+                        <div class="level-stat">
+                            <div class="level-stat-label">Strokes</div>
+                            <div class="level-stat-value">${level.totalStrokes}</div>
+                        </div>
+                        <div class="level-stat">
+                            <div class="level-stat-label">HP</div>
+                            <div class="level-stat-value">${level.maxHP}</div>
+                        </div>
+                    </div>
+                    <div class="level-difficulty ${level.difficulty}">${level.difficulty}</div>
+                    <button class="level-start-btn" onclick="startLevel(${level.id})">Start Level</button>
+                `;
+                levelsGrid.appendChild(card);
+            });
+        }
+        
+        async function startLevel(levelId) {
+            const level = levelConfig.levels.find(l => l.id === levelId);
+            if (!level) {
+                console.error(`Level ${levelId} not found`);
+                return;
+            }
+            
+            currentLevel = level;
+            
+            // Set characters from level first
+            charactersToLearn = level.characters.split('');
+            
+            // Load all_strokes.json if not already loaded
+            if (Object.keys(allCharactersData).length === 0) {
+                console.log('Loading all_strokes.json for level...');
+                const loaded = await loadStrokesDataFromFile();
+                if (!loaded) {
+                    alert('Failed to load all_strokes.json. Please make sure the file exists.');
+                    return;
+                }
+            }
+            
+            // Validate that all characters in this level are available
+            const missingCharacters = [];
+            for (const char of charactersToLearn) {
+                if (!allCharactersData[char]) {
+                    missingCharacters.push(char);
+                }
+            }
+            
+            if (missingCharacters.length > 0) {
+                alert(`Cannot start level: The following characters are not found in all_strokes.json:\n${missingCharacters.join(', ')}\n\nAvailable characters: ${Object.keys(allCharactersData).join(', ')}`);
+                console.error('Missing characters:', missingCharacters);
+                console.log('Available characters in all_strokes.json:', Object.keys(allCharactersData));
+                return;
+            }
+            
+            // Hide level selection
+            const levelSelection = document.getElementById('level-selection-overlay');
+            if (levelSelection) {
+                levelSelection.classList.add('hidden');
+            }
+            
+            // Show HP bar and timer
+            const hpBar = document.getElementById('hp-bar-container');
+            const timer = document.getElementById('timer-container');
+            if (hpBar) hpBar.classList.add('visible');
+            if (timer) timer.classList.add('visible');
+            
+            currentCharacterIndex = 0;
+            
+            // Clear completed characters display
+            const completedContainer = document.getElementById('completed-characters-container');
+            if (completedContainer) {
+                completedContainer.innerHTML = '';
+            }
+            
+            // Set HP
+            maxHP = level.maxHP;
+            currentHP = maxHP;
+            updateHPBar(maxHP);
+            
+            // Reset game state
+            isGameOver = false;
+            appInitialized = false; // Reset app initialization flag
+            resetTimer();
+            startTimer();
+            
+            console.log(`Starting Level ${level.id}: ${level.name}`);
+            console.log(`Characters: ${level.characters}`);
+            console.log(`HP: ${level.maxHP}`);
+            
+            // Initialize the game with the characters from this level only
+            // Pass true to skip loading ToWriteText.txt
+            await initializeApp(true);
+        }
+        
+        function showLevelSelection() {
+            const levelSelection = document.getElementById('level-selection-overlay');
+            if (levelSelection) {
+                levelSelection.classList.remove('hidden');
+            }
+            
+            // Hide HP bar and timer
+            const hpBar = document.getElementById('hp-bar-container');
+            const timer = document.getElementById('timer-container');
+            if (hpBar) hpBar.classList.remove('visible');
+            if (timer) timer.classList.remove('visible');
+        }
+        
+        function onLevelComplete() {
+            stopTimer();
+            
+            const timeStr = `${Math.floor(timerElapsedSeconds / 60)}:${String(timerElapsedSeconds % 60).padStart(2, '0')}`;
+            const hpLeft = Math.round(currentHP);
+            
+            // Find next level
+            const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
+            const nextLevel = currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1 
+                ? levelConfig.levels[currentLevelIndex + 1] 
+                : null;
+            
+            // Update level complete overlay with current level info
+            const overlay = document.getElementById('level-complete-overlay');
+            const subtitle = document.getElementById('level-complete-subtitle');
+            const timeDisplay = document.getElementById('level-complete-time');
+            const hpDisplay = document.getElementById('level-complete-hp');
+            const charsDisplay = document.getElementById('level-complete-chars');
+            const nextInfo = document.getElementById('level-complete-next-info');
+            const nextBtn = document.getElementById('level-complete-next-btn');
+            
+            if (subtitle) {
+                subtitle.textContent = `Level ${currentLevel.id}: ${currentLevel.name}`;
+            }
+            
+            if (timeDisplay) {
+                timeDisplay.textContent = timeStr;
+            }
+            
+            if (hpDisplay) {
+                hpDisplay.textContent = `${hpLeft} / ${maxHP}`;
+            }
+            
+            if (charsDisplay) {
+                charsDisplay.textContent = currentLevel.numCharacters;
+            }
+            
+            if (nextLevel) {
+                if (nextInfo) {
+                    nextInfo.textContent = `Ready for Level ${nextLevel.id}?`;
+                }
+                if (nextBtn) {
+                    nextBtn.textContent = `Next: ${nextLevel.name}`;
+                    nextBtn.style.display = 'block';
+                }
+            } else {
+                // All levels completed
+                if (nextInfo) {
+                    nextInfo.textContent = '🏆 You completed ALL levels! 🏆';
+                }
+                if (nextBtn) {
+                    nextBtn.style.display = 'none';
+                }
+            }
+            
+            // Show overlay
+            if (overlay) {
+                overlay.classList.remove('hidden');
+            }
+        }
+        
+        function hideLevelComplete() {
+            const overlay = document.getElementById('level-complete-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+            }
+        }
+        
+        function updateHPBar(newHP) {
+            currentHP = Math.max(0, Math.min(maxHP, newHP));
+            const hpPercentage = (currentHP / maxHP) * 100;
+            
+            const hpBarFill = document.getElementById('hp-bar-fill');
+            const hpBarText = document.getElementById('hp-bar-text');
+            
+            if (hpBarFill && hpBarText) {
+                hpBarFill.style.width = hpPercentage + '%';
+                hpBarText.textContent = `${Math.round(currentHP)} / ${maxHP}`;
+                
+                // Change color based on HP percentage
+                if (hpPercentage > 60) {
+                    hpBarFill.style.background = 'linear-gradient(90deg, #10b981 0%, #34d399 100%)';
+                } else if (hpPercentage > 30) {
+                    hpBarFill.style.background = 'linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%)';
+                } else {
+                    hpBarFill.style.background = 'linear-gradient(90deg, #ef4444 0%, #f87171 100%)';
+                }
+            }
+            
+            // Check for game over
+            if (currentHP <= 0) {
+                showGameOver();
+            }
+        }
+        
+        function showGameOver() {
+            isGameOver = true;
+            stopTimer();
+            const overlay = document.getElementById('game-over-overlay');
+            if (overlay) {
+                overlay.classList.remove('hidden');
+            }
+            console.log('GAME OVER! HP reached 0.');
+        }
+        
+        function restartGame() {
+            // Reset game over flag
+            isGameOver = false;
+            
+            // Hide game over overlay
+            const overlay = document.getElementById('game-over-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+            }
+            
+            // Stop timer
+            stopTimer();
+            
+            // Show level selection screen
+            showLevelSelection();
+        }
+        
+        function applyDamage(damage) {
+            const newHP = currentHP - damage;
+            updateHPBar(newHP);
+            console.log(`HP: ${Math.round(currentHP)} / ${maxHP} (Damage: ${damage.toFixed(2)})`);
+        }
+        
+        function resetHP() {
+            updateHPBar(maxHP);
+        }
+        
+        // Function to convert punishment to HP deduction
+        function punishmentToHPDeduction(punishment) {
+            if (punishment < 50) {
+                return 0;
+            } else {
+                return punishment / 10;
+            }
+        }
+        
+        // Function to generate completion sound effect using Web Audio API
+        function playCompletionSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Create a pleasant completion sound
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (e) {
+                console.log('Could not play completion sound:', e);
+            }
+        }
         
         // Load saved character index from localStorage
         function loadSavedCharacterIndex() {
@@ -613,7 +1579,7 @@
             musicEnabled = true;
             
             // Try to play music (may require user interaction)
-            backgroundMusic.volume = 0.5; // Set volume to 50%
+            backgroundMusic.volume = 0.25; // Set volume to 25%
             backgroundMusic.loop = true; // Ensure looping is enabled
             
             // Toggle music on/off
@@ -646,6 +1612,61 @@
             }, { once: true });
             
             console.log('Music control initialized');
+        }
+        
+        // Initialize voice button to read current character
+        function initVoiceButton() {
+            const voiceBtn = document.getElementById('voice-btn');
+            
+            if (!voiceBtn) {
+                console.warn('Voice button not found');
+                return;
+            }
+            
+            voiceBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent event from bubbling to drag detection
+                e.preventDefault();
+                
+                if (!character) {
+                    console.log('No character to read');
+                    return;
+                }
+                
+                console.log(`Reading character: ${character}`);
+                
+                try {
+                    // Cancel any ongoing speech
+                    window.speechSynthesis.cancel();
+                    
+                    // Create new utterance
+                    const utterance = new SpeechSynthesisUtterance(character);
+                    utterance.lang = 'zh-CN'; // Chinese language
+                    utterance.rate = 0.7; // Slower for clarity
+                    utterance.pitch = 1.0;
+                    utterance.volume = 1.0;
+                    
+                    utterance.onstart = () => {
+                        console.log(`Started speaking: ${character}`);
+                        voiceBtn.style.background = 'rgba(74, 222, 128, 0.3)';
+                    };
+                    
+                    utterance.onend = () => {
+                        console.log(`Finished speaking: ${character}`);
+                        voiceBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+                    };
+                    
+                    utterance.onerror = (e) => {
+                        console.log('Error speaking:', e);
+                        voiceBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+                    };
+                    
+                    window.speechSynthesis.speak(utterance);
+                } catch (e) {
+                    console.log('Could not speak character:', e);
+                }
+            });
+            
+            console.log('Voice button initialized');
         }
         
         
@@ -786,6 +1807,14 @@
                 const medians = this.strokeData.rawCharData.medians;
                 if (medians.length === 0) return;
                 
+                // Ensure all stroke data is prepared when guide character is drawn
+                // Check if strokes need to be processed (if lengths are missing)
+                if (!this.strokeData.strokes || this.strokeData.strokes.length === 0 || 
+                    this.strokeData.strokes.some(s => !s || s.length === null || s.length === undefined)) {
+                    console.log('[drawGuideCharacter] Preparing all stroke data from rawCharData...');
+                    this.prepareAllStrokeData();
+                }
+                
                 // Clear guide canvas first
                 this.guideCtx.clearRect(0, 0, this.guideCanvas.width, this.guideCanvas.height);
                 
@@ -829,6 +1858,107 @@
                 
                 // Mark guide as drawn
                 this.guideDrawn = true;
+            }
+            
+            prepareAllStrokeData() {
+                // Prepare all stroke data from rawCharData when guide character is drawn
+                if (!this.strokeData.rawCharData || !this.strokeData.rawCharData.medians) {
+                    return;
+                }
+                
+                const medians = this.strokeData.rawCharData.medians;
+                if (medians.length === 0) {
+                    return;
+                }
+                
+                // Rebuild strokes array with calculated lengths if missing
+                if (!this.strokeData.strokes || this.strokeData.strokes.length !== medians.length) {
+                    this.strokeData.strokes = [];
+                }
+                
+                for (let i = 0; i < medians.length; i++) {
+                    let stroke = this.strokeData.strokes[i];
+                    
+                    // If stroke doesn't exist or is missing length, calculate it
+                    if (!stroke || stroke.length === null || stroke.length === undefined) {
+                        const strokePoints = medians[i].map(([x, y]) => ({ x, y }));
+                        
+                        // Calculate stroke length from points
+                        let length = 0;
+                        for (let j = 1; j < strokePoints.length; j++) {
+                            const dx = strokePoints[j].x - strokePoints[j - 1].x;
+                            const dy = strokePoints[j].y - strokePoints[j - 1].y;
+                            length += Math.sqrt(dx * dx + dy * dy);
+                        }
+                        
+                        // Calculate angle data if needed (calculate manually since function is in different scope)
+                        let angleData = null;
+                        if (strokePoints.length >= 2) {
+                            const startPoint = strokePoints[0];
+                            let maxDistance = 0;
+                            let endPoint = startPoint;
+                            for (let j = 1; j < strokePoints.length; j++) {
+                                const point = strokePoints[j];
+                                const dx = point.x - startPoint.x;
+                                const dy = point.y - startPoint.y;
+                                const dist = Math.sqrt(dx * dx + dy * dy);
+                                if (dist > maxDistance) {
+                                    maxDistance = dist;
+                                    endPoint = point;
+                                }
+                            }
+                            const dx = endPoint.x - startPoint.x;
+                            const dy = endPoint.y - startPoint.y;
+                            // Negate dy to match screen coordinates (Y increases downward on screen, but upward in character data)
+                            angleData = {
+                                startPoint: startPoint,
+                                endPoint: endPoint,
+                                direction: { dx, dy },
+                                angle: Math.atan2(-dy, dx),
+                                angleDegrees: Math.atan2(-dy, dx) * 180 / Math.PI,
+                                length: length
+                            };
+                        }
+                        
+                        // Create or update stroke object
+                        this.strokeData.strokes[i] = {
+                            index: i,
+                            rawData: medians[i],
+                            points: strokePoints,
+                            startPoint: angleData ? angleData.startPoint : (strokePoints[0] || null),
+                            endPoint: angleData ? angleData.endPoint : (strokePoints[strokePoints.length - 1] || null),
+                            direction: angleData ? angleData.direction : null,
+                            angle: angleData ? angleData.angle : null,
+                            angleDegrees: angleData ? angleData.angleDegrees : null,
+                            length: length,
+                            source: 'medians'
+                        };
+                    }
+                }
+                
+                // Calculate distance between consecutive strokes (end point of stroke i to start point of stroke i+1)
+                for (let i = 0; i < this.strokeData.strokes.length - 1; i++) {
+                    const currentStroke = this.strokeData.strokes[i];
+                    const nextStroke = this.strokeData.strokes[i + 1];
+                    
+                    if (currentStroke && currentStroke.endPoint && nextStroke && nextStroke.startPoint) {
+                        const dx = nextStroke.startPoint.x - currentStroke.endPoint.x;
+                        const dy = nextStroke.startPoint.y - currentStroke.endPoint.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        // Store distance to next stroke in current stroke object
+                        if (!currentStroke.distanceToNext) {
+                            currentStroke.distanceToNext = distance;
+                        } else {
+                            // Update if already exists (in case of recalculation)
+                            currentStroke.distanceToNext = distance;
+                        }
+                    }
+                }
+                
+                // Last stroke has no next stroke, so distanceToNext is null/undefined
+                
+                this.strokeData.initialized = true;
             }
             
             redrawAllStrokes() {
@@ -994,11 +2124,6 @@
                     }
                 }
                 
-                // Print start and end points to console
-                console.log('Stroke start point:', startPoint);
-                console.log('Stroke end point (max distance):', endPoint);
-                console.log('Max distance:', maxDistance.toFixed(2));
-                console.log('End point index:', endPointIndex, 'out of', points.length - 1);
                 
                 // Use start and end points directly (no switching)
                 const finalStartPoint = startPoint;
@@ -1021,11 +2146,6 @@
                     y: conversionHeight - finalEndPoint.y  // Flip y-axis
                 };
                 
-                console.log('Conversion height used:', conversionHeight);
-                console.log('Stroke start point (original):', finalStartPoint);
-                console.log('Stroke end point (original):', finalEndPoint);
-                console.log('Stroke start point (converted to screen):', startPointScreen);
-                console.log('Stroke end point (converted to screen):', endPointScreen);
                 
                 // Switch start and end points if endPoint x+y < startPoint x+y (after coordinate conversion)
                 let finalStartPointScreen = startPointScreen;
@@ -1039,12 +2159,7 @@
                     finalStartPointScreen = endPointScreen;
                     finalEndPointScreen = startPointScreen;
                     switched = true;
-                    console.log('Switched start and end points (after coordinate conversion)');
-                    console.log('endSum:', endSum.toFixed(2), '< startSum:', startSum.toFixed(2));
                 }
-                
-                console.log('Final stroke start point (screen):', finalStartPointScreen);
-                console.log('Final stroke end point (screen):', finalEndPointScreen);
                 
                 // Calculate direction vector using final converted coordinates (screen coordinate system)
                 // Direction: from finalStartPointScreen to finalEndPointScreen
@@ -1056,10 +2171,6 @@
                 // Now using screen coordinates: (0,0) at top-left, y increases downward
                 const angle = Math.atan2(dy, dx);
                 const angleDegrees = angle * 180 / Math.PI;
-                
-                console.log('Angle calculated from converted stroke points (screen coordinates)');
-                console.log('Direction vector (dx, dy):', dx.toFixed(2), dy.toFixed(2));
-                console.log('Angle (degrees):', angleDegrees.toFixed(2));
                 
                 // Calculate approximate length
                 let length = 0;
@@ -1321,12 +2432,18 @@
         }
         
         // Load all_strokes.json first, then load all characters into new structure
-        async function initializeApp() {
-            console.log('Initializing app - loading ToWriteText.txt...');
-            const textLoaded = await loadCharactersFromTextFile();
-            if (!textLoaded) {
-                alert('Failed to load ToWriteText.txt. Please make sure the file exists in the same directory.');
-                return;
+        async function initializeApp(skipTextFile = false) {
+            // If skipTextFile is true, we're coming from level selection and charactersToLearn is already set
+            if (!skipTextFile) {
+                console.log('Initializing app - loading ToWriteText.txt...');
+                const textLoaded = await loadCharactersFromTextFile();
+                if (!textLoaded) {
+                    alert('Failed to load ToWriteText.txt. Please make sure the file exists in the same directory.');
+                    return;
+                }
+            } else {
+                console.log('Initializing app - using characters from selected level...');
+                console.log('Characters to learn:', charactersToLearn.join(''));
             }
             
             console.log('Initializing app - loading all_strokes.json...');
@@ -1336,21 +2453,22 @@
                 return;
             }
             
-            // Load all characters into new structure (in order from ToWriteText.txt)
+            // Load all characters into new structure (in order from ToWriteText.txt or level)
             console.log('Loading all characters into new structure...');
             loadAllCharactersIntoStructure();
             
             // Log the loaded structure
             console.log(`Loaded ${charactersStrokeDataList.length} characters into new structure`);
             
-            // Set initial character - load from localStorage or start from first
+            // Set initial character
             if (charactersToLearn.length > 0) {
-                const startIndex = loadSavedCharacterIndex();
+                // When starting from level selection, always start from first character (index 0)
+                const startIndex = skipTextFile ? 0 : loadSavedCharacterIndex();
                 // Make sure the saved index is valid
                 const validIndex = Math.min(startIndex, charactersToLearn.length - 1);
                 
-                // Load thumbnails for previous characters if resuming
-                if (validIndex > 0) {
+                // Load thumbnails for previous characters if resuming (skip if from level selection)
+                if (!skipTextFile && validIndex > 0) {
                     await loadPreviousCharactersThumbnails(validIndex);
                 }
                 
@@ -1366,7 +2484,7 @@
                 // Start processing from saved character (or first if none saved)
                 processSingleCharacter(validIndex);
             } else {
-                alert('No characters found in ToWriteText.txt');
+                alert('No characters available');
             }
         }
         
@@ -1379,17 +2497,59 @@
         });
         
         // Initialize music control and app when page loads
-        function initPage() {
+        async function initPage() {
             // Stop any existing audio instances first
             if (backgroundMusic) {
                 backgroundMusic.pause();
                 backgroundMusic.currentTime = 0;
             }
+            // Initialize HP bar
+            updateHPBar(maxHP);
+            // Initialize restart button
+            const restartBtn = document.getElementById('restart-btn');
+            if (restartBtn) {
+                restartBtn.addEventListener('click', restartGame);
+            }
+            
+            // Initialize level complete buttons
+            const levelCompleteNextBtn = document.getElementById('level-complete-next-btn');
+            const levelCompleteMenuBtn = document.getElementById('level-complete-menu-btn');
+            
+            if (levelCompleteNextBtn) {
+                levelCompleteNextBtn.addEventListener('click', () => {
+                    hideLevelComplete();
+                    // Find next level
+                    const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
+                    const nextLevel = currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1 
+                        ? levelConfig.levels[currentLevelIndex + 1] 
+                        : null;
+                    
+                    if (nextLevel) {
+                        startLevel(nextLevel.id);
+                    } else {
+                        showLevelSelection();
+                    }
+                });
+            }
+            
+            if (levelCompleteMenuBtn) {
+                levelCompleteMenuBtn.addEventListener('click', () => {
+                    hideLevelComplete();
+                    showLevelSelection();
+                });
+            }
+            
             initMusicControl();
-            initializeApp().catch(err => {
-                console.error('Error initializing app:', err);
-                alert('Error: ' + err.message);
-            });
+            initVoiceButton();
+            
+            // Load level config and show level selection
+            await loadLevelConfig();
+            if (levelConfig) {
+                displayLevelSelection();
+                showLevelSelection();
+            } else {
+                alert('Failed to load level configuration. Please check level_config.json file.');
+            }
         }
         
         if (document.readyState === 'loading') {
@@ -1719,36 +2879,8 @@
                     
                     // Step 5: After animation completes, add final thumbnail and remove flying one
                     setTimeout(() => {
-                        // Play completion sound effect
-                        const completionSound = document.getElementById('completion-sound');
-                        if (completionSound && completionSound.src) {
-                            // If audio file is available, use it
-                            completionSound.currentTime = 0;
-                            completionSound.play().catch(e => {
-                                console.log('Could not play completion sound:', e);
-                            });
-                        } else {
-                            // Fallback: Create a simple beep sound using Web Audio API
-                            try {
-                                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                                const oscillator = audioContext.createOscillator();
-                                const gainNode = audioContext.createGain();
-                                
-                                oscillator.connect(gainNode);
-                                gainNode.connect(audioContext.destination);
-                                
-                                oscillator.frequency.value = 800; // Higher pitch
-                                oscillator.type = 'sine';
-                                
-                                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
-                                
-                                oscillator.start(audioContext.currentTime);
-                                oscillator.stop(audioContext.currentTime + 0.15);
-                            } catch (e) {
-                                console.log('Could not play completion sound:', e);
-                            }
-                        }
+                        // Play simple completion sound effect
+                        playCompletionSound();
                         
                         // Create final thumbnail element
                         const img = document.createElement('img');
@@ -1776,8 +2908,14 @@
                         setTimeout(() => {
                             console.log('All characters completed!');
                             isCompletingCharacter = false; // Reset flag
-                            // Reset to first character when all are completed
-                            saveCharacterIndex(0);
+                            
+                            // Check if we're in level mode
+                            if (currentLevel) {
+                                onLevelComplete();
+                            } else {
+                                // Reset to first character when all are completed
+                                saveCharacterIndex(0);
+                            }
                         }, 700); // After flying animation completes
                     }
                 }, 800); // Wait for shine animation to complete
@@ -1789,7 +2927,13 @@
                     processSingleCharacter(nextIndex);
                 } else {
                     isCompletingCharacter = false;
-                    saveCharacterIndex(0);
+                    
+                    // Check if we're in level mode
+                    if (currentLevel) {
+                        onLevelComplete();
+                    } else {
+                        saveCharacterIndex(0);
+                    }
                 }
             }
         }
@@ -1803,7 +2947,8 @@
             const infoDisplay = document.getElementById('next-stroke-btn');
             if (infoDisplay) {
                 const currentChar = charactersToLearn[currentCharacterIndex] || '';
-                infoDisplay.textContent = `般若波罗蜜心经 ${currentCharacterIndex + 1}/${charactersToLearn.length} (${currentChar})`;
+                const levelName = currentLevel ? currentLevel.name : 'Practice';
+                infoDisplay.textContent = `${levelName} ${currentCharacterIndex + 1}/${charactersToLearn.length} (${currentChar})`;
             }
         }
         
@@ -1847,13 +2992,6 @@
         }
         
         async function drawNextStroke() {
-            console.log('=== drawNextStroke called ===');
-            console.log('canvas:', !!hanziWriter.canvas);
-            console.log('ctx:', !!hanziWriter.ctx);
-            console.log('currentStrokeIndex:', hanziWriter.currentStrokeIndex);
-            console.log('totalStrokes:', hanziWriter.totalStrokes);
-            console.log('isAnimating:', hanziWriter.isAnimating);
-            
             if (!hanziWriter.canvas || !hanziWriter.ctx) {
                 console.error('Canvas not initialized');
                 alert('Canvas not initialized. Please refresh the page.');
@@ -1922,7 +3060,8 @@
             
             if (infoDisplay) {
                 const currentChar = charactersToLearn[currentCharacterIndex] || '';
-                infoDisplay.textContent = `般若波罗蜜心经 ${currentCharacterIndex + 1}/${charactersToLearn.length} (${currentChar})`;
+                const levelName = currentLevel ? currentLevel.name : 'Practice';
+                infoDisplay.textContent = `${levelName} ${currentCharacterIndex + 1}/${charactersToLearn.length} (${currentChar})`;
             }
             
             try {
@@ -2000,6 +3139,86 @@
             }
         }
 
+        // Function to calculate how many strokes to draw based on drag distance
+        function calculateStrokesFromDragDistance(dragDistance) {
+            // Default to 1 stroke if stroke data not available
+            if (!hanziWriter.strokeData.initialized || !hanziWriter.strokeData.strokes) {
+                return 1;
+            }
+            
+            const currentIndex = hanziWriter.currentStrokeIndex;
+            const remainingStrokes = hanziWriter.totalStrokes - currentIndex;
+            
+            if (remainingStrokes <= 0) {
+                return 0;
+            }
+            
+            // Calculate canvas scale to convert stroke lengths from data coordinates to screen pixels
+            const canvas = hanziWriter.canvas;
+            if (!canvas) {
+                return 1;
+            }
+            
+            const canvasSize = canvas.width;
+            const dataWidth = 900;
+            const dataHeight = 900;
+            const strokeHalfWidth = 25 / 2; // lineWidth / 2
+            const padding = Math.max(strokeHalfWidth + 10, canvasSize * 0.1);
+            const availableSize = canvasSize - (padding * 2);
+            const scale = availableSize / Math.max(dataWidth, dataHeight);
+            
+            // Calculate cumulative lengths including distances between strokes (in screen pixels)
+            // Formula: d > stroke1.length + stroke1.distanceToNext + stroke2.length + ... to draw multiple strokes
+            let cumulativeLength = 0;
+            let strokeCount = 0;
+            
+            for (let i = currentIndex; i < Math.min(currentIndex + remainingStrokes, hanziWriter.strokeData.strokes.length); i++) {
+                const stroke = hanziWriter.strokeData.strokes[i];
+                if (stroke && stroke.length !== null && stroke.length !== undefined) {
+                    // Convert stroke length from data coordinates to screen pixels
+                    const strokeLengthScreen = stroke.length * scale;
+                    
+                    // Calculate cumulative length including distance to this stroke
+                    // Formula: d > stroke1.length + stroke1.distanceToNext + stroke2.length + ...
+                    // For the first stroke: cumulative = stroke1.length
+                    // For subsequent strokes: cumulative = previous + previousStroke.distanceToNext + current stroke length
+                    let newCumulativeLength;
+                    if (strokeCount === 0) {
+                        // First stroke: just add its length
+                        newCumulativeLength = strokeLengthScreen;
+                    } else {
+                        // Subsequent stroke: add distance from previous stroke to this one, then add current stroke length
+                        const previousStroke = hanziWriter.strokeData.strokes[i - 1];
+                        let distanceToNextScreen = 0;
+                        if (previousStroke && previousStroke.distanceToNext !== null && previousStroke.distanceToNext !== undefined) {
+                            distanceToNextScreen = previousStroke.distanceToNext * scale;
+                        }
+                        newCumulativeLength = cumulativeLength + distanceToNextScreen + strokeLengthScreen;
+                    }
+                    
+                    // If drag distance is >= cumulative length including this stroke and distance to it, include it
+                    if (dragDistance >= newCumulativeLength) {
+                        cumulativeLength = newCumulativeLength;
+                        strokeCount++;
+                        // Continue to check if we can include more strokes
+                    } else {
+                        // Drag distance is less than cumulative length including this stroke
+                        // Stop here - we've found the maximum number of strokes
+                        break;
+                    }
+                } else {
+                    // If stroke length is not available, break (default to existing strokeCount)
+                    break;
+                }
+            }
+            
+            // Ensure at least 1 stroke is drawn if drag distance meets minimum
+            const strokesToDraw = Math.max(1, strokeCount);
+            
+            // Don't draw more strokes than remaining
+            return Math.min(strokesToDraw, remainingStrokes);
+        }
+        
         // Function to calculate angle of user movement
         function checkStrokeSimilarity(userPath, strokeIndex) {
             let result = {
@@ -2052,12 +3271,125 @@
         }
 
 
+        // Function to check if user's drag direction matches stroke direction
+        function checkDragDirection(dragStartX, dragStartY, dragEndX, dragEndY, strokeIndex) {
+            // Calculate user's drag angle in degrees
+            const dx = dragEndX - dragStartX;
+            const dy = dragEndY - dragStartY;
+            const userDragAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+            
+            // Get the stroke's angle from strokeData
+            if (!hanziWriter.strokeData.strokes || !hanziWriter.strokeData.strokes[strokeIndex]) {
+                return null;
+            }
+            
+            const stroke = hanziWriter.strokeData.strokes[strokeIndex];
+            const strokeAngle = stroke.angleDegrees;
+            
+            if (strokeAngle === null || strokeAngle === undefined) {
+                return null;
+            }
+            
+            // Calculate the absolute difference between angles
+            // Handle angle wrapping (e.g., -179 and 179 are actually 2 degrees apart)
+            let angleDifference = Math.abs(userDragAngle - strokeAngle);
+            if (angleDifference > 180) {
+                angleDifference = 360 - angleDifference;
+            }
+            
+            // Display the angles
+            console.log(`User drag degree: ${userDragAngle.toFixed(2)}°`);
+            console.log(`Stroke degree: ${strokeAngle.toFixed(2)}°`);
+            
+            // Check if within 30 degrees
+            if (angleDifference <= 30) {
+                console.log('perfect');
+                // Increase HP by 1 when perfect
+                updateHPBar(currentHP + 1);
+            } else {
+                console.log('not good');
+            }
+            
+            // Return the angle difference for punishment calculation
+            return angleDifference;
+        }
+
+        // Function to calculate punishment based on degree difference and strokes drawn
+        function calculatePunishment(angleDifference, strokeIndex, numberOfStrokesDrawn, dragDistance) {
+            // No punishment if within 30 degrees
+            if (angleDifference <= 30) {
+                return 0;
+            }
+            
+            // Special case: if drawing more than 5 strokes and drag is too long
+            if (numberOfStrokesDrawn > 5) {
+                // Calculate sum of remaining strokes
+                const remainingStrokes = hanziWriter.totalStrokes - strokeIndex;
+                if (hanziWriter.strokeData.strokes && remainingStrokes > 0) {
+                    // Get canvas scale
+                    const canvas = hanziWriter.canvas;
+                    if (canvas) {
+                        const canvasSize = canvas.width;
+                        const dataWidth = 900;
+                        const dataHeight = 900;
+                        const strokeHalfWidth = 25 / 2;
+                        const padding = Math.max(strokeHalfWidth + 10, canvasSize * 0.1);
+                        const availableSize = canvasSize - (padding * 2);
+                        const scale = availableSize / Math.max(dataWidth, dataHeight);
+                        
+                        // Calculate sum of remaining stroke lengths (in screen pixels)
+                        let sumRemainingStrokes = 0;
+                        for (let i = strokeIndex; i < Math.min(strokeIndex + remainingStrokes, hanziWriter.strokeData.strokes.length); i++) {
+                            const stroke = hanziWriter.strokeData.strokes[i];
+                            if (stroke && stroke.length) {
+                                sumRemainingStrokes += stroke.length * scale;
+                            }
+                        }
+                        
+                        // Check if drag distance > 130% of sum of remaining strokes
+                        if (dragDistance > sumRemainingStrokes * 1.3) {
+                            const bigPunishment = numberOfStrokesDrawn * 60;
+                            console.log(`BIG PUNISHMENT: ${bigPunishment} = ${numberOfStrokesDrawn} strokes × 60 (drag too long: ${dragDistance.toFixed(2)}px > 130% of ${sumRemainingStrokes.toFixed(2)}px)`);
+                            return bigPunishment;
+                        }
+                    }
+                }
+            }
+            
+            // Check exception: if exactly 2 strokes drawn AND second stroke is less than 50% of first stroke length
+            if (numberOfStrokesDrawn === 2) {
+                // Get first stroke and second stroke
+                if (hanziWriter.strokeData.strokes && 
+                    hanziWriter.strokeData.strokes[strokeIndex] && 
+                    hanziWriter.strokeData.strokes[strokeIndex + 1]) {
+                    
+                    const firstStroke = hanziWriter.strokeData.strokes[strokeIndex];
+                    const secondStroke = hanziWriter.strokeData.strokes[strokeIndex + 1];
+                    
+                    if (firstStroke.length && secondStroke.length) {
+                        // If second stroke is less than 50% of first stroke length, no punishment
+                        if (secondStroke.length < firstStroke.length * 0.5) {
+                            console.log('No punishment: second stroke is short (< 50% of first stroke)');
+                            return 0;
+                        }
+                    }
+                }
+            }
+            
+            // Calculate punishment: (degree difference - 30) * number of strokes drawn
+            const punishment = Math.abs(angleDifference - 30) * numberOfStrokesDrawn;
+            console.log(`Punishment: ${punishment.toFixed(2)} = (${angleDifference.toFixed(2)}° - 30°) × ${numberOfStrokesDrawn} strokes`);
+            
+            return punishment;
+        }
+
         // Add drag/touch detection anywhere on the page - any drag/touch draws next stroke
         function initDragDetection() {
             let isDragging = false;
             let hasTriggered = false; // Prevent multiple triggers from same drag
             let startX = 0;
             let startY = 0;
+            let dragPath = []; // Track all points during drag to calculate total distance
             const MIN_DRAG_DISTANCE = 30; // Minimum distance in pixels to trigger stroke drawing
 
             function getEventCoordinates(e) {
@@ -2070,15 +3402,36 @@
                     return { x: e.clientX, y: e.clientY };
                 }
             }
+            
+            // Calculate total distance along the drag path (including all turns)
+            function calculateTotalDragDistance(path) {
+                if (!path || path.length < 2) {
+                    return 0;
+                }
+                
+                let totalDistance = 0;
+                for (let i = 1; i < path.length; i++) {
+                    const prevPoint = path[i - 1];
+                    const currPoint = path[i];
+                    const dx = currPoint.x - prevPoint.x;
+                    const dy = currPoint.y - prevPoint.y;
+                    const segmentDistance = Math.sqrt(dx * dx + dy * dy);
+                    totalDistance += segmentDistance;
+                }
+                
+                return totalDistance;
+            }
 
             function handleStart(e) {
                 // Don't trigger on button clicks or music toggle
                 if (e.target && (
                     e.target.id === 'next-stroke-btn' || 
-                    e.target.closest('#next-stroke-btn') ||
+                    (e.target.closest && e.target.closest('#next-stroke-btn')) ||
                     e.target.id === 'music-toggle' ||
-                    e.target.closest('#music-toggle') ||
-                    e.target.closest('.music-control')
+                    (e.target.closest && e.target.closest('#music-toggle')) ||
+                    (e.target.closest && e.target.closest('.music-control')) ||
+                    e.target.id === 'voice-btn' ||
+                    (e.target.closest && e.target.closest('#voice-btn'))
                 )) {
                     return;
                 }
@@ -2087,6 +3440,8 @@
                 const coords = getEventCoordinates(e);
                 startX = coords.x;
                 startY = coords.y;
+                // Initialize drag path with start point
+                dragPath = [{ x: startX, y: startY }];
                 isDragging = true;
                 hasTriggered = false;
             }
@@ -2094,16 +3449,21 @@
             function handleMove(e) {
                 if (!isDragging) return;
                 e.preventDefault();
+                // Track intermediate points during drag
+                const coords = getEventCoordinates(e);
+                dragPath.push({ x: coords.x, y: coords.y });
             }
 
             async function handleEnd(e) {
                 // Don't trigger on button clicks or music toggle
                 if (e.target && (
                     e.target.id === 'next-stroke-btn' || 
-                    e.target.closest('#next-stroke-btn') ||
+                    (e.target.closest && e.target.closest('#next-stroke-btn')) ||
                     e.target.id === 'music-toggle' ||
-                    e.target.closest('#music-toggle') ||
-                    e.target.closest('.music-control')
+                    (e.target.closest && e.target.closest('#music-toggle')) ||
+                    (e.target.closest && e.target.closest('.music-control')) ||
+                    e.target.id === 'voice-btn' ||
+                    (e.target.closest && e.target.closest('#voice-btn'))
                 )) {
                     isDragging = false;
                     return;
@@ -2115,44 +3475,99 @@
                     return;
                 }
                 
-                // Get end coordinates
+                // Get end coordinates and add to path
                 const coords = getEventCoordinates(e);
                 const endX = coords.x;
                 const endY = coords.y;
                 
-                // Calculate drag distance
-                const dragDistance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+                // Add end point to drag path
+                if (dragPath.length === 0 || 
+                    dragPath[dragPath.length - 1].x !== endX || 
+                    dragPath[dragPath.length - 1].y !== endY) {
+                    dragPath.push({ x: endX, y: endY });
+                }
+                
+                // Check if game is over
+                if (isGameOver) {
+                    isDragging = false;
+                    hasTriggered = false;
+                    dragPath = [];
+                    return;
+                }
+                
+                // Calculate total drag distance along the path (including all turns)
+                const dragDistance = calculateTotalDragDistance(dragPath);
                 
                 // Only proceed if drag distance is greater than minimum threshold
                 if (dragDistance < MIN_DRAG_DISTANCE) {
-                    console.log(`[handleEnd] Drag distance too short: ${dragDistance.toFixed(2)}px (minimum: ${MIN_DRAG_DISTANCE}px), ignoring`);
                     isDragging = false;
                     hasTriggered = false;
+                    dragPath = []; // Reset drag path
                     return;
                 }
                 
                 // Check if we can draw
                 if (hanziWriter.isAnimating) {
-                    console.log(`[handleEnd] Animation in progress, ignoring drag`);
                     isDragging = false;
                     hasTriggered = false;
+                    dragPath = []; // Reset drag path
                     return;
                 }
                 
                 if (!hanziWriter.canvas || !hanziWriter.ctx) {
                     isDragging = false;
                     hasTriggered = false;
+                    dragPath = []; // Reset drag path
                     return;
                 }
                 
-                // Drag distance is sufficient, draw the next stroke
-                hasTriggered = true;
-                console.log(`[handleEnd] Drag/touch detected (distance: ${dragDistance.toFixed(2)}px) - drawing next stroke`);
+                // Check drag direction against current stroke direction
+                const angleDifference = checkDragDirection(startX, startY, endX, endY, hanziWriter.currentStrokeIndex);
                 
-                // Call drawNextStroke to draw the next stroke (it's async)
-                await drawNextStroke();
+                // Calculate how many strokes to draw based on drag distance vs stroke lengths
+                const strokesToDraw = calculateStrokesFromDragDistance(dragDistance);
+                
+                // Calculate punishment if we have a valid angle difference
+                if (angleDifference !== null) {
+                    const punishment = calculatePunishment(angleDifference, hanziWriter.currentStrokeIndex, strokesToDraw, dragDistance);
+                    const hpDeduction = punishmentToHPDeduction(punishment);
+                    if (hpDeduction > 0) {
+                        applyDamage(hpDeduction);
+                    }
+                }
+                
+                hasTriggered = true;
+                
+                // Draw the calculated number of strokes
+                const startStrokeIndex = hanziWriter.currentStrokeIndex;
+                const targetStrokeIndex = Math.min(startStrokeIndex + strokesToDraw, hanziWriter.totalStrokes);
+                
+                for (let targetIndex = startStrokeIndex; targetIndex < targetStrokeIndex; targetIndex++) {
+                    // Wait for animation to complete and index to catch up
+                    while (hanziWriter.isAnimating || hanziWriter.currentStrokeIndex < targetIndex) {
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                    }
+                    
+                    // Double check we haven't completed all strokes
+                    if (hanziWriter.currentStrokeIndex >= hanziWriter.totalStrokes) {
+                        break;
+                    }
+                    
+                    // Ensure we're drawing the correct stroke index
+                    if (hanziWriter.currentStrokeIndex !== targetIndex) {
+                        hanziWriter.currentStrokeIndex = targetIndex;
+                    }
+                    
+                    await drawNextStroke();
+                    
+                    // If we've completed all strokes for this character, break
+                    if (hanziWriter.currentStrokeIndex >= hanziWriter.totalStrokes) {
+                        break;
+                    }
+                }
                 
                 isDragging = false;
+                dragPath = []; // Reset drag path for next drag
                 e.preventDefault();
             }
 

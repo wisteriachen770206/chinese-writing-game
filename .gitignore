@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Development files
+test_*.py
+extract_strokes*.js
+get_one_character.js
+start_server.py
+start_server.bat
+
+# Documentation (keep only main README)
+level_config_structure.md
+level_loader_example.js
+STROKE_DATA_STRUCTURE.md
+AI_RULES.md
+
+# Temp/Cache files
+.DS_Store
+Thumbs.db
+*.log
+
+# Stroke data backups (keep only all_strokes.json)
+strokes_data/
+
+# Git
+.git/

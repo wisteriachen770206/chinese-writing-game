@@ -1,0 +1,90 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "name": "Beginner - Basic Strokes",
+      "description": "Learn simple characters with few strokes",
+      "characters": "一二三十大小",
+      "numCharacters": 6,
+      "totalStrokes": 20,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": 120
+    },
+    {
+      "id": 2,
+      "name": "Elementary - Common Words",
+      "description": "Practice frequently used characters",
+      "characters": "人口手木水火山",
+      "numCharacters": 7,
+      "totalStrokes": 21,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": 180
+    },
+    {
+      "id": 3,
+      "name": "Intermediate - Daily Life",
+      "description": "Characters for everyday communication",
+      "characters": "今天好吃饭睡觉",
+      "numCharacters": 7,
+      "totalStrokes": 52,
+      "difficulty": "medium",
+      "maxHP": 150,
+      "estimatedTime": 240
+    },
+    {
+      "id": 4,
+      "name": "Advanced - Complex Characters",
+      "description": "Master challenging characters",
+      "characters": "學習寫漢字很難",
+      "numCharacters": 7,
+      "totalStrokes": 89,
+      "difficulty": "hard",
+      "maxHP": 200,
+      "estimatedTime": 300
+    },
+    {
+      "id": 5,
+      "name": "Expert - Poetry",
+      "description": "Classical Chinese poetry characters",
+      "characters": "春眠不覺曉處處聞啼鳥",
+      "numCharacters": 10,
+      "totalStrokes": 98,
+      "difficulty": "expert",
+      "maxHP": 250,
+      "estimatedTime": 420
+    }
+  ],
+  "difficulties": {
+    "easy": {
+      "strokesPerCharacter": "1-5",
+      "punishmentMultiplier": 1.0,
+      "perfectHPBonus": 1
+    },
+    "medium": {
+      "strokesPerCharacter": "6-10",
+      "punishmentMultiplier": 1.2,
+      "perfectHPBonus": 2
+    },
+    "hard": {
+      "strokesPerCharacter": "11-15",
+      "punishmentMultiplier": 1.5,
+      "perfectHPBonus": 3
+    },
+    "expert": {
+      "strokesPerCharacter": "16+",
+      "punishmentMultiplier": 2.0,
+      "perfectHPBonus": 5
+    }
+  },
+  "gameSettings": {
+    "minDragDistance": 30,
+    "angleTolerance": 30,
+    "punishmentThreshold": 50,
+    "punishmentDivisor": 10,
+    "bigPunishmentMultiplier": 60,
+    "bigPunishmentTriggerStrokes": 5,
+    "bigPunishmentDragRatio": 1.3
+  }
+}
