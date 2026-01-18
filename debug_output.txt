@@ -1,0 +1,82 @@
+Total lines: 489
+
+Line 0: '224王维：鹿柴'
+  Pattern 1: True
+  Pattern 2: True
+  Pattern 3: True
+  Groups: ('224', '王维', '鹿柴')
+
+Line 1: ''
+
+Line 2: '空山不见人，但闻人语响。'
+  Pattern 1: False
+  Pattern 2: False
+  Pattern 3: False
+
+Line 3: '返景入深林，复照青苔上。'
+  Pattern 1: False
+  Pattern 2: False
+  Pattern 3: False
+
+Line 4: ''
+
+Line 5: '225王维：竹里馆'
+  Pattern 1: True
+  Pattern 2: True
+  Pattern 3: True
+  Groups: ('225', '王维', '竹里馆')
+
+Line 6: ''
+
+Line 7: '独坐幽篁里，弹琴复长啸。'
+  Pattern 1: False
+  Pattern 2: False
+  Pattern 3: False
+
+Line 8: '深林人不知，明月来相照。'
+  Pattern 1: False
+  Pattern 2: False
+  Pattern 3: False
+
+Line 9: ''
+
+Line 10: '226王维：送别'
+  Pattern 1: True
+  Pattern 2: True
+  Pattern 3: True
+  Groups: ('226', '王维', '送别')
+
+Line 11: ''
+
+Line 12: '山中相送罢，日暮掩柴扉。'
+  Pattern 1: False
+  Pattern 2: False
+  Pattern 3: False
+
+Line 13: '春草明年绿，王孙归不归？'
+  Pattern 1: False
+  Pattern 2: False
+  Pattern 3: False
+
+Line 14: ''
+
+Line 15: '227王维：相思'
+  Pattern 1: True
+  Pattern 2: True
+  Pattern 3: True
+  Groups: ('227', '王维', '相思')
+
+Line 16: ''
+
+Line 17: '红豆生南国，春来发几枝？'
+  Pattern 1: False
+  Pattern 2: False
+  Pattern 3: False
+
+Line 18: '愿君多采撷，此物最相思。'
+  Pattern 1: False
+  Pattern 2: False
+  Pattern 3: False
+
+Line 19: ''
+

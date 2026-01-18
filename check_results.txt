@@ -1,0 +1,82 @@
+Checking numCharacters field:
+
+Level 1 (poem_224):
+  Name: 王维：鹿柴
+  Characters (first 40): 空山不见人但闻人语响返景入深林复照青苔上
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 19
+  Match? True
+
+Level 2 (poem_225):
+  Name: 王维：竹里馆
+  Characters (first 40): 独坐幽篁里弹琴复长啸深林人不知明月来相照
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 20
+  Match? True
+
+Level 3 (poem_226):
+  Name: 王维：送别
+  Characters (first 40): 山中相送罢日暮掩柴扉春草明年绿王孙归不归
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 19
+  Match? True
+
+Level 4 (poem_227):
+  Name: 王维：相思
+  Characters (first 40): 红豆生南国春来发几枝愿君多采撷此物最相思
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 20
+  Match? True
+
+Level 5 (poem_228):
+  Name: 王维：杂诗
+  Characters (first 40): 君自故乡来应知故乡事来日绮窗前寒梅著花未
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 17
+  Match? True
+
+Level 6 (poem_229):
+  Name: 裴迪：送崔九
+  Characters (first 40): 归山深浅去须尽丘壑美莫学武陵人暂游桃源里
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 20
+  Match? True
+
+Level 7 (poem_230):
+  Name: 祖咏：终南望馀雪
+  Characters (first 40): 终南阴岭秀积雪浮云端林表明霁色城中增暮寒
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 20
+  Match? True
+
+Level 8 (poem_231):
+  Name: 孟浩然：宿建德江
+  Characters (first 40): 移舟泊烟渚日暮客愁新野旷天低树江清月近人
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 20
+  Match? True
+
+Level 9 (poem_232):
+  Name: 孟浩然：春晓
+  Characters (first 40): 春眠不觉晓处处闻啼鸟夜来风雨声花落知多少
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 19
+  Match? True
+
+Level 10 (poem_233):
+  Name: 李白：夜思
+  Characters (first 40): 床前明月光疑是地上霜举头望明月低头思故乡
+  numCharacters field: 20
+  Actual total chars: 20
+  Actual unique chars: 17
+  Match? True
+

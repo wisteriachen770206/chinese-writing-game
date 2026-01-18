@@ -161,6 +161,7 @@
         
         /* Hide main content when level selection is shown */
         #level-selection-overlay:not(.hidden) ~ .top-bar,
+        #level-selection-overlay:not(.hidden) ~ .top-bar-trigger,
         #level-selection-overlay:not(.hidden) ~ .main-content {
             display: none;
         }
@@ -844,28 +845,30 @@
         #completed-characters-container {
             display: grid;
             grid-auto-flow: column;
-            grid-template-rows: repeat(20, 36px); /* 36px height, no gap */
+            grid-template-rows: repeat(20, 36px); /* Default - will be overridden by JS */
             gap: 0;
             z-index: 1000;
-            overflow: hidden; /* Never show scrollbar */
+            overflow: visible; /* Allow content to be visible */
             padding: 10px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             backdrop-filter: blur(10px);
             direction: rtl; /* Makes new columns appear on the left */
             width: fit-content; /* Width based on content (number of columns) */
-            min-width: fit-content;
-            max-width: fit-content;
+            height: fit-content; /* Height based on content (number of rows) */
         }
         
         /* Desktop-only positioning (overridden on mobile) */
         
         .canvas-container-wrapper.horizontal-layout #completed-characters-container {
             position: fixed;
-            top: 20px;
+            top: 120px; /* Moved down 100px from original 20px */
             right: 20px;
-            bottom: 20px;
-            height: calc(100vh - 40px); /* 20px top + 20px bottom = 40px total */
+            width: auto; /* Allow width to grow based on content */
+            height: auto; /* Allow height to grow based on content */
+            max-height: calc(100vh - 240px); /* Maximum height constraint */
+            overflow-y: auto; /* Scroll if content exceeds max height */
+            /* Grid layout will be set dynamically by JavaScript based on character count */
         }
         
         .canvas-container-wrapper.vertical-layout #completed-characters-container {
@@ -1100,6 +1103,11 @@
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
                 backdrop-filter: blur(10px);
                 transition: top 0.3s ease;
+                pointer-events: none; /* Don't block trigger area */
+            }
+            
+            #hp-bar-container * {
+                pointer-events: auto; /* Re-enable for children */
             }
             
             .top-bar.visible ~ * #hp-bar-container,
@@ -1150,6 +1158,11 @@
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
                 backdrop-filter: blur(10px);
                 transition: top 0.3s ease;
+                pointer-events: none; /* Don't block trigger area */
+            }
+            
+            #timer-container * {
+                pointer-events: auto; /* Re-enable for children */
             }
             
             body:has(.top-bar.visible) #timer-container {
@@ -1173,12 +1186,13 @@
             
             /* Completed characters: 6 columns, flexible rows - Same as desktop */
             #completed-characters-container {
-                grid-auto-flow: row !important;
-                grid-template-columns: repeat(6, 36px) !important;
-                grid-template-rows: auto !important;
-                direction: ltr !important;
-                width: auto !important;
-                max-width: calc(6 * 36px + 20px) !important; /* 6 columns + padding */
+                /* Dynamic layout based on character count - set by JavaScript */
+                grid-auto-flow: row;
+                grid-template-columns: repeat(6, 36px); /* Default 6 columns - will be overridden by JS */
+                grid-template-rows: auto;
+                direction: ltr;
+                width: auto;
+                max-width: calc(6 * 36px + 20px); /* Default - will be overridden by JS */
                 justify-content: center;
                 margin: 20px auto;
                 background: rgba(0, 0, 0, 0.2);
@@ -1440,7 +1454,26 @@
             
             levelsGrid.innerHTML = '';
             
-            levelConfig.levels.forEach(level => {
+            // Always show exactly 5 representative levels
+            const totalLevels = levelConfig.levels.length;
+            const spacing = Math.floor(totalLevels / 5);
+            
+            // Calculate 5 evenly-spaced representative indices
+            const representativeIndices = [];
+            for (let i = 0; i < 5; i++) {
+                const idx = i * spacing;
+                if (idx < totalLevels) {
+                    representativeIndices.push(idx);
+                }
+            }
+            
+            console.log(`Showing 5 representative levels from ${totalLevels} total:`);
+            console.log(`  Indices: ${representativeIndices.join(', ')} → Levels: ${representativeIndices.map(i => i + 1).join(', ')}`);
+            
+            // Display the 5 representative levels
+            representativeIndices.forEach((idx) => {
+                const level = levelConfig.levels[idx];
+                
                 const card = document.createElement('div');
                 card.className = `level-card difficulty-${level.difficulty}`;
                 card.innerHTML = `
@@ -1453,16 +1486,16 @@
                             <div class="level-stat-value">${level.numCharacters}</div>
                         </div>
                         <div class="level-stat">
-                            <div class="level-stat-label">Strokes</div>
-                            <div class="level-stat-value">${level.totalStrokes}</div>
+                            <div class="level-stat-label">Level</div>
+                            <div class="level-stat-value">#${idx + 1}</div>
                         </div>
                         <div class="level-stat">
                             <div class="level-stat-label">HP</div>
                             <div class="level-stat-value">${level.maxHP}</div>
                         </div>
                     </div>
-                    <div class="level-difficulty ${level.difficulty}">${level.difficulty}</div>
-                    <button class="level-start-btn" onclick="startLevel(${level.id})">Start Level</button>
+                    <div class="level-difficulty ${level.difficulty}">${level.difficulty.toUpperCase()}</div>
+                    <button class="level-start-btn" onclick="startLevel('${level.id}')">Start Level</button>
                 `;
                 levelsGrid.appendChild(card);
             });
@@ -1525,6 +1558,9 @@
                 completedContainer.innerHTML = '';
             }
             
+            // Set dynamic grid layout for mobile based on character count
+            setCompletedCharactersLayout(level.numCharacters);
+            
             // Set HP
             maxHP = level.maxHP;
             currentHP = maxHP;
@@ -1556,6 +1592,80 @@
             const timer = document.getElementById('timer-container');
             if (hpBar) hpBar.classList.remove('visible');
             if (timer) timer.classList.remove('visible');
+        }
+        
+        function hideLevelSelection() {
+            const levelSelection = document.getElementById('level-selection-overlay');
+            if (levelSelection) {
+                levelSelection.classList.add('hidden');
+            }
+
+            // Show HP bar and timer
+            const hpBar = document.getElementById('hp-bar-container');
+            const timer = document.getElementById('timer-container');
+            if (hpBar) hpBar.classList.add('visible');
+            if (timer) timer.classList.add('visible');
+        }
+        
+        function setCompletedCharactersLayout(numCharacters) {
+            const completedContainer = document.getElementById('completed-characters-container');
+            if (!completedContainer) return;
+            
+            const isMobile = window.innerWidth < 768;
+            let columns, rows;
+            
+            if (isMobile) {
+                // MOBILE (VERTICAL) LAYOUT
+                if (numCharacters <= 28) {
+                    // For 28 or fewer characters: columns = numCharacters / 4, rows = 4
+                    columns = Math.ceil(numCharacters / 4);
+                    rows = 4;
+                } else {
+                    // For more than 28 characters: columns = 7, rows grow automatically
+                    columns = 7;
+                    rows = 'auto'; // Will grow as needed
+                }
+                
+                // Apply mobile grid layout (row-based)
+                completedContainer.style.gridAutoFlow = 'row';
+                completedContainer.style.gridTemplateColumns = `repeat(${columns}, 36px)`;
+                completedContainer.style.gridTemplateRows = ''; // Clear template rows
+                completedContainer.style.gridAutoRows = '36px'; // Each row is 36px as added
+                completedContainer.style.gridAutoColumns = ''; // Clear auto columns
+                completedContainer.style.width = `calc(${columns} * 36px + 20px)`; // Set explicit width
+                completedContainer.style.minWidth = `calc(${columns} * 36px + 20px)`;
+                completedContainer.style.maxWidth = `calc(${columns} * 36px + 20px)`;
+                completedContainer.style.height = 'auto'; // Allow height to grow
+                completedContainer.style.minHeight = '56px'; // Min height (padding + 1 row)
+                completedContainer.style.direction = 'ltr';
+                
+                console.log(`Mobile layout: ${numCharacters} chars → ${columns} columns, rows grow dynamically`);
+            } else {
+                // DESKTOP (HORIZONTAL) LAYOUT
+                if (numCharacters > 28) {
+                    // For more than 28 characters: rows = 7, columns grow automatically
+                    rows = 7;
+                    columns = 'auto'; // Will grow as needed
+                } else {
+                    // For 28 or fewer characters: rows = numCharacters / 4, columns = 4
+                    rows = Math.ceil(numCharacters / 4);
+                    columns = 4;
+                }
+                
+                // Apply desktop grid layout (column-based)
+                completedContainer.style.gridAutoFlow = 'column';
+                completedContainer.style.gridTemplateRows = rows === 'auto' ? 'repeat(7, 36px)' : `repeat(${rows}, 36px)`;
+                completedContainer.style.gridTemplateColumns = ''; // CLEAR columns constraint
+                completedContainer.style.gridAutoColumns = '36px'; // Each column is 36px as added
+                completedContainer.style.gridAutoRows = ''; // Clear auto rows
+                completedContainer.style.width = ''; // CLEAR fixed width
+                completedContainer.style.minWidth = ''; // CLEAR min width
+                completedContainer.style.maxWidth = ''; // CLEAR max width
+                completedContainer.style.height = 'fit-content'; // Allow height to grow
+                completedContainer.style.direction = 'rtl'; // New columns appear on the left
+                
+                console.log(`Desktop layout: ${numCharacters} chars → ${rows} rows, columns grow dynamically`);
+            }
         }
         
         function onLevelComplete() {
@@ -3361,6 +3471,11 @@
                     wrapper.classList.remove('horizontal-layout');
                     wrapper.classList.add('vertical-layout');
                     mainContent.style.marginRight = '0';
+                    
+                    // Update grid layout for vertical mode
+                    if (currentLevel && currentLevel.numCharacters) {
+                        setCompletedCharactersLayout(currentLevel.numCharacters);
+                    }
                 } else {
                     // Enough space - use horizontal layout
                     wrapper.classList.remove('vertical-layout');
@@ -3370,6 +3485,11 @@
                     // Add right margin to reserve space for container, keeping canvas centered in remaining space
                     const totalOffset = containerWidth + 20;
                     mainContent.style.marginRight = `${totalOffset}px`;
+                    
+                    // Update grid layout for horizontal mode
+                    if (currentLevel && currentLevel.numCharacters) {
+                        setCompletedCharactersLayout(currentLevel.numCharacters);
+                    }
                 }
             }
         }

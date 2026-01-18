@@ -1,0 +1,18 @@
+
+Poem 224 - 王维:鹿柴
+  Poem lines collected: 2
+  Original text: 空山不见人，但闻人语响。返景入深林，复照青苔上。
+  Clean text: 空山不见人但闻人语响返景入深林复照青苔上
+  Clean text length: 20
+
+Poem 225 - 王维:竹里馆
+  Poem lines collected: 2
+  Original text: 独坐幽篁里，弹琴复长啸。深林人不知，明月来相照。
+  Clean text: 独坐幽篁里弹琴复长啸深林人不知明月来相照
+  Clean text length: 20
+
+Poem 226 - 王维:送别
+  Poem lines collected: 2
+  Original text: 山中相送罢，日暮掩柴扉。春草明年绿，王孙归不归？
+  Clean text: 山中相送罢日暮掩柴扉春草明年绿王孙归不归
+  Clean text length: 20

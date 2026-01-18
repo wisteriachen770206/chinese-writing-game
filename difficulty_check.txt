@@ -1,0 +1,74 @@
+First 5 levels (should be EASY):
+1. poem_224: 王维：鹿柴
+   Difficulty: easy, MaxHP: 100
+
+2. poem_225: 王维：竹里馆
+   Difficulty: easy, MaxHP: 100
+
+3. poem_226: 王维：送别
+   Difficulty: easy, MaxHP: 100
+
+4. poem_227: 王维：相思
+   Difficulty: easy, MaxHP: 100
+
+5. poem_228: 王维：杂诗
+   Difficulty: easy, MaxHP: 100
+
+
+Levels 28-32 (transition EASY to MEDIUM):
+28. poem_251: 金昌绪：春怨
+   Difficulty: easy, MaxHP: 100
+
+29. poem_252: 西鄙人：哥舒歌
+   Difficulty: easy, MaxHP: 100
+
+30. poem_253: 崔颢：长干行二首之一
+   Difficulty: easy, MaxHP: 100
+
+31. poem_254: 崔颢：长干行二首之二
+   Difficulty: medium, MaxHP: 150
+
+32. poem_255: 李白：玉阶怨
+   Difficulty: medium, MaxHP: 150
+
+
+Levels 58-62 (transition MEDIUM to HARD):
+58. poem_281: 刘禹锡：春词
+   Difficulty: medium, MaxHP: 150
+
+59. poem_282: 白居易：后宫词
+   Difficulty: medium, MaxHP: 150
+
+60. poem_283: 张祜：赠内人
+   Difficulty: medium, MaxHP: 150
+
+61. poem_284: 张祜：集灵台二首之一
+   Difficulty: hard, MaxHP: 200
+
+62. poem_285: 张祜：集灵台二首之二
+   Difficulty: hard, MaxHP: 200
+
+
+Last 5 levels (should be HARD):
+93. poem_316: 王之涣：出塞
+   Difficulty: hard, MaxHP: 200
+
+94. poem_317: 李白：清平调三首之一
+   Difficulty: hard, MaxHP: 200
+
+95. poem_318: 李白：清平调三首之二
+   Difficulty: hard, MaxHP: 200
+
+96. poem_319: 李白：清平调三首之三
+   Difficulty: hard, MaxHP: 200
+
+97. poem_320: 杜秋娘：金缕衣
+   Difficulty: hard, MaxHP: 200
+
+
+==================================================
+Summary:
+  Easy levels: 30
+  Medium levels: 30
+  Hard levels: 37
+  Total: 97
