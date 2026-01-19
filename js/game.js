@@ -43,18 +43,17 @@
             
             const totalLevels = levelConfig.levels.length;
             
-            // Determine the continue level (next level after saved)
+            // Determine the continue level (savedLevelId is already the NEXT level to play)
             let continueLevelIndex = null;
             let nextLevelId = null;
             if (savedLevelId) {
                 const savedLevelIndex = levelConfig.levels.findIndex(l => l.id === savedLevelId);
                 console.log('🔵 displayLevelSelection - savedLevelIndex:', savedLevelIndex);
-                if (savedLevelIndex >= 0 && savedLevelIndex < totalLevels - 1) {
-                    continueLevelIndex = savedLevelIndex + 1;
+                if (savedLevelIndex >= 0 && savedLevelIndex < totalLevels) {
+                    // savedLevelId is already the next level to play, no need to +1
+                    continueLevelIndex = savedLevelIndex;
                     nextLevelId = levelConfig.levels[continueLevelIndex].id;
                     console.log('✅ Continue level found:', nextLevelId, 'at index', continueLevelIndex);
-                } else if (savedLevelIndex >= 0) {
-                    console.log('⚠️ Last level completed - no next level to continue');
                 } else {
                     console.log('❌ Saved level not found in levelConfig');
                 }

@@ -124,9 +124,23 @@ function saveGameProgress() {
     
     console.log('✅ localStorage is available');
     
+    // Find the NEXT level to play (not the one just completed)
+    let nextLevelId = null;
+    if (currentLevel && levelConfig && levelConfig.levels) {
+        const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
+        if (currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1) {
+            nextLevelId = levelConfig.levels[currentLevelIndex + 1].id;
+            console.log('🔵 Saving NEXT level as continue point:', nextLevelId);
+        } else {
+            // Last level completed - save current level
+            nextLevelId = currentLevel.id;
+            console.log('🔵 Last level completed - saving:', nextLevelId);
+        }
+    }
+    
     const progress = {
         userName: currentUser.name,
-        currentLevel: currentLevel ? currentLevel.id : null,
+        currentLevel: nextLevelId,  // Save the NEXT level to play
         elapsedTime: timerElapsedSeconds,
         hp: currentHP,
         timestamp: Date.now()
