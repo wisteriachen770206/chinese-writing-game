@@ -1,6 +1,7 @@
 // ============================================
 // TIMER SYSTEM
 // ============================================
+console.log('✅ timer.js loaded');
 
 function startTimer() {
     timerStartTime = Date.now();

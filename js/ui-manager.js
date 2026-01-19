@@ -1,6 +1,7 @@
 // ============================================
 // UI MANAGER - Toast, Music, Voice, Modals
 // ============================================
+console.log('✅ ui-manager.js loaded');
 
 let backgroundMusic = null;
 let musicEnabled = false;

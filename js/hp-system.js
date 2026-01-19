@@ -1,6 +1,7 @@
 // ============================================
 // HP SYSTEM
 // ============================================
+console.log('✅ hp-system.js loaded');
 
 function updateHPBar(newHP) {
     currentHP = Math.max(0, Math.min(maxHP, newHP));

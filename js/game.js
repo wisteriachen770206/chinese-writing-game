@@ -3,6 +3,7 @@
         // 
         // DEPENDENCIES (loaded before this file):
         // - game-state.js: All global variables
+        console.log('✅ game.js starting to load...');
         // - timer.js: Timer functions  
         // - hp-system.js: HP and damage functions
         // - auth.js: Authentication and save/load
@@ -34,8 +35,8 @@
                 displayedLevelsCount = 0;
             }
             
-            // Check for saved progress
-            const savedProgress = currentUser ? loadGameProgress() : null;
+            // Check for saved progress (works with or without user login)
+            const savedProgress = loadGameProgress();
             let savedLevelId = savedProgress ? savedProgress.currentLevel : null;
             
             const totalLevels = levelConfig.levels.length;
@@ -473,7 +474,7 @@
 
         // ========== AUTHENTICATION & SAVE/LOAD FUNCTIONS ==========
         
-        let currentUser = null;
+        // currentUser is declared in game-state.js
 
         // Show toast notification
         /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
@@ -502,14 +503,13 @@
 
         /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
 
+        /* ===== DUPLICATE FUNCTION - Already defined in auth.js =====
         function showAuthModal() {
             const modal = document.getElementById('auth-modal');
             if (modal) {
                 modal.classList.remove('hidden');
             }
         }
-
-        /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
 
         function hideAuthModal() {
             const modal = document.getElementById('auth-modal');
@@ -684,6 +684,7 @@
         
         /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
         
+        /* ===== DUPLICATE FUNCTION - Already defined in hp-system.js =====
         function updateHPBar(newHP) {
             currentHP = Math.max(0, Math.min(maxHP, newHP));
             const hpPercentage = (currentHP / maxHP) * 100;
@@ -710,8 +711,9 @@
                 showGameOver();
             }
         }
+        ===== END DUPLICATE FUNCTION ===== */
         
-        /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
+        /* ===== DUPLICATE FUNCTION - Already defined in hp-system.js =====
         
         function showGameOver() {
             isGameOver = true;
@@ -750,14 +752,14 @@
             console.log(`HP: ${Math.round(currentHP)} / ${maxHP} (Damage: ${damage.toFixed(2)})`);
         }
         
-        /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
         
         function resetHP() {
             updateHPBar(maxHP);
         }
+        ===== END DUPLICATE FUNCTION ===== */
         
+        /* ===== DUPLICATE FUNCTION - Already defined in hp-system.js =====
         // Function to convert punishment to HP deduction
-        /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
         function punishmentToHPDeduction(punishment) {
             if (punishment < 50) {
                 return 0;
@@ -967,6 +969,7 @@
         
         /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
         
+        /* ===== DUPLICATE FUNCTION - Already defined in ui-manager.js =====
         function initMusicControl() {
             backgroundMusic = document.getElementById('background-music');
             const musicToggle = document.getElementById('music-toggle');
@@ -1019,6 +1022,7 @@
             
             console.log('Music control initialized');
         }
+        ===== END DUPLICATE FUNCTION ===== */
         
         // Initialize voice button to read current character
         /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
@@ -1077,8 +1081,7 @@
         }
         
         
-        // All characters stroke data loaded from all_strokes.json
-        let allCharactersData = {};
+        // allCharactersData is declared in game-state.js
         
         /**
          * Structured storage for stroke data - NEW STRUCTURE
@@ -1122,410 +1125,9 @@
         // List to store first 5 characters in new structure
         let charactersStrokeDataList = [];
         
-        // newHanziWriter class - encapsulates all drawing/writing functionality
-        class newHanziWriter {
-            constructor() {
-                this.canvas = null;
-                this.ctx = null;
-                this.guideCanvas = null;
-                this.guideCtx = null;
-                this.currentStrokeIndex = 0;
-                this.totalStrokes = 0;
-                this.isAnimating = false;
-                this.drawnStrokes = [];
-                this.guideDrawn = false; // Track if guide character has been drawn
-                this.strokeData = {
-                    character: null,
-                    rawCharData: null,
-                    strokes: [],
-                    initialized: false
-                };
-            }
-            
-            initCanvas() {
-                // Initialize main canvas for green strokes
-                this.canvas = document.getElementById('character-canvas');
-                if (!this.canvas) {
-                    console.error('Canvas element not found');
-                    return;
-                }
-                
-                // Initialize guide canvas for background guide character
-                this.guideCanvas = document.getElementById('guide-canvas');
-                if (!this.guideCanvas) {
-                    console.error('Guide canvas element not found');
-                    return;
-                }
-                
-                // Set canvas size to match container
-                const wrapper = document.querySelector('.character-wrapper');
-                const size = Math.min(wrapper.offsetWidth || 800, wrapper.offsetHeight || 800);
-                this.canvas.width = size;
-                this.canvas.height = size;
-                this.guideCanvas.width = size;
-                this.guideCanvas.height = size;
-                
-                this.ctx = this.canvas.getContext('2d');
-                this.guideCtx = this.guideCanvas.getContext('2d');
-                if (!this.ctx || !this.guideCtx) {
-                    console.error('Could not get canvas context');
-                    return;
-                }
-                
-                // Clear main canvas (guide canvas stays as background)
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                // Set drawing style for main canvas
-                this.ctx.strokeStyle = '#1C1C1C'; // Drawing color
-                // Use thinner strokes for characters with more than 10 strokes
-                this.ctx.lineWidth = this.totalStrokes > 10 ? 18 : 25;
-                this.ctx.lineCap = 'round';
-                this.ctx.lineJoin = 'round';
-                
-                console.log(`Canvas initialized: ${this.canvas.width}x${this.canvas.height}`);
-                
-                // Draw guide character on guide canvas if stroke data is available
-                if (this.strokeData.rawCharData && this.strokeData.rawCharData.medians) {
-                    this.drawGuideCharacter();
-                    // Set currentStrokeIndex to zero after guide is prepared
-                    this.currentStrokeIndex = 0;
-                }
-                
-                const self = this;
-                window.addEventListener('resize', () => {
-                    const size = Math.min(wrapper.offsetWidth || 420, wrapper.offsetHeight || 420);
-                    self.canvas.width = size;
-                    self.canvas.height = size;
-                    self.guideCanvas.width = size;
-                    self.guideCanvas.height = size;
-                    // Redraw guide on guide canvas
-                    if (self.guideDrawn) {
-                        self.drawGuideCharacter();
-                    }
-                    // Redraw all drawn strokes on main canvas
-                    self.redrawAllStrokes();
-                });
-            }
-            
-            drawGuideCharacter() {
-                if (!this.guideCtx || !this.strokeData.rawCharData || !this.strokeData.rawCharData.medians) return;
-                
-                const medians = this.strokeData.rawCharData.medians;
-                if (medians.length === 0) return;
-                
-                // Ensure all stroke data is prepared when guide character is drawn
-                // Check if strokes need to be processed (if lengths are missing)
-                if (!this.strokeData.strokes || this.strokeData.strokes.length === 0 || 
-                    this.strokeData.strokes.some(s => !s || s.length === null || s.length === undefined)) {
-                    console.log('[drawGuideCharacter] Preparing all stroke data from rawCharData...');
-                    this.prepareAllStrokeData();
-                }
-                
-                // Clear guide canvas first
-                this.guideCtx.clearRect(0, 0, this.guideCanvas.width, this.guideCanvas.height);
-                
-                // Get canvas dimensions and calculate scale/offset (same as drawStroke)
-                const canvasSize = this.guideCanvas.width;
-                const dataWidth = 900;
-                const dataHeight = 900;
-                // Use thinner strokes for characters with more than 10 strokes
-                const guideLineWidth = this.totalStrokes > 10 ? 15 : 20;
-                const strokeHalfWidth = guideLineWidth / 2; // Use the actual stroke width for calculations
-                const padding = Math.max(strokeHalfWidth + 10, canvasSize * 0.1);
-                const availableSize = canvasSize - (padding * 2);
-                const scale = availableSize / Math.max(dataWidth, dataHeight);
-                const offsetX = (canvasSize - (dataWidth * scale)) / 2;
-                const offsetY = (canvasSize - (dataHeight * scale)) / 2;
-                
-                // Draw all strokes in grey on guide canvas
-                this.guideCtx.strokeStyle = '#9A9A9A'; // Guide character color
-                this.guideCtx.lineWidth = guideLineWidth;
-                this.guideCtx.lineCap = 'round';
-                this.guideCtx.lineJoin = 'round';
-                
-                for (let i = 0; i < medians.length; i++) {
-                    const strokePoints = medians[i];
-                    if (!strokePoints || strokePoints.length === 0) continue;
-                    
-                    // Convert points to canvas coordinates
-                    const canvasPoints = strokePoints.map(([x, y]) => {
-                        return {
-                            x: x * scale + offsetX,
-                            y: (dataHeight - y) * scale + offsetY
-                        };
-                    });
-                    
-                    // Draw the stroke on guide canvas
-                    this.guideCtx.beginPath();
-                    this.guideCtx.moveTo(canvasPoints[0].x, canvasPoints[0].y);
-                    for (let j = 1; j < canvasPoints.length; j++) {
-                        this.guideCtx.lineTo(canvasPoints[j].x, canvasPoints[j].y);
-                    }
-                    this.guideCtx.stroke();
-                }
-                
-                // Mark guide as drawn
-                this.guideDrawn = true;
-            }
-            
-            prepareAllStrokeData() {
-                // Prepare all stroke data from rawCharData when guide character is drawn
-                if (!this.strokeData.rawCharData || !this.strokeData.rawCharData.medians) {
-                    return;
-                }
-                
-                const medians = this.strokeData.rawCharData.medians;
-                if (medians.length === 0) {
-                    return;
-                }
-                
-                // Rebuild strokes array with calculated lengths if missing
-                if (!this.strokeData.strokes || this.strokeData.strokes.length !== medians.length) {
-                    this.strokeData.strokes = [];
-                }
-                
-                for (let i = 0; i < medians.length; i++) {
-                    let stroke = this.strokeData.strokes[i];
-                    
-                    // If stroke doesn't exist or is missing length, calculate it
-                    if (!stroke || stroke.length === null || stroke.length === undefined) {
-                        const strokePoints = medians[i].map(([x, y]) => ({ x, y }));
-                        
-                        // Calculate stroke length from points
-                        let length = 0;
-                        for (let j = 1; j < strokePoints.length; j++) {
-                            const dx = strokePoints[j].x - strokePoints[j - 1].x;
-                            const dy = strokePoints[j].y - strokePoints[j - 1].y;
-                            length += Math.sqrt(dx * dx + dy * dy);
-                        }
-                        
-                        // Calculate angle data if needed (calculate manually since function is in different scope)
-                        let angleData = null;
-                        if (strokePoints.length >= 2) {
-                            const startPoint = strokePoints[0];
-                            
-                            // Find the point with maximum distance from start point
-                            let maxDistance = 0;
-                            let endPoint = startPoint;
-                            for (let j = 1; j < strokePoints.length; j++) {
-                                const point = strokePoints[j];
-                                const dx = point.x - startPoint.x;
-                                const dy = point.y - startPoint.y;
-                                const dist = Math.sqrt(dx * dx + dy * dy);
-                                if (dist > maxDistance) {
-                                    maxDistance = dist;
-                                    endPoint = point;
-                                }
-                            }
-                            
-                            // Convert to screen coordinates for consistent angle calculation
-                            // Stroke data: (0,0) at bottom-left, y increases upward
-                            // Screen: (0,0) at top-left, y increases downward
-                            const conversionHeight = 900;
-                            
-                            const startScreen = {
-                                x: startPoint.x,
-                                y: conversionHeight - startPoint.y
-                            };
-                            const endScreen = {
-                                x: endPoint.x,
-                                y: conversionHeight - endPoint.y
-                            };
-                            
-                            // Calculate direction in screen coordinates
-                            const dx = endScreen.x - startScreen.x;
-                            const dy = endScreen.y - startScreen.y;
-                            
-                            // Calculate angle in screen coordinates (consistent method)
-                            angleData = {
-                                startPoint: startPoint,
-                                endPoint: endPoint,
-                                direction: { dx, dy },
-                                angle: Math.atan2(dy, dx),
-                                angleDegrees: Math.atan2(dy, dx) * 180 / Math.PI,
-                                length: length
-                            };
-                        }
-                        
-                        // Create or update stroke object
-                        this.strokeData.strokes[i] = {
-                            index: i,
-                            rawData: medians[i],
-                            points: strokePoints,
-                            startPoint: angleData ? angleData.startPoint : (strokePoints[0] || null),
-                            endPoint: angleData ? angleData.endPoint : (strokePoints[strokePoints.length - 1] || null),
-                            direction: angleData ? angleData.direction : null,
-                            angle: angleData ? angleData.angle : null,
-                            angleDegrees: angleData ? angleData.angleDegrees : null,
-                            length: length,
-                            source: 'medians'
-                        };
-                    }
-                }
-                
-                // Calculate distance between consecutive strokes (end point of stroke i to start point of stroke i+1)
-                for (let i = 0; i < this.strokeData.strokes.length - 1; i++) {
-                    const currentStroke = this.strokeData.strokes[i];
-                    const nextStroke = this.strokeData.strokes[i + 1];
-                    
-                    if (currentStroke && currentStroke.endPoint && nextStroke && nextStroke.startPoint) {
-                        const dx = nextStroke.startPoint.x - currentStroke.endPoint.x;
-                        const dy = nextStroke.startPoint.y - currentStroke.endPoint.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        // Store distance to next stroke in current stroke object
-                        if (!currentStroke.distanceToNext) {
-                            currentStroke.distanceToNext = distance;
-                        } else {
-                            // Update if already exists (in case of recalculation)
-                            currentStroke.distanceToNext = distance;
-                        }
-                    }
-                }
-                
-                // Last stroke has no next stroke, so distanceToNext is null/undefined
-                
-                this.strokeData.initialized = true;
-            }
-            
-            redrawAllStrokes() {
-                if (!this.ctx || !this.strokeData.rawCharData) return;
-                
-                // Only clear and redraw the main canvas (green strokes)
-                // Guide canvas stays as background, no need to redraw
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                // Draw all completed strokes in green on main canvas
-                this.ctx.strokeStyle = '#1C1C1C'; // Drawing color
-                // Use thinner strokes for characters with more than 10 strokes
-                this.ctx.lineWidth = this.totalStrokes > 10 ? 18 : 25;
-                this.ctx.lineCap = 'round';
-                this.ctx.lineJoin = 'round';
-                
-                // Redraw all previously drawn strokes
-                for (let i = 0; i < this.drawnStrokes.length; i++) {
-                    this.drawStroke(this.drawnStrokes[i], false); // false = no animation
-                }
-            }
-            
-            drawStroke(strokeIndex, animate = true) {
-                if (!this.ctx || !this.strokeData.rawCharData || !this.strokeData.rawCharData.medians) {
-                    console.error('Cannot draw stroke: missing data');
-                    return;
-                }
-                
-                // Set isAnimating flag IMMEDIATELY before starting animation
-                // This prevents other operations from interfering
-                if (animate) {
-                    this.isAnimating = true;
-                }
-                
-                // Ensure stroke style is set to bright green
-                this.ctx.strokeStyle = '#1C1C1C'; // Drawing color // Bright green
-                // Use thinner strokes for characters with more than 10 strokes
-                this.ctx.lineWidth = this.totalStrokes > 10 ? 18 : 25;
-                this.ctx.lineCap = 'round';
-                this.ctx.lineJoin = 'round';
-                
-                
-                const medians = this.strokeData.rawCharData.medians;
-                if (strokeIndex >= medians.length) {
-                    console.error(`Stroke index ${strokeIndex} out of range`);
-                    return;
-                }
-                
-                const strokePoints = medians[strokeIndex];
-                if (!strokePoints || strokePoints.length === 0) {
-                    console.error(`No points for stroke ${strokeIndex}`);
-                    return;
-                }
-                
-                // Get canvas dimensions and calculate scale/offset
-                const canvasSize = this.canvas.width;
-                const dataWidth = 900; // Standard width for character data
-                const dataHeight = 900; // Standard height for character data
-                
-                // Account for stroke width (half on each side) and padding
-                const strokeHalfWidth = this.ctx.lineWidth / 2;
-                const padding = Math.max(strokeHalfWidth + 10, canvasSize * 0.1); // At least 10px + stroke width
-                const availableSize = canvasSize - (padding * 2);
-                
-                // Scale to fit within available space
-                const scale = availableSize / Math.max(dataWidth, dataHeight);
-                
-                // Center the character
-                const offsetX = (canvasSize - (dataWidth * scale)) / 2;
-                const offsetY = (canvasSize - (dataHeight * scale)) / 2;
-                
-                // Convert points from data coordinates to canvas coordinates
-                // Data uses bottom-left origin, canvas uses top-left origin
-                const canvasPoints = strokePoints.map(([x, y]) => {
-                    return {
-                        x: x * scale + offsetX,
-                        y: (dataHeight - y) * scale + offsetY // Flip y-axis
-                    };
-                });
-                
-                if (animate) {
-                    // Animate stroke drawing
-                    this.animateStrokeDrawing(canvasPoints);
-                } else {
-                    // Draw immediately
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(canvasPoints[0].x, canvasPoints[0].y);
-                    for (let i = 1; i < canvasPoints.length; i++) {
-                        this.ctx.lineTo(canvasPoints[i].x, canvasPoints[i].y);
-                    }
-                    this.ctx.stroke();
-                }
-            }
-            
-            animateStrokeDrawing(points) {
-                if (points.length === 0) {
-                    this.isAnimating = false;
-                    return;
-                }
-                
-                this.isAnimating = true;
-                let currentIndex = 0;
-                // Calculate animation speed based on stroke length for consistent timing
-                // Aim for ~300ms animation time regardless of stroke length
-                const targetDuration = 300; // milliseconds
-                const fps = 60; // frames per second
-                const totalFrames = Math.ceil((targetDuration / 1000) * fps);
-                const animationSpeed = Math.max(1, Math.ceil(points.length / totalFrames));
-                
-                const self = this;
-                function animate() {
-                    if (currentIndex >= points.length) {
-                        self.isAnimating = false;
-                        return;
-                    }
-                    
-                    self.ctx.beginPath();
-                    self.ctx.moveTo(points[0].x, points[0].y);
-                    
-                    const endIndex = Math.min(currentIndex + animationSpeed, points.length);
-                    for (let i = 1; i < endIndex; i++) {
-                        self.ctx.lineTo(points[i].x, points[i].y);
-                    }
-                    self.ctx.stroke();
-                    
-                    currentIndex = endIndex;
-                    
-                    if (currentIndex < points.length) {
-                        requestAnimationFrame(animate);
-                    } else {
-                        self.isAnimating = false;
-                    }
-                }
-                
-                animate();
-            }
-        }
-        
-        // Create global instance
-        const hanziWriter = new newHanziWriter();
+        // newHanziWriter class is now defined in hanzi-writer.js
+        // Create global instance (hanziWriter is declared in game-state.js)
+        hanziWriter = new newHanziWriter();
 
             // Function to calculate stroke angle from points
             function calculateStrokeAngle(points) {
@@ -1748,6 +1350,8 @@
                 }, 100);
             }
             
+        console.log('✅ Past button handler attachment');
+        
         // Load all characters into new structure (in order from ToWriteText.txt)
         function loadAllCharactersIntoStructure() {
             // Clear existing data to prevent duplicates
@@ -1809,6 +1413,8 @@
             
             console.log(`Loaded ${charactersStrokeDataList.length} characters into structure list`);
         }
+        
+        console.log('✅ Checkpoint 1: Defined loadAllCharactersIntoStructure');
         
         // Load ToWriteText.txt to get characters in order
         async function loadCharactersFromTextFile() {
@@ -1892,6 +1498,8 @@
             }
         }
         
+        console.log('✅ Checkpoint 2: Defined loadCharactersFromTextFile and initializeApp');
+        
         // Stop audio when page is about to unload (refresh/close)
         window.addEventListener('beforeunload', function() {
             if (backgroundMusic) {
@@ -1954,15 +1562,18 @@
             // Show initially for 3 seconds
             showTopBar();
         }
+        ===== END DUPLICATE FUNCTION ===== */
         
         // Initialize music control and app when page loads
         async function initPage() {
+            console.log('🚀 initPage() called');
             // Stop any existing audio instances first
             if (backgroundMusic) {
                 backgroundMusic.pause();
                 backgroundMusic.currentTime = 0;
             }
             // Initialize HP bar
+            console.log('Initializing HP bar...');
             updateHPBar(maxHP);
             // Initialize restart button
             const restartBtn = document.getElementById('restart-btn');
@@ -2037,10 +1648,26 @@
                         console.log('Local development detected - using demo login');
                         simulateGoogleLogin();
                     } else {
-                        // In production, this would trigger real Google Sign-In
-                        // Currently falls back to demo mode
-                        console.warn('Google Sign-In not configured - using demo mode');
-                        simulateGoogleLogin();
+                        // In production, try Google Sign-In
+                        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                            console.log('Initializing Google Sign-In...');
+                            google.accounts.id.initialize({
+                                client_id: document.querySelector('meta[name="google-signin-client_id"]')?.content,
+                                callback: handleCredentialResponse
+                            });
+                            // Show the One Tap dialog
+                            google.accounts.id.prompt((notification) => {
+                                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                                    // Fall back to demo mode if One Tap fails
+                                    console.warn('Google One Tap not displayed, using demo mode');
+                                    simulateGoogleLogin();
+                                }
+                            });
+                        } else {
+                            // Fall back to demo mode if Google Sign-In not loaded
+                            console.warn('Google Sign-In library not loaded - using demo mode');
+                            simulateGoogleLogin();
+                        }
                     }
                 });
             }
@@ -2059,11 +1686,15 @@
             initTopBarAutoHide();
             
             // Load level config and show level selection
+            console.log('Loading level config...');
             await loadLevelConfig();
+            console.log('Level config loaded:', levelConfig ? 'SUCCESS' : 'FAILED');
             if (levelConfig) {
+                console.log('Displaying level selection...');
                 displayLevelSelection();
                 initLevelSearch();
                 showLevelSelection();
+                console.log('✅ Game initialized successfully!');
             } else {
                 alert('Failed to load level configuration. Please check level_config.json file.');
             }
@@ -2084,9 +1715,13 @@
             }
         }
         
+        console.log('✅ Checkpoint 3: Defined initPage and initLevelSearch');
+        console.log('📋 Document ready state:', document.readyState);
         if (document.readyState === 'loading') {
+            console.log('⏳ Waiting for DOMContentLoaded...');
             document.addEventListener('DOMContentLoaded', initPage);
         } else {
+            console.log('✅ DOM already loaded, calling initPage()...');
             initPage();
         }
         
@@ -2967,7 +2602,6 @@
             let startX = 0;
             let startY = 0;
             let dragPath = []; // Track all points during drag to calculate total distance
-            const MIN_DRAG_DISTANCE = 30; // Minimum distance in pixels to trigger stroke drawing
 
             function getEventCoordinates(e) {
                 // Handle both mouse and touch events
@@ -3114,8 +2748,32 @@
                 // Calculate total drag distance along the path (including all turns)
                 const dragDistance = calculateTotalDragDistance(dragPath);
                 
-                // Only proceed if drag distance is greater than minimum threshold
-                if (dragDistance < MIN_DRAG_DISTANCE) {
+                // Calculate minimum drag distance as 80% of first stroke length
+                let minDragDistance = 30; // Default fallback
+                if (hanziWriter && hanziWriter.strokeData && hanziWriter.strokeData.initialized && hanziWriter.strokeData.strokes) {
+                    const currentStroke = hanziWriter.strokeData.strokes[hanziWriter.currentStrokeIndex];
+                    if (currentStroke && currentStroke.length !== null && currentStroke.length !== undefined) {
+                        // Calculate canvas scale to convert stroke length to screen pixels
+                        const canvas = hanziWriter.canvas;
+                        if (canvas) {
+                            const canvasSize = canvas.width;
+                            const dataWidth = 900;
+                            const dataHeight = 900;
+                            const lineWidth = hanziWriter.totalStrokes > 10 ? 18 : 25;
+                            const strokeHalfWidth = lineWidth / 2;
+                            const padding = Math.max(strokeHalfWidth + 10, canvasSize * 0.1);
+                            const availableSize = canvasSize - (padding * 2);
+                            const scale = availableSize / Math.max(dataWidth, dataHeight);
+                            
+                            // Convert first stroke length to screen pixels and take 80%
+                            const firstStrokeLengthScreen = currentStroke.length * scale;
+                            minDragDistance = firstStrokeLengthScreen * 0.8;
+                        }
+                    }
+                }
+                
+                // Only proceed if drag distance is greater than minimum threshold (80% of first stroke length)
+                if (dragDistance < minDragDistance) {
                     isDragging = false;
                     hasTriggered = false;
                     dragPath = []; // Reset drag path

@@ -1,6 +1,7 @@
 // ============================================
 // GLOBAL GAME STATE
 // ============================================
+console.log('✅ game-state.js loaded');
 
 // Character learning mode - all characters from ToWriteText.txt
 let charactersToLearn = []; // Will be populated from all_strokes.json
@@ -34,7 +35,7 @@ let timerElapsedSeconds = 0;
 let currentUser = null;
 
 // All characters stroke data loaded from all_strokes.json
-let allCharactersData = null;
+let allCharactersData = {};
 
 // List to store first 5 characters in new structure
 let first5CharactersInNewStructure = [];

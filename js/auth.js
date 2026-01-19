@@ -1,6 +1,7 @@
 // ============================================
 // AUTHENTICATION & SAVE/LOAD SYSTEM
 // ============================================
+console.log('✅ auth.js loaded');
 
 function showAuthModal() {
     const modal = document.getElementById('auth-modal');
@@ -21,12 +22,25 @@ function handleCredentialResponse(response) {
     try {
         const userObject = parseJwt(response.credential);
         console.log('User logged in:', userObject);
-        onUserLogin(userObject);
+        
+        // Create user object with name as primary identifier
+        const user = {
+            name: userObject.name,
+            email: userObject.email,
+            picture: userObject.picture
+        };
+        
+        onUserLogin(user);
         hideAuthModal();
     } catch (error) {
         console.error('Error handling credential response:', error);
+        // Fall back to demo mode on error
+        simulateGoogleLogin();
     }
 }
+
+// Make handleCredentialResponse globally accessible for Google Sign-In callback
+window.handleCredentialResponse = handleCredentialResponse;
 
 // Simulate Google login for demo (remove in production)
 function simulateGoogleLogin() {
@@ -89,7 +103,7 @@ function saveGameProgress() {
     }
     
     const progress = {
-        userId: currentUser.email,
+        userName: currentUser.name,
         currentLevel: currentLevel ? currentLevel.id : null,
         elapsedTime: timerElapsedSeconds,
         hp: currentHP,
@@ -97,7 +111,13 @@ function saveGameProgress() {
     };
     
     try {
+        // Save to user-specific key using name
+        const userKey = `gameProgress_${currentUser.name}`;
+        localStorage.setItem(userKey, JSON.stringify(progress));
+        
+        // Also save to simple key for backward compatibility
         localStorage.setItem('gameProgress', JSON.stringify(progress));
+        
         console.log('Game progress saved:', progress);
         showToast('Progress Saved!', 'Your game progress has been saved successfully.', '💾');
     } catch (error) {
@@ -108,10 +128,22 @@ function saveGameProgress() {
 
 function loadGameProgress() {
     try {
+        // First, try to load from user-specific key if user is logged in
+        if (currentUser && currentUser.name) {
+            const userKey = `gameProgress_${currentUser.name}`;
+            const userData = localStorage.getItem(userKey);
+            if (userData) {
+                const progress = JSON.parse(userData);
+                console.log('Loaded game progress (user-specific):', progress);
+                return progress;
+            }
+        }
+        
+        // Fall back to simple key (for backward compatibility and non-logged-in users)
         const savedData = localStorage.getItem('gameProgress');
         if (savedData) {
             const progress = JSON.parse(savedData);
-            console.log('Loaded game progress:', progress);
+            console.log('Loaded game progress (simple key):', progress);
             return progress;
         }
     } catch (error) {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test JS Loading</title>
+</head>
+<body>
+    <h1>JS Module Test</h1>
+    <div id="output"></div>
+    
+    <script src="js/game-state.js"></script>
+    <script src="js/hp-system.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/game.js"></script>
+    
+    <script>
+        document.getElementById('output').innerHTML = `
+            <p>✓ All scripts loaded successfully!</p>
+            <p>levelConfig: ${typeof levelConfig}</p>
+            <p>currentUser: ${typeof currentUser}</p>
+            <p>hanziWriter: ${typeof hanziWriter}</p>
+            <p>updateHPBar: ${typeof updateHPBar}</p>
+            <p>startTimer: ${typeof startTimer}</p>
+            <p>initMusicControl: ${typeof initMusicControl}</p>
+            <p>showAuthModal: ${typeof showAuthModal}</p>
+        `;
+    </script>
+</body>
+</html>
