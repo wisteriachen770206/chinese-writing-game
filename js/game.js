@@ -329,6 +329,8 @@
         }
         
         function onLevelComplete() {
+            console.log('🎉 onLevelComplete called');
+            console.log('🔵 currentUser at level complete:', currentUser);
             stopTimer();
             
             const timeStr = `${Math.floor(timerElapsedSeconds / 60)}:${String(timerElapsedSeconds % 60).padStart(2, '0')}`;
@@ -415,25 +417,35 @@
                     }
                 }
             } else {
-                // User not logged in - auto-create demo user and save (seamless mobile experience)
-                console.log('Auto-creating demo user for first level complete...');
-                simulateGoogleLogin();
-                // Save will happen automatically in onUserLogin callback
-                // Hide save button and show status after auto-save
-                setTimeout(() => {
-                    if (saveBtn) {
-                        saveBtn.style.display = 'none';
-                    }
-                    const saveStatus = document.getElementById('level-complete-save-status');
-                    if (saveStatus) {
-                        saveStatus.style.display = 'block';
-                    }
-                }, 100);
+                // User not logged in - show save button for manual save
+                console.log('User not logged in - showing save button...');
+                if (saveBtn) {
+                    saveBtn.style.display = 'block';
+                }
             }
             
-            // Show overlay
+            // Show overlay FIRST
             if (overlay) {
                 overlay.classList.remove('hidden');
+            }
+            
+            // THEN auto-create demo user and save (after overlay is visible)
+            if (!currentUser) {
+                setTimeout(() => {
+                    console.log('🔵 Auto-creating demo user for first level complete...');
+                    simulateGoogleLogin();
+                    // Save will happen automatically in onUserLogin callback
+                    // Hide save button and show status after auto-save
+                    setTimeout(() => {
+                        if (saveBtn) {
+                            saveBtn.style.display = 'none';
+                        }
+                        const saveStatus = document.getElementById('level-complete-save-status');
+                        if (saveStatus) {
+                            saveStatus.style.display = 'block';
+                        }
+                    }, 200);
+                }, 100);
             }
         }
         
