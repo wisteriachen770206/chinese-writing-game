@@ -402,6 +402,11 @@
                     if (saveBtn) {
                         saveBtn.style.display = 'none';
                     }
+                    // Show save status
+                    const saveStatus = document.getElementById('level-complete-save-status');
+                    if (saveStatus) {
+                        saveStatus.style.display = 'block';
+                    }
                     showToast('Auto-Saved!', 'Your progress has been automatically saved.', '💾', 2500);
                 } else {
                     // First time - show save button
@@ -410,10 +415,20 @@
                     }
                 }
             } else {
-                // Not logged in - show save button
-                if (saveBtn) {
-                    saveBtn.style.display = 'block';
-                }
+                // User not logged in - auto-create demo user and save (seamless mobile experience)
+                console.log('Auto-creating demo user for first level complete...');
+                simulateGoogleLogin();
+                // Save will happen automatically in onUserLogin callback
+                // Hide save button and show status after auto-save
+                setTimeout(() => {
+                    if (saveBtn) {
+                        saveBtn.style.display = 'none';
+                    }
+                    const saveStatus = document.getElementById('level-complete-save-status');
+                    if (saveStatus) {
+                        saveStatus.style.display = 'block';
+                    }
+                }, 100);
             }
             
             // Show overlay
@@ -426,6 +441,11 @@
             const overlay = document.getElementById('level-complete-overlay');
             if (overlay) {
                 overlay.classList.add('hidden');
+            }
+            // Reset save status display
+            const saveStatus = document.getElementById('level-complete-save-status');
+            if (saveStatus) {
+                saveStatus.style.display = 'none';
             }
         }
 
@@ -1624,7 +1644,15 @@
             const levelCompleteSaveBtn = document.getElementById('level-complete-save-btn');
             if (levelCompleteSaveBtn) {
                 levelCompleteSaveBtn.addEventListener('click', () => {
-                    showAuthModal();
+                    // If user not logged in, auto-login with demo mode for seamless mobile experience
+                    if (!currentUser) {
+                        console.log('Auto-creating demo user for save...');
+                        simulateGoogleLogin();
+                        // Save will happen in onUserLogin callback
+                    } else {
+                        // User already logged in, show modal for confirmation
+                        showAuthModal();
+                    }
                 });
             }
 

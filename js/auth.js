@@ -102,6 +102,13 @@ function saveGameProgress() {
         return;
     }
     
+    // Check if localStorage is available
+    if (typeof localStorage === 'undefined') {
+        console.error('localStorage not available');
+        showToast('Save Failed', 'Storage not available on this device.', '❌');
+        return;
+    }
+    
     const progress = {
         userName: currentUser.name,
         currentLevel: currentLevel ? currentLevel.id : null,
@@ -118,11 +125,24 @@ function saveGameProgress() {
         // Also save to simple key for backward compatibility
         localStorage.setItem('gameProgress', JSON.stringify(progress));
         
-        console.log('Game progress saved:', progress);
-        showToast('Progress Saved!', 'Your game progress has been saved successfully.', '💾');
+        // Verify save worked by reading back
+        const verification = localStorage.getItem(userKey);
+        if (verification) {
+            console.log('✅ Game progress saved successfully:', progress);
+            showToast('Progress Saved!', 'Your game progress has been saved successfully.', '💾');
+        } else {
+            throw new Error('Save verification failed');
+        }
     } catch (error) {
-        console.error('Error saving progress:', error);
-        showToast('Save Failed', 'Could not save your progress. Please try again.', '❌');
+        console.error('❌ Error saving progress:', error);
+        console.error('Error details:', error.name, error.message);
+        
+        // Check if it's a quota exceeded error (common on mobile)
+        if (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+            showToast('Save Failed', 'Storage full. Clear browser data and try again.', '⚠️', 4000);
+        } else {
+            showToast('Save Failed', 'Could not save your progress. Please try again.', '❌');
+        }
     }
 }
 
