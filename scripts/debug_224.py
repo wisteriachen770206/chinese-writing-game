@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-with open('224.txt', 'r', encoding='utf-8') as f:
+with open('../224.txt', 'r', encoding='utf-8') as f:
     lines = [line.strip() for line in f.readlines()]
 
 with open('debug_output.txt', 'w', encoding='utf-8') as out:

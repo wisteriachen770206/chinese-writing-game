@@ -1,6 +1,6 @@
 import json
 
-with open('level_config.json', 'r', encoding='utf-8') as f:
+with open('../level_config.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 print(f"Total levels: {len(data['levels'])}")

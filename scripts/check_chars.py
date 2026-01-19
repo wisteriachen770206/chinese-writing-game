@@ -11,7 +11,7 @@ if sys.stdout.encoding != 'utf-8':
     except:
         pass
 
-with open('all_strokes.json', 'r', encoding='utf-8') as f:
+with open('../data/all_strokes.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 chars = list(data['characters'].keys())

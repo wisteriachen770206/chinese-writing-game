@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script to get stroke data for all characters in ToWriteText.txt
+Script to generate all_strokes.json from level_config.json
+Extracts all unique characters from all poem levels and generates stroke data
 """
 
 import json
@@ -25,27 +26,36 @@ if sys.stdout.encoding != 'utf-8':
     except:
         pass
 
-def read_characters_from_file(filename):
-    """Read all characters from a text file"""
+def extract_characters_from_level_config(filename='../level_config.json'):
+    """Extract all unique characters from level_config.json"""
     try:
         with open(filename, 'r', encoding='utf-8') as f:
-            content = f.read().strip()
+            config = json.load(f)
+        
+        all_text = ''
+        for level in config.get('levels', []):
+            characters = level.get('characters', '')
+            all_text += characters
         
         # Extract unique characters (preserve order)
         unique_chars = []
         seen = set()
-        for char in content:
+        for char in all_text:
             # Only process Chinese characters (CJK Unified Ideographs)
             if '\u4e00' <= char <= '\u9fff' and char not in seen:
                 unique_chars.append(char)
                 seen.add(char)
         
+        print(f"Extracted from {len(config.get('levels', []))} levels:")
+        print(f"  Total characters (with duplicates): {len(all_text)}")
+        print(f"  Unique characters: {len(unique_chars)}")
+        
         return unique_chars
     except Exception as e:
-        print(f"Error reading file {filename}: {e}")
+        print(f"Error reading {filename}: {e}")
         return []
 
-def download_graphics_txt(local_file='graphics.txt'):
+def download_graphics_txt(local_file='../data/graphics.txt'):
     """Download graphics.txt and save it locally"""
     import requests
     
@@ -59,7 +69,7 @@ def download_graphics_txt(local_file='graphics.txt'):
     
     try:
         print(f"Downloading graphics.txt from: {url}")
-        print("  This may take a few minutes (file is large)...")
+        print("  This may take a few minutes (file is large ~35MB)...")
         response = requests.get(url, timeout=300, stream=True)  # 5 minute timeout
         
         if response.status_code != 200:
@@ -73,7 +83,7 @@ def download_graphics_txt(local_file='graphics.txt'):
                 if line:
                     f.write(line + '\n')
                     total_size += len(line.encode('utf-8'))
-                    if total_size % (10 * 1024 * 1024) == 0:  # Print every 10MB
+                    if total_size % (5 * 1024 * 1024) < 1024:  # Print every ~5MB
                         print(f"  Downloaded: {total_size / (1024*1024):.2f} MB...")
         
         print(f"  Successfully saved to: {local_file}")
@@ -86,7 +96,7 @@ def download_graphics_txt(local_file='graphics.txt'):
             os.remove(local_file)
         return False
 
-def fetch_all_characters_from_graphics_txt(characters_set, local_file='graphics.txt'):
+def fetch_all_characters_from_graphics_txt(characters_set, local_file='../data/graphics.txt'):
     """Fetch character data for multiple characters from local graphics.txt file"""
     character_data_map = {}
     
@@ -112,13 +122,13 @@ def fetch_all_characters_from_graphics_txt(characters_set, local_file='graphics.
                         if found_count == len(characters_set):
                             print(f"  Found all {found_count} characters!")
                             break
-                        if found_count % 10 == 0:
+                        if found_count % 20 == 0:
                             print(f"  Found {found_count}/{len(characters_set)} characters...")
                 except json.JSONDecodeError:
                     continue
                 
                 # Progress indicator for large files
-                if line_num % 10000 == 0:
+                if line_num % 5000 == 0:
                     print(f"  Processed {line_num} lines, found {found_count} characters...")
         
         print(f"  Total found: {found_count}/{len(characters_set)}")
@@ -130,51 +140,57 @@ def fetch_all_characters_from_graphics_txt(characters_set, local_file='graphics.
 
 def main():
     """Main function"""
-    input_file = 'ToWriteText.txt'
+    input_file = '../level_config.json'
     
     if not os.path.exists(input_file):
         print(f"Error: File '{input_file}' not found")
         return
     
-    print(f"Reading characters from: {input_file}")
-    characters = read_characters_from_file(input_file)
+    print("="*70)
+    print("GENERATE ALL_STROKES.JSON FROM LEVEL_CONFIG.JSON")
+    print("="*70)
+    print()
+    
+    print(f"Step 1: Extract characters from {input_file}...")
+    characters = extract_characters_from_level_config(input_file)
     
     if not characters:
-        print("No Chinese characters found in the file")
+        print("No Chinese characters found in level_config.json")
         return
     
-    print(f"Found {len(characters)} unique characters")
-    print(f"Characters: {''.join(characters[:20])}{'...' if len(characters) > 20 else ''}")
+    print(f"\nFirst 50 characters: {''.join(characters[:50])}")
     print()
     
     # Download graphics.txt locally if needed, then fetch character data
-    print()
-    print("Step 1: Download graphics.txt (if needed)...")
+    print("Step 2: Download graphics.txt (if needed)...")
     if not download_graphics_txt():
         print("Failed to download graphics.txt. Exiting.")
         return
     
     print()
-    print("Step 2: Fetching character data from local file...")
+    print("Step 3: Fetching character data from local file...")
     characters_set = set(characters)
-    character_data_map = fetch_all_characters_from_graphics_txt(characters_set, local_file='graphics.txt')
+    character_data_map = fetch_all_characters_from_graphics_txt(characters_set, local_file='../data/graphics.txt')
     
     # Process all characters
     all_strokes_data = {}
     failed_characters = []
     
     print()
-    print("Processing stroke data...")
+    print("Step 4: Processing stroke data...")
     for i, character in enumerate(characters, 1):
         try:
             unicode_val = ord(character)
-            print(f"[{i}/{len(characters)}] Processing: {character} (U+{unicode_val:04X})")
+            
+            # Print progress every 10 characters
+            if i % 10 == 0 or i == 1 or i == len(characters):
+                print(f"[{i}/{len(characters)}] Processing: {character} (U+{unicode_val:04X})")
             
             # Get character data from the map (local file only, no network needed)
             char_data = character_data_map.get(character)
             
             if not char_data:
-                print(f"  Failed to fetch data for {character}")
+                print(f"  [WARNING] Failed to fetch data for {character}")
                 failed_characters.append(character)
                 continue
             
@@ -191,10 +207,11 @@ def main():
                 'rawCharData': char_data
             }
             
-            print(f"  Success: {len(processed['strokes'])} strokes")
+            if i % 10 == 0 or i == 1 or i == len(characters):
+                print(f"  Success: {len(processed['strokes'])} strokes")
             
         except Exception as e:
-            print(f"  Error processing {character}: {e}")
+            print(f"  [ERROR] Processing {character}: {e}")
             failed_characters.append(character)
             continue
     
@@ -212,21 +229,27 @@ def main():
         output_data['failedCharacterList'] = failed_characters
     
     # Save to file
-    output_file = 'all_strokes.json'
+    output_file = '../data/all_strokes.json'
+    print()
+    print("Step 5: Writing output file...")
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
     
     print()
-    print("=" * 60)
-    print(f"Summary:")
+    print("="*70)
+    print("SUMMARY:")
+    print("="*70)
+    print(f"  Source file: {input_file}")
     print(f"  Total characters: {len(characters)}")
     print(f"  Successful: {len(all_strokes_data)}")
     print(f"  Failed: {len(failed_characters)}")
+    print(f"  Success rate: {len(all_strokes_data)/len(characters)*100:.1f}%")
     print(f"  Output file: {output_file}")
-    print("=" * 60)
+    print(f"  Output size: {os.path.getsize(output_file) / (1024*1024):.2f} MB")
+    print("="*70)
     
     if failed_characters:
-        print(f"\nFailed characters: {''.join(failed_characters)}")
+        print(f"\n[WARNING] Failed characters ({len(failed_characters)}): {''.join(failed_characters)}")
 
 if __name__ == "__main__":
     main()

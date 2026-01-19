@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import json
 
-with open('level_config.json', 'r', encoding='utf-8') as f:
+with open('../level_config.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 output = open('check_results.txt', 'w', encoding='utf-8')

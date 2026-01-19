@@ -2214,7 +2214,7 @@
             try {
                 console.log('Fetching all_strokes.json...');
                 // Add cache-busting parameter to force reload of latest data
-                const response = await fetch(`all_strokes.json?v=${Date.now()}`);
+                const response = await fetch(`data/all_strokes.json?v=${Date.now()}`);
                 console.log('Response status:', response.status, response.statusText);
                 
                 if (response.ok) {

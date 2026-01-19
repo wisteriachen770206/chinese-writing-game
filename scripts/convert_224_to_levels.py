@@ -143,8 +143,8 @@ def create_level_config(poems):
     return config
 
 def main():
-    input_file = '224.txt'
-    output_file = 'level_config.json'
+    input_file = '../224.txt'
+    output_file = '../level_config.json'
     
     print(f"Reading poems from {input_file}...")
     poems = parse_poems(input_file)
