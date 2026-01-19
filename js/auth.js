@@ -44,13 +44,16 @@ window.handleCredentialResponse = handleCredentialResponse;
 
 // Simulate Google login for demo (remove in production)
 function simulateGoogleLogin() {
+    console.log('🔵 simulateGoogleLogin called');
     const demoUser = {
         name: 'Demo User',
         email: 'demo@example.com',
         picture: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="16" fill="%238b5cf6"/><text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-family="Arial">D</text></svg>'
     };
+    console.log('🔵 Demo user created:', demoUser);
     onUserLogin(demoUser);
     hideAuthModal();
+    console.log('✅ simulateGoogleLogin completed');
 }
 
 function onUserLogin(user) {
@@ -97,17 +100,22 @@ function checkUserLoginStatus() {
 }
 
 function saveGameProgress() {
+    console.log('🔵 saveGameProgress called');
+    console.log('🔵 currentUser:', currentUser);
+    
     if (!currentUser) {
-        console.warn('Cannot save progress: user not logged in');
+        console.warn('❌ Cannot save progress: user not logged in');
         return;
     }
     
     // Check if localStorage is available
     if (typeof localStorage === 'undefined') {
-        console.error('localStorage not available');
+        console.error('❌ localStorage not available');
         showToast('Save Failed', 'Storage not available on this device.', '❌');
         return;
     }
+    
+    console.log('✅ localStorage is available');
     
     const progress = {
         userName: currentUser.name,
