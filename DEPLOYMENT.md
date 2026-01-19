@@ -1,199 +1,177 @@
-# 🚀 GitHub Pages Deployment Guide
-
-This guide will help you deploy your Chinese Character Writing Practice Game to GitHub Pages.
+# Deployment Guide - GitHub Pages
 
 ## Prerequisites
 
-- A GitHub account
-- Git installed on your computer
-- This project cloned/downloaded
+- Git installed
+- GitHub account
+- Repository created on GitHub
 
-## Step-by-Step Deployment
+## Quick Deployment Steps
 
-### 1. Create a GitHub Repository
-
-1. Go to [GitHub](https://github.com) and log in
-2. Click the "+" icon in the top right → "New repository"
-3. Repository settings:
-   - **Name**: `chinese-writing-game` (or any name you prefer)
-   - **Description**: "Interactive Chinese character writing practice game"
-   - **Public** (required for free GitHub Pages)
-   - **Do NOT** initialize with README (we already have one)
-4. Click "Create repository"
-
-### 2. Push Your Code to GitHub
-
-Open terminal/command prompt in your project folder and run:
+### 1. Commit Your Changes
 
 ```bash
-# Initialize git (if not already done)
-git init
-
-# Add the remote repository
-git remote add origin https://github.com/YOUR_USERNAME/chinese-writing-game.git
-
 # Add all files
 git add .
 
-# Commit the files
-git commit -m "Initial release: Chinese character writing game"
+# Commit
+git commit -m "Refactor: Split code into modules and improve structure"
 
 # Push to GitHub
-git push -u origin main
+git push origin main
 ```
 
-**Note**: Replace `YOUR_USERNAME` with your actual GitHub username.
+### 2. Enable GitHub Pages
 
-### 3. Enable GitHub Pages
+1. Go to your GitHub repository
+2. Click **Settings** → **Pages**
+3. Under "Source", select:
+   - Branch: `main`
+   - Folder: `/ (root)`
+4. Click **Save**
 
-1. Go to your repository on GitHub
-2. Click "Settings" (top right)
-3. In the left sidebar, click "Pages"
-4. Under "Source":
-   - Select branch: **main**
-   - Select folder: **/ (root)**
-5. Click "Save"
+### 3. Wait for Deployment
 
-### 4. Wait for Deployment
+- GitHub will automatically build and deploy
+- Usually takes 1-2 minutes
+- Your site will be available at: `https://YOUR_USERNAME.github.io/mySecond/`
 
-- GitHub will build and deploy your site (takes 1-3 minutes)
-- Refresh the Pages settings page
-- You'll see: "Your site is live at https://YOUR_USERNAME.github.io/chinese-writing-game/"
+## File Structure for Deployment
 
-### 5. Update README with Live URL
-
-Edit `README.md` and replace the demo link:
-
-```markdown
-## 🎮 Live Demo
-
-Play the game: https://YOUR_USERNAME.github.io/chinese-writing-game/
+```
+mySecond/
+├── index.html              ← Entry point
+├── css/
+│   └── styles.css         ← All styling
+├── js/
+│   └── game-original.js.bak  ← Main game logic
+├── res/                   ← Resources (images, audio)
+│   ├── guanyin.jpg
+│   ├── heart-sutra-wiki.mp3
+│   └── XJ0106.mp3
+├── all_strokes.json       ← Character data
+└── level_config.json      ← Level configuration
 ```
 
-Commit and push:
-```bash
-git add README.md
-git commit -m "Add live demo link"
-git push
-```
+## Important Notes
 
-## Updating the Game
+### Audio Files
+- ✅ `XJ0106.mp3` - Correct case for GitHub Pages
+- Make sure all audio paths use correct case (GitHub Pages is case-sensitive)
 
-After making changes:
+### File Paths
+All paths in `index.html` and `styles.css` are **relative**, which works perfectly for GitHub Pages:
+- ✅ `css/styles.css`
+- ✅ `js/game-original.js.bak`
+- ✅ `res/XJ0106.mp3`
+- ✅ `../res/guanyin.jpg` (in CSS)
 
-```bash
-# Stage all changes
-git add .
-
-# Commit with descriptive message
-git commit -m "Description of your changes"
-
-# Push to GitHub
-git push
-
-# GitHub Pages will automatically update in 1-3 minutes
-```
+### Browser Compatibility
+- ✅ Modern browsers (Chrome, Firefox, Safari, Edge)
+- ✅ Mobile devices (responsive design)
+- ⚠️ Requires JavaScript enabled
 
 ## Troubleshooting
 
-### Site Not Loading
+### Issue: BGM not playing
+**Solution**: GitHub Pages is case-sensitive. Make sure:
+- File: `res/XJ0106.mp3`
+- HTML: `<source src="res/XJ0106.mp3">`
 
-**Problem**: Blank page or 404 error
+### Issue: CSS not loading
+**Solution**: Check that `<link>` tag uses relative path:
+```html
+<link rel="stylesheet" href="css/styles.css">
+```
 
-**Solution**:
-1. Check that GitHub Pages is enabled (Settings → Pages)
-2. Ensure branch is set to "main" and folder to "/ (root)"
-3. Wait a few minutes for deployment to complete
-4. Clear browser cache (Ctrl+Shift+R or Cmd+Shift+R)
+### Issue: Characters not loading
+**Solution**: Ensure `all_strokes.json` and `level_config.json` are committed
 
-### Audio Files Not Playing
+### Issue: 404 Page
+**Solution**: 
+1. Check GitHub Pages settings
+2. Ensure `index.html` is in root directory
+3. Wait 1-2 minutes for deployment to complete
 
-**Problem**: Background music or voice not working
+## Testing Locally
 
-**Solution**:
-- Check that `res/` folder is committed to GitHub
-- Verify file paths in `index.html` are relative (not absolute)
-- Most browsers require user interaction before playing audio
+Before pushing, test locally:
 
-### Characters Not Loading
+```bash
+# Using Python
+python -m http.server 8000
 
-**Problem**: "Character not found" errors
+# Open browser
+http://localhost:8000
+```
 
-**Solution**:
-- Ensure `all_strokes.json` is committed and pushed
-- Check browser console (F12) for specific error messages
-- Verify `level_config.json` is present
+## Performance Optimization
 
-### Mobile Issues
-
-**Problem**: Touch input not working properly
-
-**Solution**:
-- Clear mobile browser cache
-- Try in different browsers
-- Check that you're using HTTPS (not HTTP)
-
-## File Checklist
-
-Essential files for GitHub Pages (must be committed):
-
-- ✅ `index.html` - Main game file
-- ✅ `level_config.json` - Level definitions
-- ✅ `all_strokes.json` - Character stroke data
-- ✅ `graphics.txt` - Raw character data
-- ✅ `res/` folder - Images and audio files
-- ✅ `README.md` - Project documentation
-- ✅ `.gitignore` - Exclude unnecessary files
-
-Files to exclude (already in .gitignore):
-
-- ❌ `node_modules/` - Development dependencies
-- ❌ `__pycache__/` - Python cache
-- ❌ `*.py` - Python scripts (not needed for web)
-- ❌ Development/test files
+For production, consider:
+1. ✅ CSS is already in separate file (cached by browser)
+2. ✅ JavaScript is in separate file (cached by browser)
+3. 🔄 Future: Minify CSS/JS for faster loading
+4. 🔄 Future: Compress images if needed
+5. 🔄 Future: Use CDN for audio files
 
 ## Custom Domain (Optional)
 
-Want to use your own domain like `writing.yourdomain.com`?
+To use a custom domain:
 
-1. Add a file named `CNAME` (no extension) in your repository root
-2. Content should be just your domain: `writing.yourdomain.com`
-3. Configure your DNS:
-   - Type: `CNAME`
-   - Name: `writing` (or `@` for root domain)
-   - Value: `YOUR_USERNAME.github.io`
-4. Wait for DNS propagation (up to 48 hours, usually much faster)
+1. Add `CNAME` file in root with your domain:
+   ```
+   yourdomain.com
+   ```
 
-## Performance Tips
+2. Configure DNS:
+   - Add A records pointing to GitHub's IPs
+   - Or CNAME pointing to `YOUR_USERNAME.github.io`
 
-1. **Reduce file sizes**:
-   - Compress images in `res/` folder
-   - Consider using MP3 instead of WAV for audio
+3. Enable HTTPS in GitHub Pages settings
 
-2. **Enable caching**:
-   - GitHub Pages automatically handles this
+## Monitoring
 
-3. **Test before pushing**:
-   - Test locally with `python -m http.server 8000`
-   - Check in multiple browsers
+After deployment, check:
+- ✅ All pages load correctly
+- ✅ Audio plays
+- ✅ Level selection works
+- ✅ Character drawing works
+- ✅ Mobile layout correct
+- ✅ No console errors
+
+## Update Process
+
+To update your site:
+
+```bash
+# Make changes
+# ...
+
+# Commit and push
+git add .
+git commit -m "Update: Your changes description"
+git push origin main
+
+# GitHub Pages auto-deploys in 1-2 minutes
+```
+
+## Security
+
+- ✅ No sensitive data in repository
+- ✅ Demo mode for authentication
+- ℹ️ For production Google Sign-In, add OAuth credentials
 
 ## Support
 
-If you encounter issues:
-
-1. Check browser console (F12) for error messages
-2. Verify all files are committed: `git status`
-3. Check GitHub Actions tab for deployment status
-4. Review this guide carefully
-
-## Security Notes
-
-- GitHub Pages serves content over HTTPS automatically
-- Don't commit sensitive data (API keys, passwords)
-- `.gitignore` helps prevent accidental commits
+If issues occur:
+1. Check browser console for errors
+2. Verify all files are committed
+3. Check GitHub Pages deployment status
+4. Test locally first
 
 ---
 
-**Congratulations! Your game is now live! 🎉**
+**Your site will be live at:**  
+`https://YOUR_USERNAME.github.io/mySecond/`
 
-Share your link and help others learn Chinese characters!
+Replace `YOUR_USERNAME` with your actual GitHub username!

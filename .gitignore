@@ -21,6 +21,16 @@ level_loader_example.js
 STROKE_DATA_STRUCTURE.md
 AI_RULES.md
 
+# Refactoring documentation and backups
+REFACTORING*.md
+CLEANUP_DUPLICATES.md
+index-old.html
+index-new.html
+*-old.*
+*.bak
+game-cleaned.js
+game-with-duplicates.js*
+
 # Temp/Cache files
 .DS_Store
 Thumbs.db
