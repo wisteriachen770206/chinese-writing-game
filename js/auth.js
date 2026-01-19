@@ -162,28 +162,37 @@ function saveGameProgress() {
 }
 
 function loadGameProgress() {
+    console.log('🔵 loadGameProgress called');
+    console.log('🔵 currentUser:', currentUser);
     try {
         // First, try to load from user-specific key if user is logged in
         if (currentUser && currentUser.name) {
             const userKey = `gameProgress_${currentUser.name}`;
+            console.log('🔵 Trying to load from key:', userKey);
             const userData = localStorage.getItem(userKey);
             if (userData) {
                 const progress = JSON.parse(userData);
-                console.log('Loaded game progress (user-specific):', progress);
+                console.log('✅ Loaded game progress (user-specific):', progress);
                 return progress;
+            } else {
+                console.log('⚠️ No data found for user-specific key:', userKey);
             }
         }
         
         // Fall back to simple key (for backward compatibility and non-logged-in users)
+        console.log('🔵 Trying to load from simple key: gameProgress');
         const savedData = localStorage.getItem('gameProgress');
         if (savedData) {
             const progress = JSON.parse(savedData);
-            console.log('Loaded game progress (simple key):', progress);
+            console.log('✅ Loaded game progress (simple key):', progress);
             return progress;
+        } else {
+            console.log('⚠️ No data found for simple key');
         }
     } catch (error) {
-        console.error('Error loading progress:', error);
+        console.error('❌ Error loading progress:', error);
     }
+    console.log('❌ loadGameProgress returning null');
     return null;
 }
 

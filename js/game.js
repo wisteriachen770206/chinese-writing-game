@@ -37,7 +37,9 @@
             
             // Check for saved progress (works with or without user login)
             const savedProgress = loadGameProgress();
+            console.log('🔵 displayLevelSelection - savedProgress:', savedProgress);
             let savedLevelId = savedProgress ? savedProgress.currentLevel : null;
+            console.log('🔵 displayLevelSelection - savedLevelId:', savedLevelId);
             
             const totalLevels = levelConfig.levels.length;
             
@@ -46,10 +48,18 @@
             let nextLevelId = null;
             if (savedLevelId) {
                 const savedLevelIndex = levelConfig.levels.findIndex(l => l.id === savedLevelId);
+                console.log('🔵 displayLevelSelection - savedLevelIndex:', savedLevelIndex);
                 if (savedLevelIndex >= 0 && savedLevelIndex < totalLevels - 1) {
                     continueLevelIndex = savedLevelIndex + 1;
                     nextLevelId = levelConfig.levels[continueLevelIndex].id;
+                    console.log('✅ Continue level found:', nextLevelId, 'at index', continueLevelIndex);
+                } else if (savedLevelIndex >= 0) {
+                    console.log('⚠️ Last level completed - no next level to continue');
+                } else {
+                    console.log('❌ Saved level not found in levelConfig');
                 }
+            } else {
+                console.log('⚠️ No saved level found in progress');
             }
             
             let levelsToDisplay = [];
@@ -350,7 +360,7 @@
             const subtitle = document.getElementById('level-complete-subtitle');
             const timeDisplay = document.getElementById('level-complete-time');
             const charsDisplay = document.getElementById('level-complete-chars');
-            const scoreDisplay = document.getElementById('level-complete-score');
+            const scoreDisplay = document.getElementById('level-complete-score-value');
             const nextInfo = document.getElementById('level-complete-next-info');
             const nextBtn = document.getElementById('level-complete-next-btn');
             
@@ -431,6 +441,7 @@
             
             // THEN auto-create demo user and save (after overlay is visible)
             if (!currentUser) {
+                // Use setTimeout(0) to defer to next tick, ensuring overlay is rendered
                 setTimeout(() => {
                     console.log('🔵 Auto-creating demo user for first level complete...');
                     simulateGoogleLogin();
@@ -444,8 +455,8 @@
                         if (saveStatus) {
                             saveStatus.style.display = 'block';
                         }
-                    }, 200);
-                }, 100);
+                    }, 100);
+                }, 0);
             }
         }
         
@@ -1630,7 +1641,9 @@
             
             if (levelCompleteNextBtn) {
                 levelCompleteNextBtn.addEventListener('click', () => {
+                    console.log('🔵 Next Level button clicked');
                     hideLevelComplete();
+                    
                     // Find next level
                     const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
                     const nextLevel = currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1 
@@ -1640,15 +1653,28 @@
                     if (nextLevel) {
                         startLevel(nextLevel.id);
                     } else {
-                        showLevelSelection();
+                        // Last level - wait for save to complete before showing level selection
+                        setTimeout(() => {
+                            console.log('🔵 Last level completed - showing level selection');
+                            showLevelSelection();
+                            displayLevelSelection('', false);
+                        }, 400);
                     }
                 });
             }
             
             if (levelCompleteMenuBtn) {
                 levelCompleteMenuBtn.addEventListener('click', () => {
+                    console.log('🔵 Level Select button clicked');
                     hideLevelComplete();
-                    showLevelSelection();
+                    
+                    // Wait a bit to ensure auto-save is complete
+                    setTimeout(() => {
+                        console.log('🔵 Showing level selection and refreshing display');
+                        showLevelSelection();
+                        // Refresh the level display to show Continue card
+                        displayLevelSelection('', false);
+                    }, 400);
                 });
             }
 
