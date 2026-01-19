@@ -127,15 +127,27 @@ function saveGameProgress() {
     // Find the NEXT level to play (not the one just completed)
     let nextLevelId = null;
     if (currentLevel && levelConfig && levelConfig.levels) {
+        console.log('🔵 currentLevel:', currentLevel.id);
         const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
+        console.log('🔵 currentLevelIndex:', currentLevelIndex);
+        console.log('🔵 Total levels:', levelConfig.levels.length);
+        
         if (currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1) {
             nextLevelId = levelConfig.levels[currentLevelIndex + 1].id;
-            console.log('🔵 Saving NEXT level as continue point:', nextLevelId);
-        } else {
+            console.log('✅ Saving NEXT level as continue point:', nextLevelId);
+        } else if (currentLevelIndex >= 0) {
             // Last level completed - save current level
             nextLevelId = currentLevel.id;
-            console.log('🔵 Last level completed - saving:', nextLevelId);
+            console.log('✅ Last level completed - saving:', nextLevelId);
+        } else {
+            console.error('❌ Cannot find currentLevel in levelConfig!');
         }
+    } else {
+        console.error('❌ Missing data for save:', {
+            hasCurrentLevel: !!currentLevel,
+            hasLevelConfig: !!levelConfig,
+            hasLevels: !!(levelConfig && levelConfig.levels)
+        });
     }
     
     const progress = {
@@ -146,13 +158,22 @@ function saveGameProgress() {
         timestamp: Date.now()
     };
     
+    // Warn if nextLevelId is null
+    if (!nextLevelId) {
+        console.warn('⚠️ nextLevelId is null - save will not have a valid continue level');
+    }
+    
+    console.log('🔵 About to save progress:', progress);
+    
     try {
         // Save to user-specific key using name
         const userKey = `gameProgress_${currentUser.name}`;
+        console.log('🔵 Saving to key:', userKey);
         localStorage.setItem(userKey, JSON.stringify(progress));
         
         // Also save to simple key for backward compatibility
         localStorage.setItem('gameProgress', JSON.stringify(progress));
+        console.log('🔵 Saved to both keys');
         
         // Verify save worked by reading back
         const verification = localStorage.getItem(userKey);

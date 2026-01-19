@@ -36,10 +36,13 @@
             }
             
             // Check for saved progress (works with or without user login)
+            console.log('🔵 displayLevelSelection called');
+            console.log('🔵 currentUser at displayLevelSelection:', currentUser);
             const savedProgress = loadGameProgress();
             console.log('🔵 displayLevelSelection - savedProgress:', savedProgress);
             let savedLevelId = savedProgress ? savedProgress.currentLevel : null;
             console.log('🔵 displayLevelSelection - savedLevelId:', savedLevelId);
+            console.log('🔵 This should be the NEXT level to play after the completed one');
             
             const totalLevels = levelConfig.levels.length;
             
@@ -401,48 +404,32 @@
                 }
             }
             
-            // Handle save progress button visibility and auto-save
-            const saveBtn = document.getElementById('level-complete-save-btn');
-            if (currentUser) {
-                // User is logged in - check if they have saved progress
-                const existingProgress = loadGameProgress();
-                
-                if (existingProgress) {
-                    // User has saved before - auto-save and hide button
-                    saveGameProgress();
-                    if (saveBtn) {
-                        saveBtn.style.display = 'none';
-                    }
-                    // Show save status
-                    const saveStatus = document.getElementById('level-complete-save-status');
-                    if (saveStatus) {
-                        saveStatus.style.display = 'block';
-                    }
-                    showToast('Auto-Saved!', 'Your progress has been automatically saved.', '💾', 2500);
-                } else {
-                    // First time - show save button
-                    if (saveBtn) {
-                        saveBtn.style.display = 'block';
-                    }
-                }
-            } else {
-                // User not logged in - show save button for manual save
-                console.log('User not logged in - showing save button...');
-                if (saveBtn) {
-                    saveBtn.style.display = 'block';
-                }
-            }
-            
             // Show overlay FIRST
             if (overlay) {
                 overlay.classList.remove('hidden');
             }
             
-            // THEN auto-create demo user and save (after overlay is visible)
-            if (!currentUser) {
-                // Use setTimeout(0) to defer to next tick, ensuring overlay is rendered
+            // Handle auto-save for ALL level completions
+            const saveBtn = document.getElementById('level-complete-save-btn');
+            const saveStatus = document.getElementById('level-complete-save-status');
+            
+            if (currentUser) {
+                // User already logged in - ALWAYS auto-save
+                console.log('✅ User logged in - auto-saving progress');
                 setTimeout(() => {
-                    console.log('🔵 Auto-creating demo user for first level complete...');
+                    saveGameProgress();
+                    if (saveBtn) {
+                        saveBtn.style.display = 'none';
+                    }
+                    if (saveStatus) {
+                        saveStatus.style.display = 'block';
+                    }
+                }, 50);
+            } else {
+                // No user - auto-create demo user and save
+                console.log('🔵 No user - auto-creating demo user');
+                setTimeout(() => {
+                    console.log('🔵 Creating demo user for auto-save...');
                     simulateGoogleLogin();
                     // Save will happen automatically in onUserLogin callback
                     // Hide save button and show status after auto-save
@@ -450,11 +437,10 @@
                         if (saveBtn) {
                             saveBtn.style.display = 'none';
                         }
-                        const saveStatus = document.getElementById('level-complete-save-status');
                         if (saveStatus) {
                             saveStatus.style.display = 'block';
                         }
-                    }, 100);
+                    }, 150);
                 }, 0);
             }
         }
@@ -1665,13 +1651,21 @@
             if (levelCompleteMenuBtn) {
                 levelCompleteMenuBtn.addEventListener('click', () => {
                     console.log('🔵 Level Select button clicked');
+                    console.log('🔵 Current level just completed:', currentLevel ? currentLevel.id : 'null');
                     hideLevelComplete();
                     
                     // Wait a bit to ensure auto-save is complete
                     setTimeout(() => {
                         console.log('🔵 Showing level selection and refreshing display');
+                        console.log('🔵 currentUser before display:', currentUser);
                         showLevelSelection();
-                        // Refresh the level display to show Continue card
+                        // Force reload - clear the grid completely and rebuild
+                        const levelsGrid = document.getElementById('levels-grid');
+                        if (levelsGrid) {
+                            levelsGrid.innerHTML = '';
+                            console.log('🔵 Cleared levels grid');
+                        }
+                        // Refresh the level display to show Continue card with updated data
                         displayLevelSelection('', false);
                     }, 400);
                 });
