@@ -17,6 +17,7 @@ const STORAGE_KEY = 'hanziWriter_currentCharacterIndex';
 let maxHP = 100;
 let currentHP = 100;
 let isGameOver = false;
+let isGamePaused = false;
 
 // Score tracking system
 let perfectStrokesCount = 0;

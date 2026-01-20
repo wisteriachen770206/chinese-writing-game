@@ -151,7 +151,7 @@
             z-index: 10000;
             display: flex;
             justify-content: center;
-            touch-action: manipulation;
+            touch-action: auto;
             pointer-events: auto;
             align-items: center;
         }
@@ -168,7 +168,7 @@
             width: 90%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             animation: slideIn 0.3s ease;
-            touch-action: manipulation;
+            touch-action: auto;
             pointer-events: auto;
         }
 
@@ -503,6 +503,15 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             padding: 20px 0;
+        }
+        
+        #build-timestamp {
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 30px;
+            padding: 10px;
+            font-family: monospace;
         }
 
         .level-card {
@@ -1706,6 +1715,12 @@
                 padding: 20px 10px;
             }
             
+            #build-timestamp {
+                font-size: 10px;
+                margin-top: 20px;
+                padding: 5px;
+            }
+            
             .settings-btn-level-selection {
                 top: 20px;
                 right: 10px;
@@ -1822,29 +1837,30 @@
                 cursor: pointer;
                 -webkit-appearance: none;
                 appearance: none;
-                padding: 5px 0;
+                padding: 10px 0;
+                margin: 5px 0;
             }
             
             .volume-slider::-webkit-slider-thumb {
-                width: 32px;
-                height: 32px;
+                width: 36px;
+                height: 36px;
                 cursor: pointer;
                 -webkit-appearance: none;
                 appearance: none;
-                background: white;
+                background: #10b981;
                 border-radius: 50%;
-                border: 2px solid rgba(0, 0, 0, 0.1);
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                border: 3px solid #ffffff;
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
             }
             
             .volume-slider::-moz-range-thumb {
-                width: 32px;
-                height: 32px;
+                width: 36px;
+                height: 36px;
                 cursor: pointer;
-                background: white;
+                background: #10b981;
                 border-radius: 50%;
-                border: 2px solid rgba(0, 0, 0, 0.1);
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                border: 3px solid #ffffff;
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
             }
             
             .volume-value {

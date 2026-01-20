@@ -273,20 +273,39 @@ function initSettingsMenu() {
         return;
     }
     
-    // Prevent all touch events from propagating to game when settings are open
-    const settingsContent = document.getElementById('settings-content');
-    if (settingsContent) {
-        settingsContent.addEventListener('touchstart', (e) => {
+    // Block the settings overlay from triggering game strokes
+    // This prevents any touch in the overlay from being interpreted as strokes
+    if (settingsOverlay) {
+        const stopGameEvents = (e) => {
+            // Always stop propagation to prevent game from receiving touches
             e.stopPropagation();
-        }, { passive: true });
+        };
         
-        settingsContent.addEventListener('touchmove', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
-        
-        settingsContent.addEventListener('touchend', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
+        settingsOverlay.addEventListener('touchstart', stopGameEvents, { capture: true });
+        settingsOverlay.addEventListener('touchmove', stopGameEvents, { capture: true });
+        settingsOverlay.addEventListener('touchend', stopGameEvents, { capture: true });
+    }
+    
+    // Pause game function
+    function pauseGame() {
+        isGamePaused = true;
+        // Pause background music if playing
+        if (backgroundMusic && !backgroundMusic.paused) {
+            backgroundMusic.pause();
+        }
+        console.log('🔴 Game PAUSED');
+    }
+    
+    // Resume game function
+    function resumeGame() {
+        isGamePaused = false;
+        // Resume background music if it was enabled
+        if (musicEnabled && backgroundMusic && backgroundMusic.paused) {
+            backgroundMusic.play().catch(err => {
+                console.log('Could not resume music:', err);
+            });
+        }
+        console.log('▶️ Game RESUMED');
     }
     
     // Open settings menu from game screen
@@ -298,6 +317,7 @@ function initSettingsMenu() {
             e.stopPropagation();
             touchHandled = true;
             settingsOverlay.classList.remove('hidden');
+            pauseGame();
             console.log('Settings menu opened from game (touch)');
             setTimeout(() => { touchHandled = false; }, 300);
         }, { passive: false });
@@ -306,6 +326,7 @@ function initSettingsMenu() {
             if (!touchHandled) {
                 e.stopPropagation();
                 settingsOverlay.classList.remove('hidden');
+                pauseGame();
                 console.log('Settings menu opened from game (click)');
             }
         });
@@ -316,6 +337,7 @@ function initSettingsMenu() {
         settingsBtnLevelSelection.addEventListener('click', (e) => {
             e.stopPropagation();
             settingsOverlay.classList.remove('hidden');
+            // No pause needed on level selection screen (not in game)
             console.log('Settings menu opened from level selection');
         });
     }
@@ -324,6 +346,7 @@ function initSettingsMenu() {
     if (backToGameBtn) {
         const backToGame = () => {
             settingsOverlay.classList.add('hidden');
+            resumeGame();
             console.log('Back to game');
         };
         backToGameBtn.addEventListener('click', backToGame);
@@ -400,15 +423,6 @@ function initSettingsMenu() {
         
         musicVolumeSlider.addEventListener('input', updateMusicVolume);
         musicVolumeSlider.addEventListener('change', updateMusicVolume);
-        
-        // Prevent touch events from propagating to game
-        musicVolumeSlider.addEventListener('touchstart', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
-        
-        musicVolumeSlider.addEventListener('touchmove', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
     }
     
     // Sound effects volume slider
@@ -435,15 +449,6 @@ function initSettingsMenu() {
         
         soundEffectsVolumeSlider.addEventListener('input', updateSoundEffectsVolume);
         soundEffectsVolumeSlider.addEventListener('change', updateSoundEffectsVolume);
-        
-        // Prevent touch events from propagating to game
-        soundEffectsVolumeSlider.addEventListener('touchstart', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
-        
-        soundEffectsVolumeSlider.addEventListener('touchmove', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
     }
     
     // Close on overlay click (outside content)
