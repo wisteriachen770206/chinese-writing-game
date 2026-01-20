@@ -11,24 +11,66 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- HP Bar -->
-    <div id="hp-bar-container">
-        <div id="hp-bar-label">HP</div>
-        <div id="hp-bar-background">
-            <div id="hp-bar-fill"></div>
+    <!-- Top Line Container -->
+    <div id="top-line">
+        <!-- HP Bar -->
+        <div id="hp-bar-container">
+            <div id="hp-bar-label">HP</div>
+            <div id="hp-bar-background">
+                <div id="hp-bar-fill"></div>
+            </div>
+            <div id="hp-bar-text">100 / 100</div>
         </div>
-        <div id="hp-bar-text">100 / 100</div>
+        
+        <!-- Settings Button -->
+        <button id="settings-btn" class="settings-btn" title="Settings">⚙️</button>
     </div>
     
-    <!-- Timer -->
-    <div id="timer-container">
-        <div id="timer-icon">⏱️</div>
-        <div id="timer-text">00:00</div>
+    <!-- Settings Menu Overlay -->
+    <div id="settings-overlay" class="hidden">
+        <div id="settings-content">
+            <h2 id="settings-title">⚙️ Settings</h2>
+            
+            <div class="settings-options">
+                <!-- Music Controls (Icon + Volume) -->
+                <div class="settings-option settings-option-combined">
+                    <span class="settings-icon" id="music-icon">🎵</span>
+                    <div class="volume-slider-container">
+                        <input type="range" id="music-volume-slider" class="volume-slider" min="0" max="100" value="25">
+                        <span class="volume-value" id="music-volume-value">25%</span>
+                    </div>
+                </div>
+                
+                <!-- Sound Effects Controls (Icon + Volume) -->
+                <div class="settings-option settings-option-combined">
+                    <span class="settings-icon" id="sound-effects-icon">🔊</span>
+                    <div class="volume-slider-container">
+                        <input type="range" id="sound-effects-volume-slider" class="volume-slider" min="0" max="100" value="30">
+                        <span class="volume-value" id="sound-effects-volume-value">30%</span>
+                    </div>
+                </div>
+                
+                <!-- Stroke Tips Toggle -->
+                <div class="settings-option">
+                    <label class="settings-label">✏️ Stroke Tips</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="stroke-tips-toggle" checked>
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings-buttons">
+                <button id="back-to-game-btn" class="settings-btn-action">🎮 Back to Game</button>
+                <button id="goto-level-selection-btn" class="settings-btn-action">📚 Level Selection</button>
+            </div>
+        </div>
     </div>
     
     <!-- Level Selection Screen -->
     <div id="level-selection-overlay">
         <div id="level-selection-container">
+            <button id="settings-btn-level-selection" class="settings-btn-level-selection" title="Settings">⚙️</button>
             <h1 id="level-selection-title">Select Level</h1>
             <div id="level-search-container">
                 <input type="text" id="level-search-input" placeholder="🔍 Search levels by name..." />
@@ -59,10 +101,6 @@
             
             <!-- Other Stats -->
             <div id="level-complete-stats">
-                <div class="level-complete-stat-row">
-                    <span class="level-complete-stat-label">⏱️ Time</span>
-                    <span class="level-complete-stat-value" id="level-complete-time">0:00</span>
-                </div>
                 <div class="level-complete-stat-row">
                     <span class="level-complete-stat-label">✏️ Characters Completed</span>
                     <span class="level-complete-stat-value" id="level-complete-chars">6</span>
@@ -126,16 +164,6 @@
         </div>
     </div>
     
-    <div class="top-bar-trigger"></div>
-    <div class="top-bar">
-        <div id="next-stroke-btn">Next Stroke</div>
-        <button id="voice-btn" class="voice-btn" title="Read current character">🔊</button>
-        <div class="music-control">
-            <div class="music-icon">🎵</div>
-            <div class="music-toggle" id="music-toggle"></div>
-        </div>
-    </div>
-    
     <!-- Background music -->
     <audio id="background-music" loop>
         <source src="res/XJ0106.mp3" type="audio/mpeg">
@@ -148,12 +176,18 @@
         <div class="label">Similarity Score</div>
         <div class="value" id="similarity-value">0%</div>
     </div>
+    
     <div class="main-content">
         <div class="canvas-container-wrapper horizontal-layout" id="canvas-container-wrapper">
             <div class="container">
                 <div class="character-wrapper">
                     <canvas id="guide-canvas"></canvas>
                     <canvas id="character-canvas"></canvas>
+                    <!-- Stroke Tip Canvas -->
+                    <div id="stroke-tip-container" class="hidden">
+                        <div class="stroke-tip-label">Next Stroke</div>
+                        <canvas id="stroke-tip-canvas" width="90" height="90"></canvas>
+                    </div>
                 </div>
             </div>
             <div id="completed-characters-container"></div>
@@ -167,7 +201,6 @@
     <!-- Load modularized game code -->
     <script src="js/game-state.js"></script>
     <script src="js/hp-system.js"></script>
-    <script src="js/timer.js"></script>
     <script src="js/ui-manager.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/hanzi-writer.js"></script>

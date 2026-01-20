@@ -4,7 +4,6 @@
         // DEPENDENCIES (loaded before this file):
         // - game-state.js: All global variables
         console.log('✅ game.js starting to load...');
-        // - timer.js: Timer functions  
         // - hp-system.js: HP and damage functions
         // - auth.js: Authentication and save/load
         // - ui-manager.js: UI interactions
@@ -211,11 +210,9 @@
                 levelSelection.classList.add('hidden');
             }
             
-            // Show HP bar and timer
-            const hpBar = document.getElementById('hp-bar-container');
-            const timer = document.getElementById('timer-container');
-            if (hpBar) hpBar.classList.add('visible');
-            if (timer) timer.classList.add('visible');
+            // Show top line (HP bar + settings button)
+            const topLine = document.getElementById('top-line');
+            if (topLine) topLine.classList.add('visible');
             
             currentCharacterIndex = 0;
             
@@ -241,9 +238,6 @@
             perfectStrokesCount = 0;
             notGoodStrokesCount = 0;
             
-            resetTimer();
-            startTimer();
-            
             console.log(`Starting Level ${level.id}: ${level.name}`);
             console.log(`Characters: ${level.characters}`);
             console.log(`HP: ${level.maxHP}`);
@@ -259,11 +253,9 @@
                 levelSelection.classList.remove('hidden');
             }
             
-            // Hide HP bar and timer
-            const hpBar = document.getElementById('hp-bar-container');
-            const timer = document.getElementById('timer-container');
-            if (hpBar) hpBar.classList.remove('visible');
-            if (timer) timer.classList.remove('visible');
+            // Hide top line (HP bar + settings button)
+            const topLine = document.getElementById('top-line');
+            if (topLine) topLine.classList.remove('visible');
         }
         
         function hideLevelSelection() {
@@ -272,11 +264,9 @@
                 levelSelection.classList.add('hidden');
             }
 
-            // Show HP bar and timer
-            const hpBar = document.getElementById('hp-bar-container');
-            const timer = document.getElementById('timer-container');
-            if (hpBar) hpBar.classList.add('visible');
-            if (timer) timer.classList.add('visible');
+            // Show top line (HP bar + settings button)
+            const topLine = document.getElementById('top-line');
+            if (topLine) topLine.classList.add('visible');
         }
         
         function setCompletedCharactersLayout(numCharacters) {
@@ -343,9 +333,7 @@
         function onLevelComplete() {
             console.log('🎉 onLevelComplete called');
             console.log('🔵 currentUser at level complete:', currentUser);
-            stopTimer();
             
-            const timeStr = `${Math.floor(timerElapsedSeconds / 60)}:${String(timerElapsedSeconds % 60).padStart(2, '0')}`;
             const hpLeft = Math.round(currentHP);
             
             // Find next level
@@ -655,8 +643,7 @@
                 charactersToLearn: charactersToLearn,
                 completedCharacters: Array.from(document.querySelectorAll('.completed-character')).map(el => el.textContent),
                 currentHP: currentHP,
-                maxHP: maxHP,
-                elapsedTime: timerElapsedSeconds
+                maxHP: maxHP
             };
 
             // Save to localStorage with user-specific key
@@ -745,7 +732,6 @@
         
         function showGameOver() {
             isGameOver = true;
-            stopTimer();
             const overlay = document.getElementById('game-over-overlay');
             if (overlay) {
                 overlay.classList.remove('hidden');
@@ -764,9 +750,6 @@
             if (overlay) {
                 overlay.classList.add('hidden');
             }
-            
-            // Stop timer
-            stopTimer();
             
             // Show level selection screen
             showLevelSelection();
@@ -1741,8 +1724,7 @@
             checkUserLoginStatus();
             
             initMusicControl();
-            initVoiceButton();
-            initTopBarAutoHide();
+            initSettingsMenu();
             
             // Load level config and show level selection
             console.log('Loading level config...');
@@ -2015,6 +1997,7 @@
                 // Wait a bit to ensure canvas is fully initialized and guide is drawn
                 setTimeout(() => {
                     updateProgressDisplay();
+                    updateStrokeTip(hanziWriter);
                     console.log(`Character ${character} displayed. Drag or touch anywhere to draw strokes...`);
                 }, 50);
             }, 100);
@@ -2340,6 +2323,7 @@
                         }
                         hanziWriter.currentStrokeIndex++;
                         updateProgressDisplay();
+                        updateStrokeTip(hanziWriter);
                         if (hanziWriter.currentStrokeIndex >= hanziWriter.totalStrokes) {
                             setTimeout(() => {
                                 onCharacterCompleted();
@@ -2353,6 +2337,7 @@
                         hanziWriter.currentStrokeIndex++;
                         
                         updateProgressDisplay();
+                        updateStrokeTip(hanziWriter);
                         
                         if (hanziWriter.currentStrokeIndex >= hanziWriter.totalStrokes) {
                             console.log('All strokes completed for this character');
@@ -2824,14 +2809,17 @@
                             const availableSize = canvasSize - (padding * 2);
                             const scale = availableSize / Math.max(dataWidth, dataHeight);
                             
-                            // Convert first stroke length to screen pixels and take 80%
+                            // Convert first stroke length to screen pixels and take 60%
                             const firstStrokeLengthScreen = currentStroke.length * scale;
-                            minDragDistance = firstStrokeLengthScreen * 0.8;
+                            minDragDistance = firstStrokeLengthScreen * 0.6;
+                            
+                            // Ensure minimum is at least 30 pixels
+                            minDragDistance = Math.max(30, minDragDistance);
                         }
                     }
                 }
                 
-                // Only proceed if drag distance is greater than minimum threshold (80% of first stroke length)
+                // Only proceed if drag distance is greater than minimum threshold (60% of first stroke length)
                 if (dragDistance < minDragDistance) {
                     isDragging = false;
                     hasTriggered = false;

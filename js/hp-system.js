@@ -32,7 +32,6 @@ function updateHPBar(newHP) {
 
 function showGameOver() {
     isGameOver = true;
-    stopTimer();
     const overlay = document.getElementById('game-over-overlay');
     if (overlay) {
         overlay.classList.remove('hidden');
@@ -48,7 +47,6 @@ function restartGame() {
         overlay.classList.add('hidden');
     }
     
-    stopTimer();
     showLevelSelection();
 }
 

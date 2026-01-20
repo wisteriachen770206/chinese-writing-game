@@ -153,7 +153,6 @@ function saveGameProgress() {
     const progress = {
         userName: currentUser.name,
         currentLevel: nextLevelId,  // Save the NEXT level to play
-        elapsedTime: timerElapsedSeconds,
         hp: currentHP,
         timestamp: Date.now()
     };

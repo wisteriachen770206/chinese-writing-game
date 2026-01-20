@@ -26,11 +26,6 @@ let notGoodStrokesCount = 0;
 let levelConfig = null;
 let currentLevel = null;
 
-// Timer system
-let timerStartTime = null;
-let timerInterval = null;
-let timerElapsedSeconds = 0;
-
 // Authentication system
 let currentUser = null;
 

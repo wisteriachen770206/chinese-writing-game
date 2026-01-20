@@ -5,6 +5,10 @@ console.log('✅ ui-manager.js loaded');
 
 let backgroundMusic = null;
 let musicEnabled = false;
+let soundEffectsEnabled = true;
+let strokeTipsEnabled = true;
+let musicVolume = 0.25; // 25% default
+let soundEffectsVolume = 0.30; // 30% default
 
 // ========== TOAST NOTIFICATIONS ==========
 
@@ -32,6 +36,12 @@ function showToast(title, message, icon = '✅', duration = 3000) {
 // ========== COMPLETION SOUND ==========
 
 function playCompletionSound() {
+    // Check if sound effects are enabled (volume > 0)
+    if (!soundEffectsEnabled || soundEffectsVolume === 0) {
+        console.log('Sound effects muted, skipping completion sound');
+        return;
+    }
+    
     try {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const oscillator = audioContext.createOscillator();
@@ -45,7 +55,7 @@ function playCompletionSound() {
         oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
         oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
         
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(soundEffectsVolume, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
         
         oscillator.start(audioContext.currentTime);
@@ -72,7 +82,7 @@ function initMusicControl() {
     musicToggle.classList.add('active');
     musicEnabled = true;
     
-    backgroundMusic.volume = 0.25;
+    backgroundMusic.volume = musicVolume;
     backgroundMusic.loop = true;
     
     musicToggle.addEventListener('click', function(e) {
@@ -154,40 +164,6 @@ function initVoiceButton() {
     });
     
     console.log('Voice button initialized');
-}
-
-// ========== MOBILE TOP BAR AUTO-HIDE ==========
-
-function initTopBarAutoHide() {
-    const topBar = document.getElementById('top-bar');
-    const trigger = document.querySelector('.top-bar-trigger');
-    
-    if (!topBar || !trigger) return;
-    
-    let hideTimeout = null;
-    
-    const showTopBar = () => {
-        topBar.classList.add('visible');
-        if (hideTimeout) {
-            clearTimeout(hideTimeout);
-        }
-        hideTimeout = setTimeout(() => {
-            topBar.classList.remove('visible');
-        }, 3000);
-    };
-    
-    const hideTopBar = () => {
-        topBar.classList.remove('visible');
-    };
-    
-    trigger.addEventListener('click', showTopBar);
-    trigger.addEventListener('touchstart', showTopBar);
-    
-    document.addEventListener('click', (e) => {
-        if (!topBar.contains(e.target) && !trigger.contains(e.target)) {
-            hideTopBar();
-        }
-    });
 }
 
 // ========== CHARACTER THUMBNAILS ==========
@@ -277,5 +253,315 @@ async function loadPreviousCharactersThumbnails(startIndex) {
             const thumbnail = generateCharacterThumbnail(char, charData);
             addThumbnailToContainer(char, thumbnail);
         }
+    }
+}
+
+// ========== SETTINGS MENU ==========
+
+function initSettingsMenu() {
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsBtnLevelSelection = document.getElementById('settings-btn-level-selection');
+    const settingsOverlay = document.getElementById('settings-overlay');
+    const backToGameBtn = document.getElementById('back-to-game-btn');
+    const gotoLevelSelectionBtn = document.getElementById('goto-level-selection-btn');
+    const musicToggle = document.getElementById('music-toggle-setting');
+    const soundEffectsToggle = document.getElementById('sound-effects-toggle');
+    const strokeTipsToggle = document.getElementById('stroke-tips-toggle');
+    
+    if (!settingsOverlay) {
+        console.warn('Settings overlay not found');
+        return;
+    }
+    
+    // Open settings menu from game screen
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsOverlay.classList.remove('hidden');
+            console.log('Settings menu opened from game');
+        });
+    }
+    
+    // Open settings menu from level selection screen
+    if (settingsBtnLevelSelection) {
+        settingsBtnLevelSelection.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsOverlay.classList.remove('hidden');
+            console.log('Settings menu opened from level selection');
+        });
+    }
+    
+    // Close settings menu - back to game
+    if (backToGameBtn) {
+        backToGameBtn.addEventListener('click', () => {
+            settingsOverlay.classList.add('hidden');
+            console.log('Back to game');
+        });
+    }
+    
+    // Go to level selection
+    if (gotoLevelSelectionBtn) {
+        gotoLevelSelectionBtn.addEventListener('click', () => {
+            settingsOverlay.classList.add('hidden');
+            showLevelSelection();
+            console.log('Going to level selection');
+        });
+    }
+    
+    // Stroke tips toggle
+    if (strokeTipsToggle) {
+        strokeTipsToggle.addEventListener('change', () => {
+            strokeTipsEnabled = strokeTipsToggle.checked;
+            console.log('Stroke Tips:', strokeTipsEnabled ? 'ON' : 'OFF');
+            
+            // Update stroke tip display based on new setting
+            if (typeof hanziWriter !== 'undefined' && hanziWriter) {
+                if (strokeTipsEnabled) {
+                    updateStrokeTip(hanziWriter);
+                } else {
+                    hideStrokeTip();
+                }
+            }
+        });
+    }
+    
+    // Music volume slider
+    const musicVolumeSlider = document.getElementById('music-volume-slider');
+    const musicVolumeValue = document.getElementById('music-volume-value');
+    const musicIcon = document.getElementById('music-icon');
+    if (musicVolumeSlider && musicVolumeValue && musicIcon) {
+        musicVolumeSlider.addEventListener('input', () => {
+            const volume = parseInt(musicVolumeSlider.value);
+            musicVolume = volume / 100; // Convert to 0-1 range
+            musicVolumeValue.textContent = volume + '%';
+            
+            // Change icon based on volume
+            if (volume === 0) {
+                // Use SVG for muted music
+                musicIcon.innerHTML = '<img src="res/no-music.svg" style="width: 24px; height: 24px; vertical-align: middle;">';
+                musicEnabled = false;
+                if (backgroundMusic) {
+                    backgroundMusic.pause();
+                }
+            } else {
+                musicIcon.textContent = '🎵'; // Music icon
+                musicEnabled = true;
+                if (backgroundMusic) {
+                    backgroundMusic.volume = musicVolume;
+                    if (backgroundMusic.paused) {
+                        backgroundMusic.play().catch(err => {
+                            console.log('Could not play music:', err);
+                        });
+                    }
+                }
+            }
+            
+            console.log('Music Volume:', volume + '%', musicEnabled ? 'ON' : 'MUTED');
+        });
+    }
+    
+    // Sound effects volume slider
+    const soundEffectsVolumeSlider = document.getElementById('sound-effects-volume-slider');
+    const soundEffectsVolumeValue = document.getElementById('sound-effects-volume-value');
+    const soundEffectsIcon = document.getElementById('sound-effects-icon');
+    if (soundEffectsVolumeSlider && soundEffectsVolumeValue && soundEffectsIcon) {
+        soundEffectsVolumeSlider.addEventListener('input', () => {
+            const volume = parseInt(soundEffectsVolumeSlider.value);
+            soundEffectsVolume = volume / 100; // Convert to 0-1 range
+            soundEffectsVolumeValue.textContent = volume + '%';
+            
+            // Change icon based on volume
+            if (volume === 0) {
+                soundEffectsIcon.textContent = '🔇'; // Muted icon only
+                soundEffectsEnabled = false;
+            } else {
+                soundEffectsIcon.textContent = '🔊'; // Sound icon
+                soundEffectsEnabled = true;
+            }
+            
+            console.log('Sound Effects Volume:', volume + '%', soundEffectsEnabled ? 'ON' : 'MUTED');
+        });
+    }
+    
+    // Close on overlay click (outside content)
+    settingsOverlay.addEventListener('click', (e) => {
+        if (e.target === settingsOverlay) {
+            settingsOverlay.classList.add('hidden');
+        }
+    });
+    
+    console.log('Settings menu initialized');
+}
+
+// Function to check if sound effects are enabled
+function isSoundEffectsEnabled() {
+    return soundEffectsEnabled;
+}
+
+// Function to check if stroke tips are enabled
+function isStrokeTipsEnabled() {
+    return strokeTipsEnabled;
+}
+
+// ========== STROKE TIP CANVAS ==========
+
+/**
+ * Draws the current stroke in a small canvas as a visual tip
+ * @param {HTMLCanvasElement} tipCanvas - The small canvas element to draw on
+ * @param {Array} strokePoints - Array of points for the stroke (e.g., from medians data)
+ * @param {Object} options - Optional configuration
+ * @param {string} options.strokeColor - Color of the stroke (default: '#4ade80')
+ * @param {number} options.lineWidth - Width of the stroke line (default: 3)
+ * @param {number} options.padding - Padding around the stroke (default: 10)
+ */
+function drawStrokeTip(tipCanvas, strokePoints, options = {}) {
+    if (!tipCanvas || !strokePoints || strokePoints.length === 0) {
+        console.warn('Invalid canvas or stroke points for tip');
+        return;
+    }
+    
+    const ctx = tipCanvas.getContext('2d');
+    if (!ctx) {
+        console.error('Could not get canvas context for stroke tip');
+        return;
+    }
+    
+    // Default options
+    const strokeColor = options.strokeColor || '#4ade80';
+    const lineWidth = options.lineWidth || 3;
+    const padding = options.padding || 10;
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, tipCanvas.width, tipCanvas.height);
+    
+    // Find bounding box of the stroke
+    let minX = Infinity, minY = Infinity;
+    let maxX = -Infinity, maxY = -Infinity;
+    
+    strokePoints.forEach(point => {
+        if (point && typeof point.x === 'number' && typeof point.y === 'number') {
+            minX = Math.min(minX, point.x);
+            minY = Math.min(minY, point.y);
+            maxX = Math.max(maxX, point.x);
+            maxY = Math.max(maxY, point.y);
+        }
+    });
+    
+    // Calculate scale to fit stroke in canvas with padding
+    const strokeWidth = maxX - minX;
+    const strokeHeight = maxY - minY;
+    const availableWidth = tipCanvas.width - (padding * 2);
+    const availableHeight = tipCanvas.height - (padding * 2);
+    
+    const scale = Math.min(
+        availableWidth / strokeWidth,
+        availableHeight / strokeHeight
+    );
+    
+    // Calculate offset to center the stroke
+    const offsetX = (tipCanvas.width - (strokeWidth * scale)) / 2 - (minX * scale);
+    const offsetY = (tipCanvas.height - (strokeHeight * scale)) / 2 - (minY * scale);
+    
+    // Draw the stroke
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = lineWidth;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    
+    ctx.beginPath();
+    strokePoints.forEach((point, index) => {
+        if (!point || typeof point.x !== 'number' || typeof point.y !== 'number') return;
+        
+        const x = point.x * scale + offsetX;
+        // Flip Y-axis: subtract from canvas height to invert
+        const y = tipCanvas.height - (point.y * scale + offsetY);
+        
+        if (index === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    });
+    ctx.stroke();
+}
+
+/**
+ * Draws the current stroke from HanziWriter instance in a tip canvas
+ * @param {HTMLCanvasElement} tipCanvas - The small canvas element to draw on
+ * @param {Object} writerInstance - The HanziWriter instance
+ * @param {Object} options - Optional configuration (same as drawStrokeTip)
+ */
+function drawCurrentStrokeTip(tipCanvas, writerInstance, options = {}) {
+    if (!writerInstance || !writerInstance.strokeData || !writerInstance.strokeData.rawCharData) {
+        console.warn('Invalid writer instance for stroke tip');
+        return;
+    }
+    
+    const medians = writerInstance.strokeData.rawCharData.medians;
+    if (!medians || medians.length === 0) {
+        console.warn('No stroke data available for tip');
+        return;
+    }
+    
+    const currentIndex = writerInstance.currentStrokeIndex;
+    if (currentIndex >= medians.length) {
+        console.warn('Current stroke index out of bounds');
+        return;
+    }
+    
+    // Get current stroke points (convert from array format to {x, y} objects)
+    const currentStrokeArray = medians[currentIndex];
+    const strokePoints = currentStrokeArray.map(point => ({
+        x: point[0],
+        y: point[1]
+    }));
+    
+    drawStrokeTip(tipCanvas, strokePoints, options);
+}
+
+/**
+ * Updates the stroke tip display based on current game state
+ * @param {Object} writerInstance - The HanziWriter instance
+ */
+function updateStrokeTip(writerInstance) {
+    const container = document.getElementById('stroke-tip-container');
+    const canvas = document.getElementById('stroke-tip-canvas');
+    
+    if (!container || !canvas) {
+        console.warn('Stroke tip elements not found');
+        return;
+    }
+    
+    // Check if stroke tips are enabled
+    if (!strokeTipsEnabled) {
+        container.classList.add('hidden');
+        return;
+    }
+    
+    // Check if we have a valid writer instance with strokes remaining
+    if (!writerInstance || 
+        !writerInstance.strokeData || 
+        !writerInstance.strokeData.rawCharData ||
+        writerInstance.currentStrokeIndex >= writerInstance.totalStrokes) {
+        container.classList.add('hidden');
+        return;
+    }
+    
+    // Show the container and draw the current stroke tip
+    container.classList.remove('hidden');
+    drawCurrentStrokeTip(canvas, writerInstance, {
+        strokeColor: '#4ade80',
+        lineWidth: 4,
+        padding: 15
+    });
+}
+
+/**
+ * Hides the stroke tip display
+ */
+function hideStrokeTip() {
+    const container = document.getElementById('stroke-tip-container');
+    if (container) {
+        container.classList.add('hidden');
     }
 }
