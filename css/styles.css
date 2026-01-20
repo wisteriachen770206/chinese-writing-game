@@ -1755,13 +1755,28 @@
                 min-width: 25px;
             }
             
+            .settings-icon img {
+                width: 20px !important;
+                height: 20px !important;
+            }
+            
             .settings-option-combined {
                 gap: 10px;
+                flex-wrap: nowrap;
+            }
+            
+            .settings-option-combined .volume-slider-container {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .volume-slider {
+                min-width: 100px;
             }
             
             .volume-value {
                 font-size: 14px;
-                min-width: 40px;
+                min-width: 35px;
             }
             
             .settings-btn-action {
