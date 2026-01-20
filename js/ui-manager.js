@@ -275,10 +275,23 @@ function initSettingsMenu() {
     
     // Open settings menu from game screen
     if (settingsBtn) {
-        settingsBtn.addEventListener('click', (e) => {
+        let touchHandled = false;
+        
+        settingsBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
             e.stopPropagation();
+            touchHandled = true;
             settingsOverlay.classList.remove('hidden');
-            console.log('Settings menu opened from game');
+            console.log('Settings menu opened from game (touch)');
+            setTimeout(() => { touchHandled = false; }, 300);
+        }, { passive: false });
+        
+        settingsBtn.addEventListener('click', (e) => {
+            if (!touchHandled) {
+                e.stopPropagation();
+                settingsOverlay.classList.remove('hidden');
+                console.log('Settings menu opened from game (click)');
+            }
         });
     }
     

@@ -1594,8 +1594,12 @@
                 right: auto;
                 width: 50px;
                 height: 50px;
+                z-index: 2001;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0.2);
+                pointer-events: auto;
+                cursor: pointer;
                 flex-shrink: 0;
-                z-index: auto;
                 background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
                 border: none;
                 border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
@@ -1605,11 +1609,20 @@
                 font-size: 20px;
                 color: #8e8e93;
                 backdrop-filter: blur(10px);
-                transition: all 0.3s ease;
-                pointer-events: auto;
-                display: flex !important;
+                transition: all 0.2s ease;
+                display: flex;
                 align-items: center;
                 justify-content: center;
+            }
+            
+            /* Increase tap target area for mobile */
+            .settings-btn::before {
+                content: '';
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                bottom: -10px;
+                left: -10px;
             }
             
             .settings-btn:active {
