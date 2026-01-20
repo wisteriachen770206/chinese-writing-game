@@ -151,6 +151,8 @@
             z-index: 10000;
             display: flex;
             justify-content: center;
+            touch-action: manipulation;
+            pointer-events: auto;
             align-items: center;
         }
 
@@ -166,6 +168,8 @@
             width: 90%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             animation: slideIn 0.3s ease;
+            touch-action: manipulation;
+            pointer-events: auto;
         }
 
         @keyframes slideIn {
@@ -298,6 +302,9 @@
             outline: none;
             -webkit-appearance: none;
             appearance: none;
+            touch-action: none;
+            pointer-events: auto;
+            cursor: pointer;
         }
 
         .volume-slider::-webkit-slider-thumb {
@@ -1759,23 +1766,30 @@
                 margin-bottom: 25px;
             }
             
+            .settings-option {
+                padding: 20px;
+                min-height: 60px;
+            }
+            
             .settings-label {
                 font-size: 16px;
             }
             
             .settings-icon {
-                font-size: 20px;
-                min-width: 25px;
+                font-size: 24px;
+                min-width: 30px;
             }
             
             .settings-icon img {
-                width: 20px !important;
-                height: 20px !important;
+                width: 24px !important;
+                height: 24px !important;
             }
             
             .settings-option-combined {
-                gap: 10px;
+                gap: 12px;
                 flex-wrap: nowrap;
+                padding: 20px;
+                min-height: 60px;
             }
             
             .settings-option-combined .volume-slider-container {
@@ -1785,6 +1799,21 @@
             
             .volume-slider {
                 min-width: 100px;
+                touch-action: manipulation;
+                pointer-events: auto;
+                cursor: pointer;
+            }
+            
+            .volume-slider::-webkit-slider-thumb {
+                width: 28px;
+                height: 28px;
+                cursor: pointer;
+            }
+            
+            .volume-slider::-moz-range-thumb {
+                width: 28px;
+                height: 28px;
+                cursor: pointer;
             }
             
             .volume-value {
@@ -1795,6 +1824,26 @@
             .settings-btn-action {
                 font-size: 16px;
                 padding: 12px 20px;
+                touch-action: manipulation;
+                pointer-events: auto;
+                cursor: pointer;
+            }
+            
+            .toggle-switch {
+                width: 70px;
+                height: 34px;
+                touch-action: manipulation;
+                pointer-events: auto;
+            }
+            
+            .toggle-switch input {
+                touch-action: manipulation;
+                pointer-events: auto;
+            }
+            
+            .toggle-slider:before {
+                height: 26px;
+                width: 26px;
             }
             
             /* Stroke Tip - Mobile positioning */

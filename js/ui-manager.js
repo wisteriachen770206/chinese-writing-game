@@ -306,19 +306,29 @@ function initSettingsMenu() {
     
     // Close settings menu - back to game
     if (backToGameBtn) {
-        backToGameBtn.addEventListener('click', () => {
+        const backToGame = () => {
             settingsOverlay.classList.add('hidden');
             console.log('Back to game');
-        });
+        };
+        backToGameBtn.addEventListener('click', backToGame);
+        backToGameBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            backToGame();
+        }, { passive: false });
     }
     
     // Go to level selection
     if (gotoLevelSelectionBtn) {
-        gotoLevelSelectionBtn.addEventListener('click', () => {
+        const goToLevelSelection = () => {
             settingsOverlay.classList.add('hidden');
             showLevelSelection();
             console.log('Going to level selection');
-        });
+        };
+        gotoLevelSelectionBtn.addEventListener('click', goToLevelSelection);
+        gotoLevelSelectionBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            goToLevelSelection();
+        }, { passive: false });
     }
     
     // Stroke tips toggle
@@ -397,11 +407,14 @@ function initSettingsMenu() {
     }
     
     // Close on overlay click (outside content)
-    settingsOverlay.addEventListener('click', (e) => {
+    const closeSettingsOnBackdrop = (e) => {
         if (e.target === settingsOverlay) {
             settingsOverlay.classList.add('hidden');
         }
-    });
+    };
+    
+    settingsOverlay.addEventListener('click', closeSettingsOnBackdrop);
+    settingsOverlay.addEventListener('touchend', closeSettingsOnBackdrop, { passive: true });
     
     console.log('Settings menu initialized');
 }
