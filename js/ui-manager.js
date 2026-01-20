@@ -273,6 +273,22 @@ function initSettingsMenu() {
         return;
     }
     
+    // Prevent all touch events from propagating to game when settings are open
+    const settingsContent = document.getElementById('settings-content');
+    if (settingsContent) {
+        settingsContent.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+        
+        settingsContent.addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+        
+        settingsContent.addEventListener('touchend', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+    }
+    
     // Open settings menu from game screen
     if (settingsBtn) {
         let touchHandled = false;
@@ -353,7 +369,7 @@ function initSettingsMenu() {
     const musicVolumeValue = document.getElementById('music-volume-value');
     const musicIcon = document.getElementById('music-icon');
     if (musicVolumeSlider && musicVolumeValue && musicIcon) {
-        musicVolumeSlider.addEventListener('input', () => {
+        const updateMusicVolume = () => {
             const volume = parseInt(musicVolumeSlider.value);
             musicVolume = volume / 100; // Convert to 0-1 range
             musicVolumeValue.textContent = volume + '%';
@@ -380,7 +396,19 @@ function initSettingsMenu() {
             }
             
             console.log('Music Volume:', volume + '%', musicEnabled ? 'ON' : 'MUTED');
-        });
+        };
+        
+        musicVolumeSlider.addEventListener('input', updateMusicVolume);
+        musicVolumeSlider.addEventListener('change', updateMusicVolume);
+        
+        // Prevent touch events from propagating to game
+        musicVolumeSlider.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+        
+        musicVolumeSlider.addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
     }
     
     // Sound effects volume slider
@@ -388,7 +416,7 @@ function initSettingsMenu() {
     const soundEffectsVolumeValue = document.getElementById('sound-effects-volume-value');
     const soundEffectsIcon = document.getElementById('sound-effects-icon');
     if (soundEffectsVolumeSlider && soundEffectsVolumeValue && soundEffectsIcon) {
-        soundEffectsVolumeSlider.addEventListener('input', () => {
+        const updateSoundEffectsVolume = () => {
             const volume = parseInt(soundEffectsVolumeSlider.value);
             soundEffectsVolume = volume / 100; // Convert to 0-1 range
             soundEffectsVolumeValue.textContent = volume + '%';
@@ -403,7 +431,19 @@ function initSettingsMenu() {
             }
             
             console.log('Sound Effects Volume:', volume + '%', soundEffectsEnabled ? 'ON' : 'MUTED');
-        });
+        };
+        
+        soundEffectsVolumeSlider.addEventListener('input', updateSoundEffectsVolume);
+        soundEffectsVolumeSlider.addEventListener('change', updateSoundEffectsVolume);
+        
+        // Prevent touch events from propagating to game
+        soundEffectsVolumeSlider.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+        
+        soundEffectsVolumeSlider.addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
     }
     
     // Close on overlay click (outside content)

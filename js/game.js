@@ -2678,6 +2678,12 @@
             }
 
             function handleStart(e) {
+                // Check if settings overlay is visible
+                const settingsOverlay = document.getElementById('settings-overlay');
+                if (settingsOverlay && !settingsOverlay.classList.contains('hidden')) {
+                    return; // Don't handle drag if settings is visible
+                }
+                
                 // Check if level selection overlay is visible
                 const levelSelectionOverlay = document.getElementById('level-selection-overlay');
                 if (levelSelectionOverlay && !levelSelectionOverlay.classList.contains('hidden')) {
@@ -2728,6 +2734,13 @@
             }
 
             async function handleEnd(e) {
+                // Check if settings overlay is visible
+                const settingsOverlay = document.getElementById('settings-overlay');
+                if (settingsOverlay && !settingsOverlay.classList.contains('hidden')) {
+                    isDragging = false;
+                    return; // Don't handle drag if settings is visible
+                }
+                
                 // Check if level selection overlay is visible
                 const levelSelectionOverlay = document.getElementById('level-selection-overlay');
                 if (levelSelectionOverlay && !levelSelectionOverlay.classList.contains('hidden')) {
