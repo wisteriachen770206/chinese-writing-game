@@ -112,59 +112,6 @@ function initMusicControl() {
     console.log('Music control initialized');
 }
 
-// ========== VOICE BUTTON (TTS) ==========
-
-function initVoiceButton() {
-    const voiceBtn = document.getElementById('voice-btn');
-    
-    if (!voiceBtn) {
-        console.warn('Voice button not found');
-        return;
-    }
-    
-    voiceBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        
-        if (!character) {
-            console.log('No character to read');
-            return;
-        }
-        
-        console.log(`Reading character: ${character}`);
-        
-        try {
-            window.speechSynthesis.cancel();
-            
-            const utterance = new SpeechSynthesisUtterance(character);
-            utterance.lang = 'zh-CN';
-            utterance.rate = 0.7;
-            utterance.pitch = 1.0;
-            utterance.volume = 1.0;
-            
-            utterance.onstart = () => {
-                console.log(`Started speaking: ${character}`);
-                voiceBtn.style.background = 'rgba(74, 222, 128, 0.3)';
-            };
-            
-            utterance.onend = () => {
-                console.log(`Finished speaking: ${character}`);
-                voiceBtn.style.background = 'rgba(255, 255, 255, 0.1)';
-            };
-            
-            utterance.onerror = (e) => {
-                console.log('Error speaking:', e);
-                voiceBtn.style.background = 'rgba(255, 255, 255, 0.1)';
-            };
-            
-            window.speechSynthesis.speak(utterance);
-        } catch (e) {
-            console.error('Error reading character:', e);
-        }
-    });
-    
-    console.log('Voice button initialized');
-}
 
 // ========== CHARACTER THUMBNAILS ==========
 

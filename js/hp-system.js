@@ -63,7 +63,34 @@ function resetHP() {
 function punishmentToHPDeduction(punishment) {
     if (punishment < 50) {
         return 0;
-    } else {
-        return punishment / 10;
     }
+    
+    // Get difficulty settings
+    const difficultySettings = getDifficultySettings();
+    const multiplier = difficultySettings ? difficultySettings.punishmentMultiplier : 1;
+    
+    // Apply difficulty multiplier to HP deduction
+    const baseDeduction = punishment / 10;
+    const finalDeduction = baseDeduction * multiplier;
+    
+    console.log(`HP Deduction: ${finalDeduction.toFixed(2)} = ${baseDeduction.toFixed(2)} × ${multiplier} (${currentLevel?.difficulty || 'unknown'} difficulty)`);
+    
+    return finalDeduction;
+}
+
+function getDifficultySettings() {
+    if (!currentLevel || !levelConfig || !levelConfig.difficulties) {
+        return null;
+    }
+    
+    const difficulty = currentLevel.difficulty || 'easy';
+    return levelConfig.difficulties[difficulty];
+}
+
+function applyPerfectBonus() {
+    const difficultySettings = getDifficultySettings();
+    const bonus = difficultySettings ? difficultySettings.perfectHPBonus : 1;
+    
+    updateHPBar(currentHP + bonus);
+    console.log(`✨ Perfect Stroke! HP +${bonus} (${currentLevel?.difficulty || 'unknown'} difficulty)`);
 }

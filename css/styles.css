@@ -1361,13 +1361,13 @@
             z-index: 1000;
             background: rgba(0, 0, 0, 0.6);
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 12px;
+            border-radius: 7px;
+            padding: 8px;
             backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
@@ -1377,7 +1377,7 @@
         }
 
         .stroke-tip-label {
-            font-size: 12px;
+            font-size: 9px;
             font-weight: bold;
             color: #ffffff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -1386,7 +1386,7 @@
 
         #stroke-tip-canvas {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
+            border-radius: 4px;
             border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
@@ -1897,16 +1897,16 @@
             #stroke-tip-container {
                 top: 5px;
                 left: 5px;
-                padding: 8px;
+                padding: 6px;
             }
             
             .stroke-tip-label {
-                font-size: 10px;
+                font-size: 7px;
             }
             
             #stroke-tip-canvas {
-                width: 75px;
-                height: 75px;
+                width: 53px;
+                height: 53px;
             }
         }
 

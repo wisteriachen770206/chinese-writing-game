@@ -2540,8 +2540,8 @@
                 } else {
                     console.log('perfect');
                 }
-                // Increase HP by 1 when perfect
-                updateHPBar(currentHP + 1);
+                // Apply perfect stroke HP bonus (based on difficulty)
+                applyPerfectBonus();
                 // Increment perfect strokes counter
                 perfectStrokesCount++;
                 // Return 0 for opposite direction to avoid punishment
