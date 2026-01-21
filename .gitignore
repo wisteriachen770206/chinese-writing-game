@@ -41,3 +41,11 @@ strokes_data/
 
 # Git
 .git/
+
+# Build artifacts
+crazygames-build/
+*.zip
+
+# Text files (debug/temp files)
+*.txt
+!data/graphics.txt
