@@ -6,6 +6,10 @@
     <!-- Google Sign-In -->
     <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- CrazyGames SDK -->
+    <script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
+    
     <title>Chinese Character Homepage</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>中</text></svg>">
     <link rel="stylesheet" href="css/styles.css">
@@ -85,7 +89,10 @@
         <div id="game-over-content">
             <h1 id="game-over-title">GAME OVER</h1>
             <p id="game-over-message">Your HP reached 0!</p>
-            <button id="restart-btn">Restart</button>
+            <div id="game-over-buttons">
+                <button id="revive-btn" class="game-over-btn">❤️ Revive (Watch Ad)</button>
+                <button id="restart-btn" class="game-over-btn">🔄 Restart Level</button>
+            </div>
         </div>
     </div>
 
@@ -102,6 +109,10 @@
             
             <!-- Other Stats -->
             <div id="level-complete-stats">
+                <div class="level-complete-stat-row">
+                    <span class="level-complete-stat-label">⏱️ Time</span>
+                    <span class="level-complete-stat-value" id="level-complete-time">0:00</span>
+                </div>
                 <div class="level-complete-stat-row">
                     <span class="level-complete-stat-label">✏️ Characters Completed</span>
                     <span class="level-complete-stat-value" id="level-complete-chars">6</span>
@@ -204,6 +215,7 @@
     <script src="js/hp-system.js"></script>
     <script src="js/ui-manager.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/crazygames-integration.js"></script>
     <script src="js/hanzi-writer.js"></script>
     <script src="js/game.js"></script>
 </body>

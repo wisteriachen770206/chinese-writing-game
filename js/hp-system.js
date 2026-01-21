@@ -50,6 +50,39 @@ function restartGame() {
     showLevelSelection();
 }
 
+async function revivePlayer() {
+    // Try to show rewarded ad if CrazyGames SDK is available
+    let canRevive = true;
+    
+    if (typeof showRewardedAd === 'function') {
+        console.log('📺 Showing rewarded ad for revival...');
+        canRevive = await showRewardedAd();
+    }
+    
+    if (!canRevive) {
+        console.log('❌ Revival cancelled - ad not completed');
+        return;
+    }
+    
+    // Restore HP to 50% of max
+    const reviveHP = Math.floor(maxHP * 0.5);
+    isGameOver = false;
+    updateHPBar(reviveHP);
+    
+    // Hide game over overlay
+    const overlay = document.getElementById('game-over-overlay');
+    if (overlay) {
+        overlay.classList.add('hidden');
+    }
+    
+    console.log(`❤️ Player revived with ${reviveHP} HP!`);
+    
+    // Resume gameplay
+    if (typeof isGamePaused !== 'undefined') {
+        isGamePaused = false;
+    }
+}
+
 function applyDamage(damage) {
     const newHP = currentHP - damage;
     updateHPBar(newHP);

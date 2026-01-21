@@ -176,6 +176,15 @@
             
             currentLevel = level;
             
+            // Record start time
+            levelStartTime = Date.now();
+            console.log('⏱️ Level started at:', new Date(levelStartTime).toLocaleTimeString());
+            
+            // CrazyGames: Notify gameplay start
+            if (typeof onLevelStartCG === 'function') {
+                onLevelStartCG();
+            }
+            
             // Set characters from level first
             charactersToLearn = level.characters.split('');
             
@@ -248,6 +257,11 @@
         }
         
         function showLevelSelection() {
+            // CrazyGames: Notify gameplay stop
+            if (typeof onLevelStopCG === 'function') {
+                onLevelStopCG();
+            }
+            
             const levelSelection = document.getElementById('level-selection-overlay');
             if (levelSelection) {
                 levelSelection.classList.remove('hidden');
@@ -336,6 +350,17 @@
             
             const hpLeft = Math.round(currentHP);
             
+            // Calculate elapsed time
+            let timeStr = 'N/A';
+            if (levelStartTime) {
+                const elapsedMs = Date.now() - levelStartTime;
+                const elapsedSeconds = Math.floor(elapsedMs / 1000);
+                const minutes = Math.floor(elapsedSeconds / 60);
+                const seconds = elapsedSeconds % 60;
+                timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                console.log(`⏱️ Level completed in: ${timeStr} (${elapsedSeconds}s)`);
+            }
+            
             // Find next level
             const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
             const nextLevel = currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1 
@@ -390,6 +415,11 @@
                 if (nextBtn) {
                     nextBtn.style.display = 'none';
                 }
+            }
+            
+            // CrazyGames: Notify happy time on level complete
+            if (typeof onHappyTimeCG === 'function') {
+                onHappyTimeCG();
             }
             
             // Show overlay FIRST
@@ -1590,6 +1620,16 @@
             const restartBtn = document.getElementById('restart-btn');
             if (restartBtn) {
                 restartBtn.addEventListener('click', restartGame);
+                console.log('✅ Restart button initialized');
+            }
+            
+            // Revive button
+            const reviveBtn = document.getElementById('revive-btn');
+            if (reviveBtn) {
+                reviveBtn.addEventListener('click', revivePlayer);
+                console.log('✅ Revive button initialized');
+            } else {
+                console.warn('⚠️ Revive button not found in DOM');
             }
             
             // Initialize level complete buttons
@@ -2542,6 +2582,10 @@
                 }
                 // Apply perfect stroke HP bonus (based on difficulty)
                 applyPerfectBonus();
+                // CrazyGames: Notify happy time on perfect stroke
+                if (typeof onHappyTimeCG === 'function') {
+                    onHappyTimeCG();
+                }
                 // Increment perfect strokes counter
                 perfectStrokesCount++;
                 // Return 0 for opposite direction to avoid punishment

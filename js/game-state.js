@@ -26,6 +26,7 @@ let notGoodStrokesCount = 0;
 // Level system
 let levelConfig = null;
 let currentLevel = null;
+let levelStartTime = null; // Timestamp when level starts
 
 // Authentication system
 let currentUser = null;

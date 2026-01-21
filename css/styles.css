@@ -744,19 +744,40 @@
             animation: fadeIn 1s 0.5s forwards;
         }
 
-        #restart-btn {
-            font-size: 24px;
+        #game-over-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .game-over-btn {
+            font-size: 20px;
             font-weight: bold;
             color: #ffffff;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             border: 3px solid #ffffff;
             border-radius: 15px;
-            padding: 15px 50px;
+            padding: 15px 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             opacity: 0;
             animation: fadeIn 1s 1s forwards, float 2s 2s infinite;
-            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        #revive-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        #revive-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(16, 185, 129, 0.8);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        #restart-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
         }
 
         #restart-btn:hover {
@@ -1907,6 +1928,28 @@
             #stroke-tip-canvas {
                 width: 53px;
                 height: 53px;
+            }
+            
+            /* Game Over Buttons - Mobile */
+            #game-over-buttons {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 20px;
+            }
+            
+            .game-over-btn {
+                font-size: 18px;
+                padding: 15px 25px;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            #game-over-title {
+                font-size: 50px;
+            }
+            
+            #game-over-message {
+                font-size: 18px;
             }
         }
 
