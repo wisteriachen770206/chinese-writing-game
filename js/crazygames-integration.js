@@ -132,6 +132,35 @@ function showBannerAd() {
     }
 }
 
+// Get CrazyGames user information
+async function getCrazyGamesUser() {
+    if (!isSDKInitialized) {
+        console.warn('CrazyGames SDK not initialized');
+        return null;
+    }
+    
+    try {
+        const user = await crazygamesSDK.user.getUser();
+        console.log('👤 CrazyGames user:', user);
+        return user;
+    } catch (error) {
+        console.error('Error getting CrazyGames user:', error);
+        return null;
+    }
+}
+
+// Show account link modal (for guest users to create account)
+function showAccountLinkModal() {
+    if (!isSDKInitialized) return;
+    
+    try {
+        crazygamesSDK.user.showAuthPrompt();
+        console.log('🔐 Showing CrazyGames account prompt');
+    } catch (error) {
+        console.error('Error showing auth prompt:', error);
+    }
+}
+
 // Initialize SDK when page loads
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCrazyGamesSDK);

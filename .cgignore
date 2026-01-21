@@ -1,0 +1,45 @@
+# CrazyGames Ignore File
+# Files and folders that should NOT be uploaded to CrazyGames
+
+# Version control
+.git/
+.gitignore
+
+# Dependencies
+node_modules/
+package.json
+package-lock.json
+
+# Development scripts
+scripts/
+*.py
+
+# Documentation
+docs/
+*.md
+BUILD_README.md
+DEPLOY_INSTRUCTIONS.md
+
+# Temporary/Debug files
+*.txt
+!data/graphics.txt
+224.txt
+check_results.txt
+debug_output.txt
+difficulty_check.txt
+output.txt
+output2.txt
+parse_debug.txt
+ToWriteText.txt
+
+# Test files
+test.html
+
+# Build artifacts
+crazygames-build/
+*.zip
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace

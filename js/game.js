@@ -1712,46 +1712,19 @@
 
             // Initialize auth modal buttons
             const authCancelBtn = document.getElementById('auth-cancel-btn');
-            const googleSigninBtn = document.getElementById('google-signin-btn');
+            const crazyGamesSigninBtn = document.getElementById('crazygames-signin-btn');
+            const continueGuestBtn = document.getElementById('continue-guest-btn');
             
             if (authCancelBtn) {
                 authCancelBtn.addEventListener('click', hideAuthModal);
             }
 
-            if (googleSigninBtn) {
-                googleSigninBtn.addEventListener('click', () => {
-                    // Check if we're in local development (localhost or file://)
-                    const isLocalDev = window.location.hostname === 'localhost' || 
-                                      window.location.hostname === '127.0.0.1' || 
-                                      window.location.protocol === 'file:';
-                    
-                    if (isLocalDev) {
-                        // Use demo login for local development
-                        console.log('Local development detected - using demo login');
-                        simulateGoogleLogin();
-                    } else {
-                        // In production, try Google Sign-In
-                        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-                            console.log('Initializing Google Sign-In...');
-                            google.accounts.id.initialize({
-                                client_id: document.querySelector('meta[name="google-signin-client_id"]')?.content,
-                                callback: handleCredentialResponse
-                            });
-                            // Show the One Tap dialog
-                            google.accounts.id.prompt((notification) => {
-                                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                                    // Fall back to demo mode if One Tap fails
-                                    console.warn('Google One Tap not displayed, using demo mode');
-                                    simulateGoogleLogin();
-                                }
-                            });
-                        } else {
-                            // Fall back to demo mode if Google Sign-In not loaded
-                            console.warn('Google Sign-In library not loaded - using demo mode');
-                            simulateGoogleLogin();
-                        }
-                    }
-                });
+            if (crazyGamesSigninBtn) {
+                crazyGamesSigninBtn.addEventListener('click', signInWithCrazyGames);
+            }
+            
+            if (continueGuestBtn) {
+                continueGuestBtn.addEventListener('click', continueAsGuest);
             }
 
             // Initialize logout button
@@ -1760,8 +1733,10 @@
                 logoutBtn.addEventListener('click', handleLogout);
             }
 
-            // Check if user is already logged in
-            checkUserLoginStatus();
+            // Auto-login with CrazyGames or guest mode
+            if (typeof autoLogin === 'function') {
+                autoLogin();
+            }
             
             initMusicControl();
             initSettingsMenu();

@@ -17,43 +17,63 @@ function hideAuthModal() {
     }
 }
 
-// Handle Google credential response (for production use)
-function handleCredentialResponse(response) {
+// Sign in with CrazyGames
+async function signInWithCrazyGames() {
+    console.log('🎮 Attempting CrazyGames sign-in...');
+    
+    if (typeof getCrazyGamesUser !== 'function') {
+        console.warn('⚠️ CrazyGames SDK not available, falling back to guest mode');
+        continueAsGuest();
+        return;
+    }
+    
     try {
-        const userObject = parseJwt(response.credential);
-        console.log('User logged in:', userObject);
+        const cgUser = await getCrazyGamesUser();
         
-        // Create user object with name as primary identifier
-        const user = {
-            name: userObject.name,
-            email: userObject.email,
-            picture: userObject.picture
-        };
-        
-        onUserLogin(user);
-        hideAuthModal();
+        if (cgUser && cgUser.username) {
+            // User is logged in to CrazyGames
+            const user = {
+                name: cgUser.username,
+                email: `${cgUser.username}@crazygames.com`,
+                picture: cgUser.profilePictureUrl || generateAvatarFromName(cgUser.username),
+                userId: cgUser.userId || cgUser.username
+            };
+            
+            console.log('✅ CrazyGames user logged in:', user.name);
+            onUserLogin(user);
+            hideAuthModal();
+        } else {
+            // User not logged in to CrazyGames
+            console.log('⚠️ User not logged in to CrazyGames, using guest mode');
+            continueAsGuest();
+        }
     } catch (error) {
-        console.error('Error handling credential response:', error);
-        // Fall back to demo mode on error
-        simulateGoogleLogin();
+        console.error('❌ Error signing in with CrazyGames:', error);
+        continueAsGuest();
     }
 }
 
-// Make handleCredentialResponse globally accessible for Google Sign-In callback
-window.handleCredentialResponse = handleCredentialResponse;
-
-// Simulate Google login for demo (remove in production)
-function simulateGoogleLogin() {
-    console.log('🔵 simulateGoogleLogin called');
-    const demoUser = {
-        name: 'Demo User',
-        email: 'demo@example.com',
-        picture: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="16" fill="%238b5cf6"/><text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-family="Arial">D</text></svg>'
+// Continue as guest (no CrazyGames account)
+function continueAsGuest() {
+    console.log('👤 Continuing as guest');
+    const guestUser = {
+        name: 'Guest Player',
+        email: 'guest@local',
+        picture: generateAvatarFromName('Guest'),
+        isGuest: true
     };
-    console.log('🔵 Demo user created:', demoUser);
-    onUserLogin(demoUser);
+    onUserLogin(guestUser);
     hideAuthModal();
-    console.log('✅ simulateGoogleLogin completed');
+}
+
+// Generate avatar from name
+function generateAvatarFromName(name) {
+    const firstLetter = name.charAt(0).toUpperCase();
+    const colors = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#ec4899'];
+    const colorIndex = name.charCodeAt(0) % colors.length;
+    const color = colors[colorIndex];
+    
+    return `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="16" fill="${encodeURIComponent(color)}"/><text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-family="Arial">${firstLetter}</text></svg>`;
 }
 
 function onUserLogin(user) {
@@ -230,18 +250,29 @@ function loadGameProgress() {
     return null;
 }
 
-// Parse JWT token
-function parseJwt(token) {
-    try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    } catch (e) {
-        console.error('Error parsing JWT:', e);
-        return null;
+// Auto-login on page load
+function autoLogin() {
+    // Try to get CrazyGames user automatically
+    if (typeof getCrazyGamesUser === 'function') {
+        getCrazyGamesUser().then(cgUser => {
+            if (cgUser && cgUser.username) {
+                const user = {
+                    name: cgUser.username,
+                    email: `${cgUser.username}@crazygames.com`,
+                    picture: cgUser.profilePictureUrl || generateAvatarFromName(cgUser.username),
+                    userId: cgUser.userId || cgUser.username
+                };
+                onUserLogin(user);
+            } else {
+                // Silently use guest mode if not logged in
+                continueAsGuest();
+            }
+        }).catch(() => {
+            continueAsGuest();
+        });
+    } else {
+        // CrazyGames SDK not available, use guest mode
+        continueAsGuest();
     }
 }
 
