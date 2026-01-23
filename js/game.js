@@ -2187,9 +2187,9 @@
                                 // Reset to first character when all are completed
                                 saveCharacterIndex(0);
                             }
-                        }, 250); // After flying animation completes
+                        }, 100); // After flying animation completes
                     }
-                }, 300); // Wait for shine animation to complete
+                }, 100); // Wait for shine animation to complete
             } else {
                 // If canvas not available, just move to next character immediately
                 const nextIndex = currentCharacterIndex + 1;
@@ -2388,7 +2388,7 @@
                         if (hanziWriter.currentStrokeIndex >= hanziWriter.totalStrokes) {
                             setTimeout(() => {
                                 onCharacterCompleted();
-                            }, 200);
+                            }, 100);
                         }
                         return;
                     }
