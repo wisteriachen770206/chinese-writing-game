@@ -223,6 +223,13 @@
             const topLine = document.getElementById('top-line');
             if (topLine) topLine.classList.add('visible');
             
+            // Show character wrapper (in case it was hidden from previous level)
+            const characterWrapper = document.querySelector('.character-wrapper');
+            if (characterWrapper) {
+                characterWrapper.style.opacity = '1';
+                characterWrapper.style.pointerEvents = 'auto';
+            }
+            
             currentCharacterIndex = 0;
             
             // Clear completed characters display
@@ -420,6 +427,13 @@
             // CrazyGames: Notify happy time on level complete
             if (typeof onHappyTimeCG === 'function') {
                 onHappyTimeCG();
+            }
+            
+            // Hide character when level completes
+            const characterWrapper = document.querySelector('.character-wrapper');
+            if (characterWrapper) {
+                characterWrapper.style.opacity = '0';
+                characterWrapper.style.pointerEvents = 'none';
             }
             
             // Show overlay FIRST
@@ -2066,9 +2080,25 @@
                     const wrapperRect = characterWrapper.getBoundingClientRect();
                     const containerRect = container.getBoundingClientRect();
                     
-                    // Calculate target position (top-right of container, accounting for new item)
-                    const targetX = containerRect.right - 46; // 36px + 10px padding
-                    const targetY = containerRect.top + 10 + (container.children.length % 20) * 36;
+                    // Calculate where the new character will be placed
+                    // Create a temporary element to get its actual position
+                    const tempDiv = document.createElement('div');
+                    tempDiv.className = 'completed-character';
+                    tempDiv.style.visibility = 'hidden';
+                    tempDiv.style.position = 'absolute';
+                    const tempImg = document.createElement('img');
+                    tempImg.src = imageDataUrl;
+                    tempImg.alt = character;
+                    tempDiv.appendChild(tempImg);
+                    container.appendChild(tempDiv);
+                    
+                    // Get the actual position where the element was placed
+                    const tempRect = tempDiv.getBoundingClientRect();
+                    const targetX = tempRect.left + tempRect.width / 2;
+                    const targetY = tempRect.top + tempRect.height / 2;
+                    
+                    // Remove temporary element
+                    container.removeChild(tempDiv);
                     
                     // Step 3: Create flying thumbnail
                     const flyingImg = document.createElement('img');
@@ -2126,7 +2156,7 @@
                         
                         // Update main canvas position based on container width
                         updateMainCanvasPosition();
-                    }, 700); // Wait for animation to complete
+                    }, 250); // Wait for animation to complete
                     
                     // Handle case when all characters are completed
                     if (nextIndex >= charactersToLearn.length) {
@@ -2141,9 +2171,9 @@
                                 // Reset to first character when all are completed
                                 saveCharacterIndex(0);
                             }
-                        }, 700); // After flying animation completes
+                        }, 250); // After flying animation completes
                     }
-                }, 800); // Wait for shine animation to complete
+                }, 300); // Wait for shine animation to complete
             } else {
                 // If canvas not available, just move to next character immediately
                 const nextIndex = currentCharacterIndex + 1;
@@ -2342,7 +2372,7 @@
                         if (hanziWriter.currentStrokeIndex >= hanziWriter.totalStrokes) {
                             setTimeout(() => {
                                 onCharacterCompleted();
-                            }, 500);
+                            }, 200);
                         }
                         return;
                     }
@@ -2358,7 +2388,7 @@
                             console.log('All strokes completed for this character');
                             setTimeout(() => {
                                 onCharacterCompleted();
-                            }, 500);
+                            }, 200);
                         }
                     } else {
                         // Still animating, check again

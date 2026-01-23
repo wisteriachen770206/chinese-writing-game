@@ -1,7 +1,6 @@
 // ============================================
 // GLOBAL GAME STATE
 // ============================================
-console.log('✅ game-state.js loaded');
 
 // Character learning mode - all characters from ToWriteText.txt
 let charactersToLearn = []; // Will be populated from all_strokes.json

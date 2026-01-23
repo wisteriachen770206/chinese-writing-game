@@ -17,7 +17,6 @@ async function initCrazyGamesSDK() {
         crazygamesSDK = window.CrazyGames.SDK;
         await crazygamesSDK.init();
         isSDKInitialized = true;
-        console.log('✅ CrazyGames SDK initialized');
         
         // Signal that gameplay is starting
         crazygamesSDK.game.gameplayStart();
@@ -45,7 +44,6 @@ async function showMidgameAd() {
         
         await crazygamesSDK.ad.requestAd('midgame');
         
-        console.log('✅ Midgame ad completed');
         
         // Resume game after ad
         if (typeof isGamePaused !== 'undefined') {
@@ -68,7 +66,6 @@ async function showRewardedAd() {
     }
     
     try {
-        console.log('📺 Showing rewarded ad...');
         await crazygamesSDK.ad.requestAd('rewarded');
         console.log('✅ Rewarded ad completed - user gets reward');
         return true;
@@ -84,7 +81,6 @@ function onLevelStartCG() {
     
     try {
         crazygamesSDK.game.gameplayStart();
-        console.log('🎮 CrazyGames: Gameplay started');
     } catch (error) {
         console.error('Error calling gameplayStart:', error);
     }
@@ -96,7 +92,6 @@ function onLevelStopCG() {
     
     try {
         crazygamesSDK.game.gameplayStop();
-        console.log('⏸️ CrazyGames: Gameplay stopped');
     } catch (error) {
         console.error('Error calling gameplayStop:', error);
     }
@@ -126,7 +121,6 @@ function showBannerAd() {
                 height: 90
             }
         ]);
-        console.log('📺 Banner ad requested');
     } catch (error) {
         console.error('Error showing banner:', error);
     }
@@ -155,7 +149,6 @@ function showAccountLinkModal() {
     
     try {
         crazygamesSDK.user.showAuthPrompt();
-        console.log('🔐 Showing CrazyGames account prompt');
     } catch (error) {
         console.error('Error showing auth prompt:', error);
     }

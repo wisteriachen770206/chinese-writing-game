@@ -1,7 +1,6 @@
 // ============================================
 // HP SYSTEM
 // ============================================
-console.log('✅ hp-system.js loaded');
 
 function updateHPBar(newHP) {
     currentHP = Math.max(0, Math.min(maxHP, newHP));
@@ -36,7 +35,6 @@ function showGameOver() {
     if (overlay) {
         overlay.classList.remove('hidden');
     }
-    console.log('GAME OVER! HP reached 0.');
 }
 
 function restartGame() {
@@ -55,12 +53,10 @@ async function revivePlayer() {
     let canRevive = true;
     
     if (typeof showRewardedAd === 'function') {
-        console.log('📺 Showing rewarded ad for revival...');
         canRevive = await showRewardedAd();
     }
     
     if (!canRevive) {
-        console.log('❌ Revival cancelled - ad not completed');
         return;
     }
     
@@ -86,7 +82,6 @@ async function revivePlayer() {
 function applyDamage(damage) {
     const newHP = currentHP - damage;
     updateHPBar(newHP);
-    console.log(`HP: ${Math.round(currentHP)} / ${maxHP} (Damage: ${damage.toFixed(2)})`);
 }
 
 function resetHP() {
@@ -125,5 +120,4 @@ function applyPerfectBonus() {
     const bonus = difficultySettings ? difficultySettings.perfectHPBonus : 1;
     
     updateHPBar(currentHP + bonus);
-    console.log(`✨ Perfect Stroke! HP +${bonus} (${currentLevel?.difficulty || 'unknown'} difficulty)`);
 }

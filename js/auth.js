@@ -19,10 +19,7 @@ function hideAuthModal() {
 
 // Sign in with CrazyGames
 async function signInWithCrazyGames() {
-    console.log('🎮 Attempting CrazyGames sign-in...');
-    
     if (typeof getCrazyGamesUser !== 'function') {
-        console.warn('⚠️ CrazyGames SDK not available, falling back to guest mode');
         continueAsGuest();
         return;
     }
@@ -44,7 +41,6 @@ async function signInWithCrazyGames() {
             hideAuthModal();
         } else {
             // User not logged in to CrazyGames
-            console.log('⚠️ User not logged in to CrazyGames, using guest mode');
             continueAsGuest();
         }
     } catch (error) {
@@ -55,7 +51,6 @@ async function signInWithCrazyGames() {
 
 // Continue as guest (no CrazyGames account)
 function continueAsGuest() {
-    console.log('👤 Continuing as guest');
     const guestUser = {
         name: 'Guest Player',
         email: 'guest@local',
@@ -121,49 +116,35 @@ function checkUserLoginStatus() {
     // In production, you would check for valid session/token here
     // For demo, we can check localStorage for saved progress
     const savedProgress = localStorage.getItem('gameProgress');
-    if (savedProgress) {
-        console.log('Found saved progress:', savedProgress);
-    }
 }
 
 function saveGameProgress() {
-    console.log('🔵 saveGameProgress called');
-    console.log('🔵 currentUser:', currentUser);
-    
     if (!currentUser) {
-        console.warn('❌ Cannot save progress: user not logged in');
         return;
     }
     
     // Check if localStorage is available
     if (typeof localStorage === 'undefined') {
-        console.error('❌ localStorage not available');
+        console.error('localStorage not available');
         showToast('Save Failed', 'Storage not available on this device.', '❌');
         return;
     }
     
-    console.log('✅ localStorage is available');
-    
     // Find the NEXT level to play (not the one just completed)
     let nextLevelId = null;
     if (currentLevel && levelConfig && levelConfig.levels) {
-        console.log('🔵 currentLevel:', currentLevel.id);
         const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
-        console.log('🔵 currentLevelIndex:', currentLevelIndex);
-        console.log('🔵 Total levels:', levelConfig.levels.length);
         
         if (currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1) {
             nextLevelId = levelConfig.levels[currentLevelIndex + 1].id;
-            console.log('✅ Saving NEXT level as continue point:', nextLevelId);
         } else if (currentLevelIndex >= 0) {
             // Last level completed - save current level
             nextLevelId = currentLevel.id;
-            console.log('✅ Last level completed - saving:', nextLevelId);
         } else {
-            console.error('❌ Cannot find currentLevel in levelConfig!');
+            console.error('Cannot find currentLevel in levelConfig!');
         }
     } else {
-        console.error('❌ Missing data for save:', {
+        console.error('Missing data for save:', {
             hasCurrentLevel: !!currentLevel,
             hasLevelConfig: !!levelConfig,
             hasLevels: !!(levelConfig && levelConfig.levels)
@@ -177,33 +158,23 @@ function saveGameProgress() {
         timestamp: Date.now()
     };
     
-    // Warn if nextLevelId is null
-    if (!nextLevelId) {
-        console.warn('⚠️ nextLevelId is null - save will not have a valid continue level');
-    }
-    
-    console.log('🔵 About to save progress:', progress);
-    
     try {
         // Save to user-specific key using name
         const userKey = `gameProgress_${currentUser.name}`;
-        console.log('🔵 Saving to key:', userKey);
         localStorage.setItem(userKey, JSON.stringify(progress));
         
         // Also save to simple key for backward compatibility
         localStorage.setItem('gameProgress', JSON.stringify(progress));
-        console.log('🔵 Saved to both keys');
         
         // Verify save worked by reading back
         const verification = localStorage.getItem(userKey);
         if (verification) {
-            console.log('✅ Game progress saved successfully:', progress);
             showToast('Progress Saved!', 'Your game progress has been saved successfully.', '💾');
         } else {
             throw new Error('Save verification failed');
         }
     } catch (error) {
-        console.error('❌ Error saving progress:', error);
+        console.error('Error saving progress:', error);
         console.error('Error details:', error.name, error.message);
         
         // Check if it's a quota exceeded error (common on mobile)
@@ -216,37 +187,26 @@ function saveGameProgress() {
 }
 
 function loadGameProgress() {
-    console.log('🔵 loadGameProgress called');
-    console.log('🔵 currentUser:', currentUser);
     try {
         // First, try to load from user-specific key if user is logged in
         if (currentUser && currentUser.name) {
             const userKey = `gameProgress_${currentUser.name}`;
-            console.log('🔵 Trying to load from key:', userKey);
             const userData = localStorage.getItem(userKey);
             if (userData) {
                 const progress = JSON.parse(userData);
-                console.log('✅ Loaded game progress (user-specific):', progress);
                 return progress;
-            } else {
-                console.log('⚠️ No data found for user-specific key:', userKey);
             }
         }
         
         // Fall back to simple key (for backward compatibility and non-logged-in users)
-        console.log('🔵 Trying to load from simple key: gameProgress');
         const savedData = localStorage.getItem('gameProgress');
         if (savedData) {
             const progress = JSON.parse(savedData);
-            console.log('✅ Loaded game progress (simple key):', progress);
             return progress;
-        } else {
-            console.log('⚠️ No data found for simple key');
         }
     } catch (error) {
-        console.error('❌ Error loading progress:', error);
+        console.error('Error loading progress:', error);
     }
-    console.log('❌ loadGameProgress returning null');
     return null;
 }
 
@@ -296,8 +256,7 @@ function loadSavedCharacterIndex() {
 function saveCharacterIndex(index) {
     try {
         localStorage.setItem(STORAGE_KEY, index.toString());
-        console.log(`Saved character index: ${index}`);
     } catch (e) {
-        console.warn('Could not save character index:', e);
+        // Silent fail
     }
 }
