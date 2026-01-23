@@ -230,6 +230,14 @@
                 characterWrapper.style.pointerEvents = 'auto';
             }
             
+            // Clear both canvases to ensure clean start
+            if (hanziWriter && hanziWriter.canvas && hanziWriter.ctx) {
+                hanziWriter.ctx.clearRect(0, 0, hanziWriter.canvas.width, hanziWriter.canvas.height);
+            }
+            if (hanziWriter && hanziWriter.guideCanvas && hanziWriter.guideCtx) {
+                hanziWriter.guideCtx.clearRect(0, 0, hanziWriter.guideCanvas.width, hanziWriter.guideCanvas.height);
+            }
+            
             currentCharacterIndex = 0;
             
             // Clear completed characters display
@@ -434,6 +442,14 @@
             if (characterWrapper) {
                 characterWrapper.style.opacity = '0';
                 characterWrapper.style.pointerEvents = 'none';
+            }
+            
+            // Clear both canvases to remove the last character
+            if (hanziWriter && hanziWriter.canvas && hanziWriter.ctx) {
+                hanziWriter.ctx.clearRect(0, 0, hanziWriter.canvas.width, hanziWriter.canvas.height);
+            }
+            if (hanziWriter && hanziWriter.guideCanvas && hanziWriter.guideCtx) {
+                hanziWriter.guideCtx.clearRect(0, 0, hanziWriter.guideCanvas.width, hanziWriter.guideCanvas.height);
             }
             
             // Show overlay FIRST
