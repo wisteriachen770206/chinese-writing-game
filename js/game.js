@@ -168,9 +168,20 @@
         }
         
         async function startLevel(levelId) {
+            // Show loading screen
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.display = 'flex';
+                loadingScreen.classList.remove('hidden');
+            }
+            
             const level = levelConfig.levels.find(l => l.id === levelId);
             if (!level) {
                 console.error(`Level ${levelId} not found`);
+                // Hide loading screen on error
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                }
                 return;
             }
             
@@ -194,6 +205,10 @@
                 const loaded = await loadStrokesDataFromFile();
                 if (!loaded) {
                     alert('Failed to load all_strokes.json. Please make sure the file exists.');
+                    // Hide loading screen on error
+                    if (loadingScreen) {
+                        loadingScreen.classList.add('hidden');
+                    }
                     return;
                 }
             }
@@ -210,6 +225,10 @@
                 alert(`Cannot start level: The following characters are not found in all_strokes.json:\n${missingCharacters.join(', ')}\n\nAvailable characters: ${Object.keys(allCharactersData).join(', ')}`);
                 console.error('Missing characters:', missingCharacters);
                 console.log('Available characters in all_strokes.json:', Object.keys(allCharactersData));
+                // Hide loading screen on error
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                }
                 return;
             }
             
@@ -269,6 +288,16 @@
             // Initialize the game with the characters from this level only
             // Pass true to skip loading ToWriteText.txt
             await initializeApp(true);
+            
+            // Hide loading screen after level is loaded
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 300);
+            }
         }
         
         function showLevelSelection() {
@@ -1638,151 +1667,171 @@
         // Initialize music control and app when page loads
         async function initPage() {
             console.log('🚀 initPage() called');
-            // Stop any existing audio instances first
-            if (backgroundMusic) {
+            
+            // Show loading screen
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.classList.remove('hidden');
+            }
+            
+            try {
+                // Stop any existing audio instances first
+                if (backgroundMusic) {
                 backgroundMusic.pause();
                 backgroundMusic.currentTime = 0;
             }
             // Initialize HP bar
             console.log('Initializing HP bar...');
-            updateHPBar(maxHP);
-            // Initialize restart button
-            const restartBtn = document.getElementById('restart-btn');
-            if (restartBtn) {
-                restartBtn.addEventListener('click', restartGame);
-                console.log('✅ Restart button initialized');
-            }
-            
-            // Revive button
-            const reviveBtn = document.getElementById('revive-btn');
-            if (reviveBtn) {
-                reviveBtn.addEventListener('click', revivePlayer);
-                console.log('✅ Revive button initialized');
-            } else {
-                console.warn('⚠️ Revive button not found in DOM');
-            }
-            
-            // Initialize level complete buttons
-            const levelCompleteRestartBtn = document.getElementById('level-complete-restart-btn');
-            const levelCompleteNextBtn = document.getElementById('level-complete-next-btn');
-            const levelCompleteMenuBtn = document.getElementById('level-complete-menu-btn');
-            
-            if (levelCompleteRestartBtn) {
-                levelCompleteRestartBtn.addEventListener('click', () => {
-                    hideLevelComplete();
-                    // Restart the current level
-                    if (currentLevel) {
-                        startLevel(currentLevel.id);
-                    }
-                });
-            }
-            
-            if (levelCompleteNextBtn) {
-                levelCompleteNextBtn.addEventListener('click', () => {
-                    console.log('🔵 Next Level button clicked');
-                    hideLevelComplete();
-                    
-                    // Find next level
-                    const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
-                    const nextLevel = currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1 
-                        ? levelConfig.levels[currentLevelIndex + 1] 
-                        : null;
-                    
-                    if (nextLevel) {
-                        startLevel(nextLevel.id);
-                    } else {
-                        // Last level - wait for save to complete before showing level selection
+                updateHPBar(maxHP);
+                // Initialize restart button
+                const restartBtn = document.getElementById('restart-btn');
+                if (restartBtn) {
+                    restartBtn.addEventListener('click', restartGame);
+                    console.log('✅ Restart button initialized');
+                }
+                
+                // Revive button
+                const reviveBtn = document.getElementById('revive-btn');
+                if (reviveBtn) {
+                    reviveBtn.addEventListener('click', revivePlayer);
+                    console.log('✅ Revive button initialized');
+                } else {
+                    console.warn('⚠️ Revive button not found in DOM');
+                }
+                
+                // Initialize level complete buttons
+                const levelCompleteRestartBtn = document.getElementById('level-complete-restart-btn');
+                const levelCompleteNextBtn = document.getElementById('level-complete-next-btn');
+                const levelCompleteMenuBtn = document.getElementById('level-complete-menu-btn');
+                
+                if (levelCompleteRestartBtn) {
+                    levelCompleteRestartBtn.addEventListener('click', () => {
+                        hideLevelComplete();
+                        // Restart the current level
+                        if (currentLevel) {
+                            startLevel(currentLevel.id);
+                        }
+                    });
+                }
+                
+                if (levelCompleteNextBtn) {
+                    levelCompleteNextBtn.addEventListener('click', () => {
+                        console.log('🔵 Next Level button clicked');
+                        hideLevelComplete();
+                        
+                        // Find next level
+                        const currentLevelIndex = levelConfig.levels.findIndex(l => l.id === currentLevel.id);
+                        const nextLevel = currentLevelIndex >= 0 && currentLevelIndex < levelConfig.levels.length - 1 
+                            ? levelConfig.levels[currentLevelIndex + 1] 
+                            : null;
+                        
+                        if (nextLevel) {
+                            startLevel(nextLevel.id);
+                        } else {
+                            // Last level - wait for save to complete before showing level selection
+                            setTimeout(() => {
+                                console.log('🔵 Last level completed - showing level selection');
+                                showLevelSelection();
+                                displayLevelSelection('', false);
+                            }, 400);
+                        }
+                    });
+                }
+                
+                if (levelCompleteMenuBtn) {
+                    levelCompleteMenuBtn.addEventListener('click', () => {
+                        console.log('🔵 Level Select button clicked');
+                        console.log('🔵 Current level just completed:', currentLevel ? currentLevel.id : 'null');
+                        hideLevelComplete();
+                        
+                        // Wait a bit to ensure auto-save is complete
                         setTimeout(() => {
-                            console.log('🔵 Last level completed - showing level selection');
+                            console.log('🔵 Showing level selection and refreshing display');
+                            console.log('🔵 currentUser before display:', currentUser);
                             showLevelSelection();
+                            // Force reload - clear the grid completely and rebuild
+                            const levelsGrid = document.getElementById('levels-grid');
+                            if (levelsGrid) {
+                                levelsGrid.innerHTML = '';
+                                console.log('🔵 Cleared levels grid');
+                            }
+                            // Refresh the level display to show Continue card with updated data
                             displayLevelSelection('', false);
                         }, 400);
-                    }
-                });
-            }
-            
-            if (levelCompleteMenuBtn) {
-                levelCompleteMenuBtn.addEventListener('click', () => {
-                    console.log('🔵 Level Select button clicked');
-                    console.log('🔵 Current level just completed:', currentLevel ? currentLevel.id : 'null');
-                    hideLevelComplete();
-                    
-                    // Wait a bit to ensure auto-save is complete
-                    setTimeout(() => {
-                        console.log('🔵 Showing level selection and refreshing display');
-                        console.log('🔵 currentUser before display:', currentUser);
-                        showLevelSelection();
-                        // Force reload - clear the grid completely and rebuild
-                        const levelsGrid = document.getElementById('levels-grid');
-                        if (levelsGrid) {
-                            levelsGrid.innerHTML = '';
-                            console.log('🔵 Cleared levels grid');
+                    });
+                }
+
+                // Initialize save progress button
+                const levelCompleteSaveBtn = document.getElementById('level-complete-save-btn');
+                if (levelCompleteSaveBtn) {
+                    levelCompleteSaveBtn.addEventListener('click', () => {
+                        // If user not logged in, auto-login with demo mode for seamless mobile experience
+                        if (!currentUser) {
+                            console.log('Auto-creating demo user for save...');
+                            simulateGoogleLogin();
+                            // Save will happen in onUserLogin callback
+                        } else {
+                            // User already logged in, show modal for confirmation
+                            showAuthModal();
                         }
-                        // Refresh the level display to show Continue card with updated data
-                        displayLevelSelection('', false);
-                    }, 400);
-                });
-            }
+                    });
+                }
 
-            // Initialize save progress button
-            const levelCompleteSaveBtn = document.getElementById('level-complete-save-btn');
-            if (levelCompleteSaveBtn) {
-                levelCompleteSaveBtn.addEventListener('click', () => {
-                    // If user not logged in, auto-login with demo mode for seamless mobile experience
-                    if (!currentUser) {
-                        console.log('Auto-creating demo user for save...');
-                        simulateGoogleLogin();
-                        // Save will happen in onUserLogin callback
-                    } else {
-                        // User already logged in, show modal for confirmation
-                        showAuthModal();
-                    }
-                });
-            }
+                // Initialize auth modal buttons
+                const authCancelBtn = document.getElementById('auth-cancel-btn');
+                const crazyGamesSigninBtn = document.getElementById('crazygames-signin-btn');
+                const continueGuestBtn = document.getElementById('continue-guest-btn');
+                
+                if (authCancelBtn) {
+                    authCancelBtn.addEventListener('click', hideAuthModal);
+                }
 
-            // Initialize auth modal buttons
-            const authCancelBtn = document.getElementById('auth-cancel-btn');
-            const crazyGamesSigninBtn = document.getElementById('crazygames-signin-btn');
-            const continueGuestBtn = document.getElementById('continue-guest-btn');
-            
-            if (authCancelBtn) {
-                authCancelBtn.addEventListener('click', hideAuthModal);
-            }
+                if (crazyGamesSigninBtn) {
+                    crazyGamesSigninBtn.addEventListener('click', signInWithCrazyGames);
+                }
+                
+                if (continueGuestBtn) {
+                    continueGuestBtn.addEventListener('click', continueAsGuest);
+                }
 
-            if (crazyGamesSigninBtn) {
-                crazyGamesSigninBtn.addEventListener('click', signInWithCrazyGames);
-            }
-            
-            if (continueGuestBtn) {
-                continueGuestBtn.addEventListener('click', continueAsGuest);
-            }
+                // Initialize logout button
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', handleLogout);
+                }
 
-            // Initialize logout button
-            const logoutBtn = document.getElementById('logout-btn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', handleLogout);
-            }
-
-            // Auto-login with CrazyGames or guest mode
-            if (typeof autoLogin === 'function') {
-                autoLogin();
-            }
-            
-            initMusicControl();
-            initSettingsMenu();
-            
-            // Load level config and show level selection
-            console.log('Loading level config...');
-            await loadLevelConfig();
-            console.log('Level config loaded:', levelConfig ? 'SUCCESS' : 'FAILED');
-            if (levelConfig) {
-                console.log('Displaying level selection...');
-                displayLevelSelection();
-                initLevelSearch();
-                showLevelSelection();
-                console.log('✅ Game initialized successfully!');
-            } else {
-                alert('Failed to load level configuration. Please check level_config.json file.');
+                // Auto-login with CrazyGames or guest mode
+                if (typeof autoLogin === 'function') {
+                    autoLogin();
+                }
+                
+                initMusicControl();
+                initSettingsMenu();
+                
+                // Load level config and show level selection
+                console.log('Loading level config...');
+                await loadLevelConfig();
+                console.log('Level config loaded:', levelConfig ? 'SUCCESS' : 'FAILED');
+                if (levelConfig) {
+                    console.log('Displaying level selection...');
+                    displayLevelSelection();
+                    initLevelSearch();
+                    showLevelSelection();
+                    console.log('✅ Game initialized successfully!');
+                } else {
+                    alert('Failed to load level configuration. Please check level_config.json file.');
+                }
+            } finally {
+                // Hide loading screen after initialization
+                if (loadingScreen) {
+                    setTimeout(() => {
+                        loadingScreen.classList.add('hidden');
+                        // Remove from DOM after fade out
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 500);
+                    }, 300);
+                }
             }
         }
         
