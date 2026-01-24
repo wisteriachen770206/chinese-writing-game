@@ -43,8 +43,12 @@ if (Test-Path $zipName) {
     Remove-Item -Path $zipName -Force
 }
 
-# Compress the build folder
-Compress-Archive -Path "$buildFolder\*" -DestinationPath $zipName -Force
+# Compress the build folder contents (not the folder itself)
+# This ensures index.html is at the root of the ZIP
+# Change to build folder and compress from there
+Push-Location $buildFolder
+Compress-Archive -Path * -DestinationPath "..\$zipName" -Force
+Pop-Location
 
 # Get ZIP file size
 $zipSize = (Get-Item $zipName).Length

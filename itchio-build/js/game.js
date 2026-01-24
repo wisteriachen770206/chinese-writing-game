@@ -191,11 +191,6 @@
             levelStartTime = Date.now();
             console.log('⏱️ Level started at:', new Date(levelStartTime).toLocaleTimeString());
             
-            // CrazyGames: Notify gameplay start
-            if (typeof onLevelStartCG === 'function') {
-                onLevelStartCG();
-            }
-            
             // Set characters from level first
             charactersToLearn = level.characters.split('');
             
@@ -301,11 +296,6 @@
         }
         
         function showLevelSelection() {
-            // CrazyGames: Notify gameplay stop
-            if (typeof onLevelStopCG === 'function') {
-                onLevelStopCG();
-            }
-            
             const levelSelection = document.getElementById('level-selection-overlay');
             if (levelSelection) {
                 levelSelection.classList.remove('hidden');
@@ -459,11 +449,6 @@
                 if (nextBtn) {
                     nextBtn.style.display = 'none';
                 }
-            }
-            
-            // CrazyGames: Notify happy time on level complete
-            if (typeof onHappyTimeCG === 'function') {
-                onHappyTimeCG();
             }
             
             // Hide character when level completes
@@ -1779,15 +1764,10 @@
 
                 // Initialize auth modal buttons
                 const authCancelBtn = document.getElementById('auth-cancel-btn');
-                const crazyGamesSigninBtn = document.getElementById('crazygames-signin-btn');
                 const continueGuestBtn = document.getElementById('continue-guest-btn');
                 
                 if (authCancelBtn) {
                     authCancelBtn.addEventListener('click', hideAuthModal);
-                }
-
-                if (crazyGamesSigninBtn) {
-                    crazyGamesSigninBtn.addEventListener('click', signInWithCrazyGames);
                 }
                 
                 if (continueGuestBtn) {
@@ -1800,7 +1780,7 @@
                     logoutBtn.addEventListener('click', handleLogout);
                 }
 
-                // Auto-login with CrazyGames or guest mode
+                // Auto-login with guest mode
                 if (typeof autoLogin === 'function') {
                     autoLogin();
                 }

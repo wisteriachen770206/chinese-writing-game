@@ -43,7 +43,7 @@ strokes_data/
 .git/
 
 # Build artifacts
-crazygames-build/
+*build*/
 *.zip
 
 # Text files (debug/temp files)

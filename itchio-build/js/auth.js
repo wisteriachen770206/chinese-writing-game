@@ -17,39 +17,7 @@ function hideAuthModal() {
     }
 }
 
-// Sign in with CrazyGames
-async function signInWithCrazyGames() {
-    if (typeof getCrazyGamesUser !== 'function') {
-        continueAsGuest();
-        return;
-    }
-    
-    try {
-        const cgUser = await getCrazyGamesUser();
-        
-        if (cgUser && cgUser.username) {
-            // User is logged in to CrazyGames
-            const user = {
-                name: cgUser.username,
-                email: `${cgUser.username}@crazygames.com`,
-                picture: cgUser.profilePictureUrl || generateAvatarFromName(cgUser.username),
-                userId: cgUser.userId || cgUser.username
-            };
-            
-            console.log('✅ CrazyGames user logged in:', user.name);
-            onUserLogin(user);
-            hideAuthModal();
-        } else {
-            // User not logged in to CrazyGames
-            continueAsGuest();
-        }
-    } catch (error) {
-        console.error('❌ Error signing in with CrazyGames:', error);
-        continueAsGuest();
-    }
-}
-
-// Continue as guest (no CrazyGames account)
+// Continue as guest
 function continueAsGuest() {
     const guestUser = {
         name: 'Guest Player',
@@ -212,28 +180,8 @@ function loadGameProgress() {
 
 // Auto-login on page load
 function autoLogin() {
-    // Try to get CrazyGames user automatically
-    if (typeof getCrazyGamesUser === 'function') {
-        getCrazyGamesUser().then(cgUser => {
-            if (cgUser && cgUser.username) {
-                const user = {
-                    name: cgUser.username,
-                    email: `${cgUser.username}@crazygames.com`,
-                    picture: cgUser.profilePictureUrl || generateAvatarFromName(cgUser.username),
-                    userId: cgUser.userId || cgUser.username
-                };
-                onUserLogin(user);
-            } else {
-                // Silently use guest mode if not logged in
-                continueAsGuest();
-            }
-        }).catch(() => {
-            continueAsGuest();
-        });
-    } else {
-        // CrazyGames SDK not available, use guest mode
-        continueAsGuest();
-    }
+    // Use guest mode
+    continueAsGuest();
 }
 
 // LocalStorage functions for character index

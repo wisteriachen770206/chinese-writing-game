@@ -50,11 +50,8 @@ function restartGame() {
 
 async function revivePlayer() {
     // Try to show rewarded ad if CrazyGames SDK is available
+    // Revive without ad (direct revive)
     let canRevive = true;
-    
-    if (typeof showRewardedAd === 'function') {
-        canRevive = await showRewardedAd();
-    }
     
     if (!canRevive) {
         return;

@@ -307,6 +307,9 @@ function initSettingsMenu() {
     if (gotoLevelSelectionBtn) {
         const goToLevelSelection = () => {
             settingsOverlay.classList.add('hidden');
+            // Leaving settings: ensure we don't keep music paused
+            // (otherwise starting the next level won't auto-play the new track)
+            resumeGame();
             showLevelSelection();
             console.log('Going to level selection');
         };
@@ -402,6 +405,8 @@ function initSettingsMenu() {
     const closeSettingsOnBackdrop = (e) => {
         if (e.target === settingsOverlay) {
             settingsOverlay.classList.add('hidden');
+            // If we paused music/game when opening settings, resume it when closing.
+            resumeGame();
         }
     };
     

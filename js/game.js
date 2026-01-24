@@ -22,6 +22,123 @@
                 return null;
             }
         }
+
+        // ============================================
+        // LEVEL THEME (BACKGROUND IMAGE + MUSIC)
+        // ============================================
+        function getConfigDefault(key, fallbackValue) {
+            try {
+                const v = levelConfig && levelConfig.gameSettings ? levelConfig.gameSettings[key] : undefined;
+                return (v !== undefined && v !== null && String(v).trim() !== '') ? v : fallbackValue;
+            } catch (_) {
+                return fallbackValue;
+            }
+        }
+
+        function getAssetBaseName(pathOrFile) {
+            if (!pathOrFile) return '';
+            const s = String(pathOrFile).replace(/\\/g, '/').trim();
+            return s.split('/').pop() || '';
+        }
+
+        function buildAssetCandidates(pathOrFile) {
+            const base = getAssetBaseName(pathOrFile);
+            if (!base) return [];
+
+            // Prefer root first (flat itch.io build), then res/ (dev / normal build)
+            const candidates = [base, `res/${base}`];
+
+            // If user provided an explicit path (e.g. "res/foo.jpg"), include it too.
+            const raw = String(pathOrFile).replace(/\\/g, '/').trim();
+            if (raw && raw !== base && raw !== `res/${base}`) {
+                candidates.push(raw);
+            }
+
+            // De-dupe, preserve order
+            return candidates.filter((v, i) => candidates.indexOf(v) === i);
+        }
+
+        function getAudioCurrentBaseName(audioEl) {
+            try {
+                if (!audioEl) return '';
+                const firstSource = audioEl.querySelector('source');
+                const src = firstSource ? (firstSource.getAttribute('src') || '') : (audioEl.getAttribute('src') || '');
+                return getAssetBaseName(src);
+            } catch (_) {
+                return '';
+            }
+        }
+
+        function applyLevelBackgroundAndMusic(levelOrNull, opts = {}) {
+            const level = levelOrNull || null;
+            const options = {
+                applyBackground: opts.applyBackground !== false,
+                applyMusic: opts.applyMusic !== false,
+            };
+
+            const defaultBg = getConfigDefault('defaultBackgroundImage', 'guanyin.jpg');
+            const defaultMusic = getConfigDefault('defaultBackgroundMusic', 'XJ0106.mp3');
+
+            const bgValue = (level && level.backgroundImage) ? level.backgroundImage : defaultBg;
+            const musicValue = (level && level.backgroundMusic) ? level.backgroundMusic : defaultMusic;
+
+            // Background image
+            if (options.applyBackground) {
+                try {
+                    const bgCandidates = buildAssetCandidates(bgValue);
+                    if (bgCandidates.length > 0) {
+                        // Multiple URLs: browser will still render later ones if earlier fails
+                        document.body.style.backgroundImage = bgCandidates.map(p => `url('${p}')`).join(', ');
+                    }
+                } catch (e) {
+                    console.warn('Failed to apply background image:', e);
+                }
+            }
+
+            // Background music (supports both res/ and flat root via multiple <source>)
+            if (options.applyMusic) {
+                try {
+                    const audio = document.getElementById('background-music');
+                    if (audio) {
+                        const desiredBase = getAssetBaseName(musicValue);
+                        const currentBase = getAudioCurrentBaseName(audio);
+
+                        // If it's the same track, do NOT restart (keep currentTime).
+                        if (desiredBase && currentBase && desiredBase === currentBase) {
+                            return;
+                        }
+
+                        const wasPlaying = !audio.paused;
+                        const savedVolume = audio.volume;
+                        const shouldAutoPlay =
+                            (typeof musicEnabled === 'boolean' ? musicEnabled : wasPlaying) ||
+                            wasPlaying;
+
+                        audio.pause();
+                        while (audio.firstChild) audio.removeChild(audio.firstChild);
+
+                        const musicCandidates = buildAssetCandidates(musicValue);
+                        musicCandidates.forEach(src => {
+                            const source = document.createElement('source');
+                            source.src = src;
+                            audio.appendChild(source);
+                        });
+
+                        audio.load();
+                        audio.loop = true;
+                        audio.volume = savedVolume;
+
+                        // New track: start from beginning (default behavior)
+                        audio.currentTime = 0;
+                        if (shouldAutoPlay) {
+                            audio.play().catch(() => { /* autoplay may be blocked */ });
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Failed to apply background music:', e);
+                }
+            }
+        }
         
         function displayLevelSelection(searchQuery = '', append = false) {
             const levelsGrid = document.getElementById('levels-grid');
@@ -186,6 +303,9 @@
             }
             
             currentLevel = level;
+
+            // Apply per-level background image + music (with defaults)
+            applyLevelBackgroundAndMusic(currentLevel);
             
             // Record start time
             levelStartTime = Date.now();
@@ -300,6 +420,10 @@
             if (levelSelection) {
                 levelSelection.classList.remove('hidden');
             }
+
+            // When returning to level selection:
+            // keep background music position (do NOT restart), but reset background image if needed
+            applyLevelBackgroundAndMusic(null, { applyBackground: true, applyMusic: false });
             
             // Hide top line (HP bar + settings button)
             const topLine = document.getElementById('top-line');
@@ -1405,7 +1529,7 @@
             }
             
 
-            // Button click handlers
+            // Button click handlers (if next-stroke-btn exists)
             function attachButtonHandler() {
                 const btn = document.getElementById('next-stroke-btn');
                 if (btn) {
@@ -1420,20 +1544,13 @@
                     console.log('✓ Button click handler attached');
                     return true;
                 } else {
-                    console.error('✗ Button not found!');
+                    // Button doesn't exist, which is fine - it's optional
                     return false;
                 }
             }
             
-            // Try to attach immediately
-            if (!attachButtonHandler()) {
-                // If button not found, try again after DOM is ready
-                setTimeout(() => {
-                    if (attachButtonHandler()) {
-                        console.log('Button handler attached on retry');
-                    }
-                }, 100);
-            }
+            // Try to attach immediately (silently fail if button doesn't exist)
+            attachButtonHandler();
             
         console.log('✅ Past button handler attachment');
         
@@ -2250,6 +2367,7 @@
                 const levelName = currentLevel ? currentLevel.name : 'Practice';
                 infoDisplay.textContent = `${levelName} ${currentCharacterIndex + 1}/${charactersToLearn.length} (${currentChar})`;
             }
+            // Button is optional, silently skip if not found
         }
         
         // Update main canvas position based on container width
