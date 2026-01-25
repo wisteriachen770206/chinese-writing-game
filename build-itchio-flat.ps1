@@ -4,118 +4,110 @@
 
 [CmdletBinding()]
 param(
-    # Keep the staging folder after creating the zip
+    # (Deprecated) kept for backward compatibility; no staging folder is created anymore
     [switch]$KeepBuildFolder
 )
 
+$ErrorActionPreference = 'Stop'
+
 # Configuration
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-$buildFolder = "itchio-flat-stage-$timestamp"
 $zipName = "chinese-character-game-itchio-flat-$timestamp.zip"
 
-# Create build folder (unique per build to avoid file locks)
-Write-Host "Creating build folder..."
-New-Item -ItemType Directory -Path $buildFolder -Force | Out-Null
-
-# Copy index.html to root
-Write-Host "Copying index.html..."
-Copy-Item -Path "index.html" -Destination $buildFolder -Force
-
-# Copy level_config.json to root
-Write-Host "Copying level_config.json..."
-Copy-Item -Path "level_config.json" -Destination $buildFolder -Force
-
-# Copy CSS file to root with prefix
-Write-Host "Copying CSS..."
-Copy-Item -Path "css\styles.css" -Destination "$buildFolder\styles.css" -Force
-
-# Copy JS files to root
-Write-Host "Copying JS files..."
-$jsFiles = @("game-state.js", "hp-system.js", "ui-manager.js", "auth.js", "hanzi-writer.js", "game.js")
-foreach ($file in $jsFiles) {
-    if (Test-Path "js\$file") {
-        Copy-Item -Path "js\$file" -Destination "$buildFolder\$file" -Force
-        Write-Host "  Copied: $file"
+# Helpers
+function Add-ZipTextEntry {
+    param(
+        [Parameter(Mandatory=$true)]$Zip,
+        [Parameter(Mandatory=$true)][string]$EntryName,
+        [Parameter(Mandatory=$true)][string]$Content
+    )
+    $entry = $Zip.CreateEntry($EntryName, [System.IO.Compression.CompressionLevel]::Optimal)
+    $stream = $entry.Open()
+    try {
+        $bytes = [System.Text.Encoding]::UTF8.GetBytes($Content)
+        $stream.Write($bytes, 0, $bytes.Length)
+    } finally {
+        $stream.Dispose()
     }
 }
 
-
-# Copy data files to root
-Write-Host "Copying data files..."
-if (Test-Path "data\all_strokes.json") {
-    Copy-Item -Path "data\all_strokes.json" -Destination "$buildFolder\all_strokes.json" -Force
-}
-if (Test-Path "data\graphics.txt") {
-    Copy-Item -Path "data\graphics.txt" -Destination "$buildFolder\graphics.txt" -Force
+function Add-ZipFileEntry {
+    param(
+        [Parameter(Mandatory=$true)]$Zip,
+        [Parameter(Mandatory=$true)][string]$EntryName,
+        [Parameter(Mandatory=$true)][string]$SourcePath
+    )
+    if (-not (Test-Path $SourcePath)) { return $false }
+    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($Zip, $SourcePath, $EntryName, [System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
+    return $true
 }
 
 # NOTE:
-# We no longer include the local 'res' directory in the flat itch.io build,
+# We do not include the local 'res' directory in the flat itch.io build,
 # because background images/music/icons are now loaded from the CDN.
 
-# Update index.html to use flat structure
-Write-Host "Updating paths in index.html..."
-$indexPath = "$buildFolder\index.html"
-$indexContent = Get-Content $indexPath -Raw -Encoding UTF8
+# Create ZIP file directly (no staging folder)
+Write-Host "Creating ZIP file (no staging folder)..."
+if (Test-Path $zipName) { Remove-Item -Path $zipName -Force }
 
-# Replace paths
-$indexContent = $indexContent -replace 'href="css/styles\.css"', 'href="styles.css"'
-$indexContent = $indexContent -replace 'src="js/([^"]+)"', 'src="$1"'
-$indexContent = $indexContent -replace 'src="res/([^"]+)"', 'src="$1"'
+Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$zip = [System.IO.Compression.ZipFile]::Open($zipName, [System.IO.Compression.ZipArchiveMode]::Create)
+$entryCount = 0
+try {
+    # index.html (rewrite paths for flat structure)
+    Write-Host "Adding index.html..."
+    $indexContent = Get-Content "index.html" -Raw -Encoding UTF8
+    $indexContent = $indexContent -replace 'href="css/styles\.css"', 'href="styles.css"'
+    $indexContent = $indexContent -replace 'src="js/([^"]+)"', 'src="$1"'
+    $indexContent = $indexContent -replace 'src="res/([^"]+)"', 'src="$1"'
+    Add-ZipTextEntry -Zip $zip -EntryName "index.html" -Content $indexContent
+    $entryCount++
 
-Set-Content -Path $indexPath -Value $indexContent -Encoding UTF8 -NoNewline
+    # level_config.json (local)
+    Write-Host "Adding level_config.json..."
+    if (Add-ZipFileEntry -Zip $zip -EntryName "level_config.json" -SourcePath "level_config.json") { $entryCount++ }
 
-# Update CSS to use flat structure
-Write-Host "Updating paths in styles.css..."
-$cssPath = "$buildFolder\styles.css"
-$cssContent = Get-Content $cssPath -Raw -Encoding UTF8
+    # styles.css (rewrite res urls if any)
+    Write-Host "Adding styles.css..."
+    $cssContent = Get-Content "css\\styles.css" -Raw -Encoding UTF8
+    $cssContent = $cssContent -replace 'url\([''"]?\.\./res/([^''"]+)[''"]?\)', 'url($1)'
+    Add-ZipTextEntry -Zip $zip -EntryName "styles.css" -Content $cssContent
+    $entryCount++
 
-# Replace url('../res/...') with url('...')
-$cssContent = $cssContent -replace 'url\([''"]?\.\./res/([^''"]+)[''"]?\)', 'url($1)'
-
-Set-Content -Path $cssPath -Value $cssContent -Encoding UTF8 -NoNewline
-
-# Update JS files to use flat structure for all_strokes.json and res files
-Write-Host "Updating paths in JS files..."
-$jsFiles = @("game-state.js", "hp-system.js", "ui-manager.js", "auth.js", "hanzi-writer.js", "game.js")
-foreach ($file in $jsFiles) {
-    $jsPath = "$buildFolder\$file"
-    if (Test-Path $jsPath) {
-        $jsContent = Get-Content $jsPath -Raw -Encoding UTF8
-        # Replace data/all_strokes.json with all_strokes.json
+    # JS files (rewrite flat paths)
+    Write-Host "Adding JS files..."
+    $jsFiles = @("game-state.js", "hp-system.js", "ui-manager.js", "auth.js", "hanzi-writer.js", "game.js")
+    foreach ($file in $jsFiles) {
+        $src = Join-Path "js" $file
+        if (-not (Test-Path $src)) { continue }
+        $jsContent = Get-Content $src -Raw -Encoding UTF8
         $jsContent = $jsContent -replace 'data/all_strokes\.json', 'all_strokes.json'
         $jsContent = $jsContent -replace 'data\\all_strokes\.json', 'all_strokes.json'
-        # Replace res/ paths with flat structure
         $jsContent = $jsContent -replace 'src="res/([^"]+)"', 'src="$1"'
         $jsContent = $jsContent -replace "src='res/([^']+)'", "src='$1'"
-
-        Set-Content -Path $jsPath -Value $jsContent -Encoding UTF8 -NoNewline
+        Add-ZipTextEntry -Zip $zip -EntryName $file -Content $jsContent
+        $entryCount++
+        Write-Host "  Added: $file"
     }
-}
 
-# Create ZIP file
-Write-Host "Creating ZIP file..."
-if (Test-Path $zipName) {
-    Remove-Item -Path $zipName -Force
+    # Data files (kept local)
+    Write-Host "Adding data files..."
+    if (Add-ZipFileEntry -Zip $zip -EntryName "all_strokes.json" -SourcePath "data\\all_strokes.json") { $entryCount++ }
+    if (Add-ZipFileEntry -Zip $zip -EntryName "graphics.txt" -SourcePath "data\\graphics.txt") { $entryCount++ }
+} finally {
+    $zip.Dispose()
 }
-
-# Compress from build folder
-Push-Location $buildFolder
-Compress-Archive -Path * -DestinationPath "..\$zipName" -Force
-Pop-Location
 
 # Get ZIP file size
 $zipSize = (Get-Item $zipName).Length
 $zipSizeMB = [math]::Round($zipSize / 1MB, 2)
 
-# Count files in ZIP
-$fileCount = (Get-ChildItem -Path $buildFolder -File).Count
-
 Write-Host ""
 Write-Host "Build completed successfully!"
 Write-Host "ZIP file: $zipName"
 Write-Host "Size: $zipSizeMB MB"
-Write-Host "Files: $fileCount"
+Write-Host "Files: $entryCount"
 Write-Host ""
 Write-Host "NOTE: This is a FLAT structure version (all files in root)"
 Write-Host "This may help resolve 403 errors on itch.io"
@@ -127,12 +119,3 @@ Write-Host "3. Go to 'Uploads' section"
 Write-Host "4. Upload the ZIP file: $zipName"
 Write-Host "5. Set it as the main file for HTML5/WebGL"
 Write-Host ""
-
-# Keep or remove build folder (non-interactive)
-if (-not $KeepBuildFolder) {
-    Write-Host "Removing build folder..."
-    Remove-Item -Path $buildFolder -Recurse -Force -ErrorAction SilentlyContinue
-    Write-Host "Build folder removed."
-} else {
-    Write-Host "Build folder kept at: $buildFolder"
-}

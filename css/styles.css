@@ -32,8 +32,18 @@
         background-repeat: repeat;
         background-size: auto;
         background-position: center;
-        filter: blur(10px);
-        transform: scale(1.08); /* avoid blurred edges */
+        /* Keep the background image clear, but make it less distracting */
+        filter: saturate(0.35) brightness(1.18) contrast(0.92);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    /* Light overlay to further separate foreground from background */
+    body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(245, 245, 243, 0.35);
         z-index: -1;
         pointer-events: none;
     }
