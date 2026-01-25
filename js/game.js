@@ -12,9 +12,27 @@
         // Level loading and selection functions
         async function loadLevelConfig() {
             try {
-                // Add cache-busting parameter to force reload of latest data
-                const response = await fetch(`level_config.json?v=${Date.now()}`);
-                levelConfig = await response.json();
+                // Prefer CDN first, then fall back to local file
+                const v = Date.now();
+                const candidates = [
+                    `https://cdn.jsdelivr.net/gh/wisteriachen770206/chinese-writing-game/level_config.json?v=${v}`,
+                    `level_config.json?v=${v}`,
+                ];
+
+                let lastErr = null;
+                for (const url of candidates) {
+                    try {
+                        const resp = await fetch(url, { cache: 'no-store' });
+                        if (!resp.ok) throw new Error(`HTTP ${resp.status} for ${url}`);
+                        levelConfig = await resp.json();
+                        console.log('Level config loaded from:', url);
+                        return levelConfig;
+                    } catch (e) {
+                        lastErr = e;
+                    }
+                }
+
+                throw lastErr || new Error('Failed to load level config');
                 console.log('Level config loaded:', levelConfig);
                 return levelConfig;
             } catch (error) {
