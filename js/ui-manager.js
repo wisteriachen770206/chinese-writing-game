@@ -69,45 +69,34 @@ function playCompletionSound() {
 
 function initMusicControl() {
     backgroundMusic = document.getElementById('background-music');
-    const musicToggle = document.getElementById('music-toggle');
-    
-    if (!backgroundMusic || !musicToggle) {
-        console.warn('Music elements not found');
+
+    if (!backgroundMusic) {
+        console.warn('Background music element not found');
         return;
     }
-    
-    backgroundMusic.pause();
-    backgroundMusic.currentTime = 0;
-    
-    musicToggle.classList.add('active');
-    musicEnabled = true;
-    
+
+    // Determine initial state from the settings slider (if present)
+    const musicVolumeSlider = document.getElementById('music-volume-slider');
+    if (musicVolumeSlider) {
+        const volume = parseInt(musicVolumeSlider.value, 10);
+        musicVolume = (Number.isFinite(volume) ? volume : 25) / 100;
+    }
+
+    musicEnabled = musicVolume > 0;
     backgroundMusic.volume = musicVolume;
     backgroundMusic.loop = true;
-    
-    musicToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        musicEnabled = !musicEnabled;
-        
-        if (musicEnabled) {
-            musicToggle.classList.add('active');
-            backgroundMusic.play().catch(err => {
-                console.log('Could not play music:', err);
-            });
-        } else {
-            musicToggle.classList.remove('active');
-            backgroundMusic.pause();
-        }
-    });
-    
-    document.addEventListener('click', function startMusic() {
+
+    // Autoplay after the first user interaction (browser policy)
+    const tryStart = () => {
         if (musicEnabled && backgroundMusic.paused) {
             backgroundMusic.play().catch(err => {
                 console.log('Could not autoplay music:', err);
             });
         }
-    }, { once: true });
+    };
+
+    document.addEventListener('pointerdown', tryStart, { once: true });
+    document.addEventListener('keydown', tryStart, { once: true });
     
     console.log('Music control initialized');
 }

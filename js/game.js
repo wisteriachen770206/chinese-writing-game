@@ -46,7 +46,20 @@
             if (!base) return [];
 
             // Prefer root first (flat itch.io build), then res/ (dev / normal build)
-            const candidates = [base, `res/${base}`];
+            // But avoid noisy 404s in dev by detecting which structure we're running under.
+            let preferFlat = false;
+            try {
+                const cssLink = document.querySelector('link[rel="stylesheet"]');
+                const href = cssLink ? (cssLink.getAttribute('href') || '') : '';
+                // Normal build uses "css/styles.css", flat build uses "styles.css"
+                preferFlat = href && !href.includes('css/');
+            } catch (_) {
+                preferFlat = false;
+            }
+
+            const candidates = preferFlat
+                ? [base, `res/${base}`]
+                : [`res/${base}`, base];
 
             // If user provided an explicit path (e.g. "res/foo.jpg"), include it too.
             const raw = String(pathOrFile).replace(/\\/g, '/').trim();
@@ -56,6 +69,83 @@
 
             // De-dupe, preserve order
             return candidates.filter((v, i) => candidates.indexOf(v) === i);
+        }
+
+        // ============================================
+        // CDN for background music (mp3)
+        // ============================================
+        const CDN_RES_BASE = 'https://cdn.jsdelivr.net/gh/wisteriachen770206/chinese-writing-game/res/';
+
+        function isHttpUrl(s) {
+            return /^https?:\/\//i.test(String(s || '').trim());
+        }
+
+        function buildMusicCandidates(pathOrFile) {
+            if (!pathOrFile) return [];
+            const raw = String(pathOrFile).replace(/\\/g, '/').trim();
+            if (!raw) return [];
+
+            // If it's already a URL, use as-is (and optionally fall back to local if it looks like a file)
+            if (isHttpUrl(raw)) return [raw];
+
+            const base = getAssetBaseName(raw);
+            if (!base) return [];
+
+            // Prefer CDN first, then local fallbacks
+            const candidates = [`${CDN_RES_BASE}${base}`, base, `res/${base}`];
+
+            // If user provided an explicit path (e.g. "res/foo.mp3"), include it too.
+            if (raw && raw !== base && raw !== `res/${base}`) {
+                candidates.push(raw);
+            }
+
+            // De-dupe, preserve order
+            return candidates.filter((v, i) => candidates.indexOf(v) === i);
+        }
+
+        // ============================================
+        // CDN for background images (jpg/png/etc)
+        // ============================================
+        function buildImageCandidates(pathOrFile) {
+            if (!pathOrFile) return [];
+            const raw = String(pathOrFile).replace(/\\/g, '/').trim();
+            if (!raw) return [];
+
+            if (isHttpUrl(raw)) return [raw];
+
+            const base = getAssetBaseName(raw);
+            if (!base) return [];
+
+            // Prefer CDN first, then local structure candidates
+            const candidates = [`${CDN_RES_BASE}${base}`, ...buildAssetCandidates(raw)];
+
+            // De-dupe, preserve order
+            return candidates.filter((v, i) => candidates.indexOf(v) === i);
+        }
+
+        let _bgResolveToken = 0;
+        function resolveFirstLoadableImageSrc(candidates) {
+            const token = ++_bgResolveToken;
+            return new Promise((resolve) => {
+                if (!Array.isArray(candidates) || candidates.length === 0) {
+                    resolve({ token, src: null });
+                    return;
+                }
+
+                let i = 0;
+                const tryNext = () => {
+                    if (i >= candidates.length) {
+                        resolve({ token, src: null });
+                        return;
+                    }
+                    const src = candidates[i++];
+                    const img = new Image();
+                    img.onload = () => resolve({ token, src });
+                    img.onerror = () => tryNext();
+                    img.src = src;
+                };
+                tryNext();
+            });
         }
 
         function getAudioCurrentBaseName(audioEl) {
@@ -85,11 +175,17 @@
             // Background image
             if (options.applyBackground) {
                 try {
-                    const bgCandidates = buildAssetCandidates(bgValue);
-                    if (bgCandidates.length > 0) {
-                        // Multiple URLs: browser will still render later ones if earlier fails
-                        document.body.style.backgroundImage = bgCandidates.map(p => `url('${p}')`).join(', ');
-                    }
+                    const bgCandidates = buildImageCandidates(bgValue);
+                    resolveFirstLoadableImageSrc(bgCandidates).then(({ token, src }) => {
+                        // Only apply the latest request (avoid race if switching levels quickly)
+                        if (token !== _bgResolveToken) return;
+                        if (src) {
+                            document.body.style.backgroundImage = `url('${src}')`;
+                        } else {
+                            // Fall back to no image (CSS background-color still applies)
+                            document.body.style.backgroundImage = 'none';
+                        }
+                    });
                 } catch (e) {
                     console.warn('Failed to apply background image:', e);
                 }
@@ -117,7 +213,7 @@
                         audio.pause();
                         while (audio.firstChild) audio.removeChild(audio.firstChild);
 
-                        const musicCandidates = buildAssetCandidates(musicValue);
+                        const musicCandidates = buildMusicCandidates(musicValue);
                         musicCandidates.forEach(src => {
                             const source = document.createElement('source');
                             source.src = src;

@@ -12,7 +12,7 @@
 
     body {
         font-family: 'Microsoft YaHei', 'SimHei', 'Arial', sans-serif;
-        background-image: url('../res/guanyin.jpg');
+        background-image: url('https://cdn.jsdelivr.net/gh/wisteriachen770206/chinese-writing-game/res/guanyin.jpg');
             background-repeat: repeat;
             background-size: auto;
             background-color: #F5F5F3; /* Fallback color */
