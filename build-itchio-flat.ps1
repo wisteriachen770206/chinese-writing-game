@@ -9,18 +9,13 @@ param(
 )
 
 # Configuration
-$buildFolder = "itchio-build-flat"
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+$buildFolder = "itchio-flat-stage-$timestamp"
 $zipName = "chinese-character-game-itchio-flat-$timestamp.zip"
 
-# Clean up / create build folder
-if (Test-Path $buildFolder) {
-    Write-Host "Cleaning up old build folder contents..."
-    Get-ChildItem -Path $buildFolder -Force -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
-} else {
-    Write-Host "Creating build folder..."
-    New-Item -ItemType Directory -Path $buildFolder | Out-Null
-}
+# Create build folder (unique per build to avoid file locks)
+Write-Host "Creating build folder..."
+New-Item -ItemType Directory -Path $buildFolder -Force | Out-Null
 
 # Copy index.html to root
 Write-Host "Copying index.html..."
@@ -43,6 +38,7 @@ foreach ($file in $jsFiles) {
         Write-Host "  Copied: $file"
     }
 }
+
 
 # Copy data files to root
 Write-Host "Copying data files..."
@@ -92,6 +88,7 @@ foreach ($file in $jsFiles) {
         # Replace res/ paths with flat structure
         $jsContent = $jsContent -replace 'src="res/([^"]+)"', 'src="$1"'
         $jsContent = $jsContent -replace "src='res/([^']+)'", "src='$1'"
+
         Set-Content -Path $jsPath -Value $jsContent -Encoding UTF8 -NoNewline
     }
 }

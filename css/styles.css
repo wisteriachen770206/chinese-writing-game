@@ -12,13 +12,30 @@
 
     body {
         font-family: 'Microsoft YaHei', 'SimHei', 'Arial', sans-serif;
-        background-image: url('https://cdn.jsdelivr.net/gh/wisteriachen770206/chinese-writing-game/res/guanyin.jpg');
-            background-repeat: repeat;
-            background-size: auto;
-            background-color: #F5F5F3; /* Fallback color */
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        /* Background image is rendered on a separate blurred layer (see body::before) */
+        --game-bg-image: url('https://cdn.jsdelivr.net/gh/wisteriachen770206/chinese-writing-game/res/guanyin.jpg');
+        background-image: none;
+        background-color: #F5F5F3; /* Fallback color */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 0; /* create stacking context for ::before */
+    }
+
+    /* Blurred background layer (keeps UI crisp) */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: var(--game-bg-image);
+        background-repeat: repeat;
+        background-size: auto;
+        background-position: center;
+        filter: blur(10px);
+        transform: scale(1.08); /* avoid blurred edges */
+        z-index: -1;
+        pointer-events: none;
     }
     
     /* Loading Screen */
