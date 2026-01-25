@@ -53,9 +53,9 @@ if (Test-Path "data\graphics.txt") {
     Copy-Item -Path "data\graphics.txt" -Destination "$buildFolder\graphics.txt" -Force
 }
 
-# Copy res files to root
-Write-Host "Copying resource files..."
-Copy-Item -Path "res\*" -Destination $buildFolder -Force
+# NOTE:
+# We no longer include the local 'res' directory in the flat itch.io build,
+# because background images/music/icons are now loaded from the CDN.
 
 # Update index.html to use flat structure
 Write-Host "Updating paths in index.html..."

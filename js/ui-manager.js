@@ -339,7 +339,7 @@ function initSettingsMenu() {
             // Change icon based on volume
             if (volume === 0) {
                 // Use SVG for muted music
-                musicIcon.innerHTML = '<img src="res/no-music.svg" style="width: 24px; height: 24px; vertical-align: middle;">';
+                musicIcon.innerHTML = '<img src="https://cdn.jsdelivr.net/gh/wisteriachen770206/chinese-writing-game/res/no-music.svg" style="width: 24px; height: 24px; vertical-align: middle;">';
                 musicEnabled = false;
                 if (backgroundMusic) {
                     backgroundMusic.pause();
