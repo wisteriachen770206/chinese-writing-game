@@ -166,7 +166,7 @@
       "difficulty": "easy",
       "maxHP": 100,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "235.jpeg",
+      "backgroundImage": "235.jpg",
       "backgroundMusic": "235.mp3"
     },
     {
@@ -179,8 +179,8 @@
       "difficulty": "easy",
       "maxHP": 100,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
-      "backgroundMusic": "XJ0106.mp3"
+      "backgroundImage": "236.jpg",
+      "backgroundMusic": "236.mp3"
     },
     {
       "id": "poem_237",
