@@ -205,8 +205,8 @@
       "difficulty": "easy",
       "maxHP": 100,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
-      "backgroundMusic": "XJ0106.mp3"
+      "backgroundImage": "238.jpeg",
+      "backgroundMusic": "238.mp3"
     },
     {
       "id": "poem_239",
@@ -1277,17 +1277,17 @@
   ],
   "difficulties": {
     "easy": {
-      "punishmentMultiplier": 0.2,
-      "perfectHPBonus": 5.0,
+      "punishmentMultiplier": 2,
+      "perfectHPBonus": 0.2,
       "strokesPerCharacter": 10
     },
     "medium": {
-      "punishmentMultiplier": 1.5,
-      "perfectHPBonus": 1,
+      "punishmentMultiplier": 3,
+      "perfectHPBonus": 0.1,
       "strokesPerCharacter": 15
     },
     "hard": {
-      "punishmentMultiplier": 2,
+      "punishmentMultiplier": 4,
       "perfectHPBonus": 0,
       "strokesPerCharacter": 20
     }
