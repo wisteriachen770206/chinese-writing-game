@@ -1273,6 +1273,19 @@
       "estimatedTime": "2-3 mins",
       "backgroundImage": "320.jpeg",
       "backgroundMusic": "320.mp3"
+    },
+    {
+      "id": "poem_321",
+      "name": "木兰辞",
+      "description": "唧唧复唧唧，木兰当户织。不闻机住声，唯闻女叹息。...",
+      "characters": "唧唧复唧唧，木兰当户织。不闻机住声，唯闻女叹息。问女何所思，问女何所忆。女亦无所思，女亦无所忆。昨夜见军帖，可汗大点兵，军书十二卷，卷卷有爷名。阿爷无大儿，木兰无长兄，愿为市鞍马，从此替爷征。",
+      "numCharacters": 80,
+      "totalStrokes": 0,
+      "difficulty": "hard",
+      "maxHP": 200,
+      "estimatedTime": "10 mins",
+      "backgroundImage": "321.jpg",
+      "backgroundMusic": "321.mp3"
     }
   ],
   "difficulties": {

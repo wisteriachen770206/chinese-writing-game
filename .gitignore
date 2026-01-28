@@ -48,4 +48,5 @@ strokes_data/
 
 # Text files (debug/temp files)
 *.txt
-!data/graphics.txt
+# graphics.txt is large (~35MB) and can be downloaded when needed
+data/graphics.txt

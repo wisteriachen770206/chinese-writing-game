@@ -9,6 +9,17 @@
         // - ui-manager.js: UI interactions
         // ============================================
         
+        // Helper function to filter out punctuation and keep only Chinese characters
+        function filterChineseCharacters(text) {
+            if (!text) return [];
+            return Array.from(text).filter(char => {
+                const code = char.charCodeAt(0);
+                // Keep only CJK Unified Ideographs (Chinese characters)
+                // Range: U+4E00 to U+9FFF
+                return code >= 0x4E00 && code <= 0x9FFF;
+            });
+        }
+
         // Level loading and selection functions
         async function loadLevelConfig() {
             try {
@@ -85,22 +96,15 @@
             const raw = String(pathOrFile).replace(/\\/g, '/').trim();
             if (!raw) return [];
 
-            // If it's already a URL, use as-is (and optionally fall back to local if it looks like a file)
+            // If it's already a URL, use as-is
             if (isHttpUrl(raw)) return [raw];
 
             const base = getAssetBaseName(raw);
             if (!base) return [];
 
-            // Prefer CDN first, then local fallbacks
-            const candidates = [`${CDN_RES_BASE}${base}`, base, `res/${base}`];
-
-            // If user provided an explicit path (e.g. "res/foo.mp3"), include it too.
-            if (raw && raw !== base && raw !== `res/${base}`) {
-                candidates.push(raw);
-            }
-
-            // De-dupe, preserve order
-            return candidates.filter((v, i) => candidates.indexOf(v) === i);
+            // Use CDN only (no local fallbacks to avoid 404 errors)
+            // The CDN should have all the music files
+            return [`${CDN_RES_BASE}${base}`];
         }
 
         // ============================================
@@ -116,11 +120,9 @@
             const base = getAssetBaseName(raw);
             if (!base) return [];
 
-            // Prefer CDN first, then local structure candidates
-            const candidates = [`${CDN_RES_BASE}${base}`, ...buildAssetCandidates(raw)];
-
-            // De-dupe, preserve order
-            return candidates.filter((v, i) => candidates.indexOf(v) === i);
+            // Use CDN only (no local fallbacks to avoid 404 errors)
+            // The CDN should have all the background images
+            return [`${CDN_RES_BASE}${base}`];
         }
 
         let _bgResolveToken = 0;
@@ -407,8 +409,16 @@
             levelStartTime = Date.now();
             console.log('⏱️ Level started at:', new Date(levelStartTime).toLocaleTimeString());
             
-            // Set characters from level first
-            charactersToLearn = level.characters.split('');
+            // Set characters from level first (automatically filter out punctuation)
+            const rawChars = level.characters;
+            const beforeFilter = Array.from(rawChars);
+            charactersToLearn = filterChineseCharacters(rawChars);
+            const filteredCount = rawChars.length - charactersToLearn.length;
+            if (filteredCount > 0) {
+                const filtered = beforeFilter.filter(c => !charactersToLearn.includes(c));
+                console.log(`Filtered out ${filteredCount} non-Chinese characters:`, filtered.slice(0, 20).join(''));
+            }
+            console.log(`Loaded ${charactersToLearn.length} Chinese characters (from ${rawChars.length} total)`);
             
             // Load all_strokes.json if not already loaded
             if (Object.keys(allCharactersData).length === 0) {
@@ -425,8 +435,14 @@
             }
             
             // Validate that all characters in this level are available
+            // (Note: charactersToLearn is already filtered to exclude punctuation)
             const missingCharacters = [];
             for (const char of charactersToLearn) {
+                // Double-check: skip if it's not a Chinese character (shouldn't happen, but safety check)
+                const code = char.charCodeAt(0);
+                if (code < 0x4E00 || code > 0x9FFF) {
+                    continue; // Skip non-Chinese characters (should already be filtered)
+                }
                 if (!allCharactersData[char]) {
                     missingCharacters.push(char);
                 }
