@@ -2,7 +2,7 @@
   "levels": [
     {
       "id": "lesson_001",
-      "name": "你好",
+      "name": "Ni Hao Wo Hao",
       "description": "你好你好你好吗？我很好我很好呀，你好吗你也好吗？我也很好我也好",
       "characters": "你好你好你好吗我很好我很好呀你好吗你也好吗我也很好我也好",
       "numCharacters": 28,
@@ -12,6 +12,19 @@
       "estimatedTime": "2-3 mins",
       "backgroundImage": "001.jpeg",
       "backgroundMusic": "001.mp3"
+    },
+    {
+      "id": "lesson_002",
+      "name": "Ni Mama He Baba",
+      "description": "你妈妈她还好吗？我的妈妈她很好，你的爸爸他好吗？我的爸爸他也好。",
+      "characters": "你妈妈她还好吗我的妈妈她很好你的爸爸他好吗我的爸爸他也好",
+      "numCharacters": 28,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "002.jpg",
+      "backgroundMusic": "002.mp3"
     },
     {
       "id": "poem_223",
