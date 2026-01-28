@@ -1,6 +1,19 @@
 {
   "levels": [
     {
+      "id": "lesson_001",
+      "name": "你好",
+      "description": "你好你好你好吗？我很好我很好呀，你好吗你也好吗？我也很好我也好",
+      "characters": "你好你好你好吗我很好我很好呀你好吗你也好吗我也很好我也好",
+      "numCharacters": 28,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "001.jpeg",
+      "backgroundMusic": "001.mp3"
+    },
+    {
       "id": "poem_223",
       "name": "王维：鹿柴",
       "description": "空山不见人，但闻人语响。返景入深林，复照青苔上。...",
