@@ -52,7 +52,13 @@ if (Test-Path $zipName) { Remove-Item -Path $zipName -Force }
 
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$zip = [System.IO.Compression.ZipFile]::Open($zipName, [System.IO.Compression.ZipArchiveMode]::Create)
+
+# Ensure we're in the project root (where the script is located)
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDir = Split-Path -Parent $scriptPath
+Push-Location $scriptDir
+
+$zip = [System.IO.Compression.ZipFile]::Open((Join-Path $scriptDir $zipName), [System.IO.Compression.ZipArchiveMode]::Create)
 $entryCount = 0
 try {
     # index.html (rewrite paths for flat structure)
@@ -94,18 +100,20 @@ try {
     # Data files (kept local)
     Write-Host "Adding data files..."
     if (Add-ZipFileEntry -Zip $zip -EntryName "all_strokes.json" -SourcePath "data\\all_strokes.json") { $entryCount++ }
-    if (Add-ZipFileEntry -Zip $zip -EntryName "graphics.txt" -SourcePath "data\\graphics.txt") { $entryCount++ }
+    # NOTE: graphics.txt is NOT included (large file, can be downloaded when needed)
 } finally {
     $zip.Dispose()
+    Pop-Location
 }
 
 # Get ZIP file size
-$zipSize = (Get-Item $zipName).Length
+$zipPath = Join-Path $scriptDir $zipName
+$zipSize = (Get-Item $zipPath).Length
 $zipSizeMB = [math]::Round($zipSize / 1MB, 2)
 
 Write-Host ""
 Write-Host "Build completed successfully!"
-Write-Host "ZIP file: $zipName"
+Write-Host "ZIP file: $zipPath"
 Write-Host "Size: $zipSizeMB MB"
 Write-Host "Files: $entryCount"
 Write-Host ""
@@ -116,6 +124,6 @@ Write-Host "Upload instructions for itch.io:"
 Write-Host "1. Go to your itch.io project page"
 Write-Host "2. Click 'Edit game'"
 Write-Host "3. Go to 'Uploads' section"
-Write-Host "4. Upload the ZIP file: $zipName"
+Write-Host "4. Upload the ZIP file: $zipPath"
 Write-Host "5. Set it as the main file for HTML5/WebGL"
 Write-Host ""
