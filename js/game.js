@@ -561,15 +561,16 @@
             let columns, rows;
             
             if (isMobile) {
-                // MOBILE (VERTICAL) LAYOUT
-                if (numCharacters <= 28) {
-                    // For 28 or fewer characters: columns = numCharacters / 4, rows = 4
+                // MOBILE (VERTICAL) LAYOUT — each line = fixed number of characters
+                if (numCharacters >= 40) {
+                    columns = 10; // 10 characters per line
+                    rows = 'auto';
+                } else if (numCharacters <= 28) {
                     columns = Math.ceil(numCharacters / 4);
                     rows = 4;
                 } else {
-                    // For more than 28 characters: columns = 7, rows grow automatically
                     columns = 7;
-                    rows = 'auto'; // Will grow as needed
+                    rows = 'auto';
                 }
                 
                 // Apply mobile grid layout (row-based)
@@ -587,20 +588,21 @@
                 
                 console.log(`Mobile layout: ${numCharacters} chars → ${columns} columns, rows grow dynamically`);
             } else {
-                // DESKTOP (HORIZONTAL) LAYOUT
-                if (numCharacters > 28) {
-                    // For more than 28 characters: rows = 7, columns grow automatically
+                // DESKTOP (HORIZONTAL) LAYOUT — each column = fixed number of characters
+                if (numCharacters >= 40) {
+                    rows = 10; // 10 characters per column
+                    columns = 'auto';
+                } else if (numCharacters > 28) {
                     rows = 7;
-                    columns = 'auto'; // Will grow as needed
+                    columns = 'auto';
                 } else {
-                    // For 28 or fewer characters: rows = numCharacters / 4, columns = 4
                     rows = Math.ceil(numCharacters / 4);
                     columns = 4;
                 }
                 
                 // Apply desktop grid layout (column-based)
                 completedContainer.style.gridAutoFlow = 'column';
-                completedContainer.style.gridTemplateRows = rows === 'auto' ? 'repeat(7, 36px)' : `repeat(${rows}, 36px)`;
+                completedContainer.style.gridTemplateRows = `repeat(${rows}, 36px)`;
                 completedContainer.style.gridTemplateColumns = ''; // CLEAR columns constraint
                 completedContainer.style.gridAutoColumns = '36px'; // Each column is 36px as added
                 completedContainer.style.gridAutoRows = ''; // Clear auto rows

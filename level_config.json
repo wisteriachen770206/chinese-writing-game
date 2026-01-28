@@ -1312,6 +1312,32 @@
       "estimatedTime": "10 mins",
       "backgroundImage": "321.jpg",
       "backgroundMusic": "321.mp3"
+    },
+    {
+      "id": "poem_322",
+      "name": "杜甫：春望",
+      "description": "国破山河在，城春草木深。感时花溅泪，恨别鸟惊心...",
+      "characters": "国破山河在，城春草木深。感时花溅泪，恨别鸟惊心。烽火连三月，家书抵万金。白头搔更短，浑欲不胜簪。",
+      "numCharacters": 40,
+      "totalStrokes": 0,
+      "difficulty": "hard",
+      "maxHP": 200,
+      "estimatedTime": "3 mins",
+      "backgroundImage": "322.jpg",
+      "backgroundMusic": "322.mp3"
+    },
+    {
+      "id": "poem_323",
+      "name": "杜甫：春夜喜雨",
+      "description": "好雨知时节，当春乃发生。随风潜入夜，润物细无声..",
+      "characters": "好雨知时节，当春乃发生。随风潜入夜，润物细无声。野径云俱黑，江船火独明。晓看红湿处，花重锦官城。",
+      "numCharacters": 40,
+      "totalStrokes": 0,
+      "difficulty": "hard",
+      "maxHP": 200,
+      "estimatedTime": "3 mins",
+      "backgroundImage": "323.jpeg",
+      "backgroundMusic": "323.mp3"
     }
   ],
   "difficulties": {
