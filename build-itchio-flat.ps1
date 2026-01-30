@@ -12,6 +12,7 @@ $ErrorActionPreference = 'Stop'
 
 # Configuration
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+$buildTimeDisplay = Get-Date -Format "yyyy-MM-dd HH:mm"
 $zipName = "chinese-character-game-itchio-flat-$timestamp.zip"
 
 # Helpers
@@ -61,9 +62,10 @@ Push-Location $scriptDir
 $zip = [System.IO.Compression.ZipFile]::Open((Join-Path $scriptDir $zipName), [System.IO.Compression.ZipArchiveMode]::Create)
 $entryCount = 0
 try {
-    # index.html (rewrite paths for flat structure)
+    # index.html (rewrite paths for flat structure, update build timestamp)
     Write-Host "Adding index.html..."
     $indexContent = Get-Content "index.html" -Raw -Encoding UTF8
+    $indexContent = $indexContent -replace '<div id="build-timestamp">build: [^<]+</div>', "<div id=`"build-timestamp`">build: $buildTimeDisplay</div>"
     $indexContent = $indexContent -replace 'href="css/styles\.css"', 'href="styles.css"'
     $indexContent = $indexContent -replace 'src="js/([^"]+)"', 'src="$1"'
     $indexContent = $indexContent -replace 'src="res/([^"]+)"', 'src="$1"'

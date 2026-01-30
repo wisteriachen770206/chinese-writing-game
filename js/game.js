@@ -288,10 +288,10 @@
                     level.description.toLowerCase().includes(query)
                 );
                 
-                // Show first 5 search results
-                levelsToDisplay = searchResults.slice(0, 5);
-                
-                console.log(`Search results for "${searchQuery}": ${searchResults.length} levels found, showing first 5`);
+                // Show first 10 search results
+                levelsToDisplay = searchResults.slice(0, 10);
+
+                console.log(`Search results for "${searchQuery}": ${searchResults.length} levels found, showing first 10`);
             } else {
                 // No search - show 5 evenly-spaced representative levels
                 const spacing = Math.floor(totalLevels / 5);

@@ -132,7 +132,7 @@
     },
     {
       "id": "lesson_011",
-      "name": "Weekdays",
+      "name": "Weekdays 2",
       "description": "星期五是礼拜五，星期六是礼拜六，星期天是礼拜天，礼拜天是星期天",
       "characters": "星期五是礼拜五星期六是礼拜六星期天是礼拜天礼拜天是星期天",
       "numCharacters": 28,
@@ -388,8 +388,8 @@
       "difficulty": "easy",
       "maxHP": 100,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
-      "backgroundMusic": "XJ0106.mp3"
+      "backgroundImage": "239.jpg",
+      "backgroundMusic": "239.mp3"
     },
     {
       "id": "poem_242",

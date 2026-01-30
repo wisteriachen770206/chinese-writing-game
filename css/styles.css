@@ -1251,8 +1251,9 @@
             display: none;
         }
         
-        /* Hide user info in vertical layout */
-        body:has(.canvas-container-wrapper.vertical-layout) #user-info {
+        /* Hide user info in vertical and horizontal layout */
+        body:has(.canvas-container-wrapper.vertical-layout) #user-info,
+        body:has(.canvas-container-wrapper.horizontal-layout) #user-info {
             display: none !important;
         }
 
