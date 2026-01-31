@@ -375,8 +375,8 @@
       "difficulty": "easy",
       "maxHP": 100,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
-      "backgroundMusic": "XJ0106.mp3"
+      "backgroundImage": "240.jpeg",
+      "backgroundMusic": "240.mp3"
     },
     {
       "id": "poem_241",
@@ -583,8 +583,8 @@
       "difficulty": "medium",
       "maxHP": 150,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
-      "backgroundMusic": "XJ0106.mp3"
+      "backgroundImage": "256.jpg",
+      "backgroundMusic": "256.mp3"
     },
     {
       "id": "poem_257",
@@ -596,7 +596,7 @@
       "difficulty": "medium",
       "maxHP": 150,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
+      "backgroundImage": "256.jpg",
       "backgroundMusic": "XJ0106.mp3"
     },
     {
@@ -609,7 +609,7 @@
       "difficulty": "medium",
       "maxHP": 150,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
+      "backgroundImage": "256.jpg",
       "backgroundMusic": "XJ0106.mp3"
     },
     {
@@ -622,7 +622,7 @@
       "difficulty": "medium",
       "maxHP": 150,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
+      "backgroundImage": "256.jpg",
       "backgroundMusic": "XJ0106.mp3"
     },
     {
@@ -869,8 +869,8 @@
       "difficulty": "medium",
       "maxHP": 150,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
-      "backgroundMusic": "XJ0106.mp3"
+      "backgroundImage": "278.jpg",
+      "backgroundMusic": "278.mp3"
     },
     {
       "id": "poem_279",
