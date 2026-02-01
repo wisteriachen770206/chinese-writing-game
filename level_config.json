@@ -56,7 +56,7 @@
       "id": "lesson_005",
       "name": "Big Numbers",
       "description": "七十，八十，九十，一百。一千。一万，十万，百万，千万。一亿。",
-      "characters": "七十八十九百一千一万十万百万千万一亿",
+      "characters": "七十八十九十一百一千一万十万百万千万一亿",
       "numCharacters": 20,
       "totalStrokes": 0,
       "difficulty": "easy",
@@ -69,7 +69,7 @@
       "id": "lesson_006",
       "name": "Years",
       "description": "一九五六年，一九七八年，二〇二五年，二〇二六年",
-      "characters": "一九五六年一九七八年二〇二五年二〇二六年",
+      "characters": "一九五六年一九七八年二零二五年二零二六年",
       "numCharacters": 20,
       "totalStrokes": 0,
       "difficulty": "easy",
@@ -1155,8 +1155,8 @@
       "difficulty": "hard",
       "maxHP": 200,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
-      "backgroundMusic": "XJ0106.mp3"
+      "backgroundImage": "300.jpeg",
+      "backgroundMusic": "300.mp3"
     },
     {
       "id": "poem_301",
