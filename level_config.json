@@ -143,7 +143,19 @@
       "backgroundImage": "011.jpg",
       "backgroundMusic": "011.mp3"
     },
-
+    {
+      "id": "lesson_012",
+      "name": "XinJing",
+      "description": "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。",
+      "characters": "观自在菩萨行深般若波罗蜜多时照见五蕴皆空度一切苦厄",
+      "numCharacters": 28,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
     {
       "id": "poem_223",
       "name": "王维：鹿柴",
@@ -1460,8 +1472,8 @@
   ],
   "difficulties": {
     "easy": {
-      "punishmentMultiplier": 2,
-      "perfectHPBonus": 0.2,
+      "punishmentMultiplier": 1,
+      "perfectHPBonus": 3,
       "strokesPerCharacter": 10
     },
     "medium": {
