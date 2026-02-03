@@ -1472,8 +1472,8 @@
   ],
   "difficulties": {
     "easy": {
-      "punishmentMultiplier": 1,
-      "perfectHPBonus": 3,
+      "punishmentMultiplier": 0.3,
+      "perfectHPBonus": 5,
       "strokesPerCharacter": 10
     },
     "medium": {
