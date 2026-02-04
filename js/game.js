@@ -2054,13 +2054,19 @@
             const tipsOverlay = document.getElementById('playing-tips-overlay');
             const gotItBtn = document.getElementById('playing-tips-got-it-btn');
             if (gotItBtn && tipsOverlay) {
-                gotItBtn.addEventListener('click', () => {
+                function dismissTips(e) {
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
                     try {
                         localStorage.setItem(PLAYING_TIPS_KEY, '1');
-                    } catch (e) {}
+                    } catch (err) {}
                     tipsOverlay.classList.add('hidden');
                     tipsOverlay.style.display = '';
-                });
+                }
+                gotItBtn.addEventListener('click', dismissTips);
+                gotItBtn.addEventListener('touchend', dismissTips, { passive: false });
             }
         }
         
@@ -3057,6 +3063,12 @@
                     return; // Don't handle drag if level complete is visible
                 }
                 
+                // Check if playing tips overlay is visible (first-time user)
+                const playingTipsOverlay = document.getElementById('playing-tips-overlay');
+                if (playingTipsOverlay && !playingTipsOverlay.classList.contains('hidden')) {
+                    return; // Don't handle drag if tips overlay is visible - allow button tap
+                }
+                
                 // Don't trigger on button clicks, UI elements, or overlay screens
                 if (e.target && (
                     e.target.id === 'next-stroke-btn' || 
@@ -3115,6 +3127,13 @@
                 if (levelCompleteOverlay && !levelCompleteOverlay.classList.contains('hidden')) {
                     isDragging = false;
                     return; // Don't handle drag if level complete is visible
+                }
+                
+                // Check if playing tips overlay is visible
+                const playingTipsOverlay = document.getElementById('playing-tips-overlay');
+                if (playingTipsOverlay && !playingTipsOverlay.classList.contains('hidden')) {
+                    isDragging = false;
+                    return; // Don't handle drag if tips overlay is visible
                 }
                 
                 // Don't trigger on button clicks or UI elements
