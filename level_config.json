@@ -1490,8 +1490,8 @@
       "strokesPerCharacter": 10
     },
     "medium": {
-      "punishmentMultiplier": 3,
-      "perfectHPBonus": 0.1,
+      "punishmentMultiplier": 2,
+      "perfectHPBonus": 3,
       "strokesPerCharacter": 15
     },
     "hard": {
