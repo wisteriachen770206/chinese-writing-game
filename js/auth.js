@@ -40,21 +40,15 @@ function generateAvatarFromName(name) {
 }
 
 function onUserLogin(user) {
-    console.log('🔵 onUserLogin called with user:', user);
     currentUser = user;
     updateUserInfoDisplay(user);
     
     // Auto-save if in level complete screen
     const levelCompleteOverlay = document.getElementById('level-complete-overlay');
-    console.log('🔵 Level complete overlay:', levelCompleteOverlay ? 'exists' : 'NOT FOUND');
-    console.log('🔵 Overlay visible:', levelCompleteOverlay && !levelCompleteOverlay.classList.contains('hidden'));
     
     if (levelCompleteOverlay && !levelCompleteOverlay.classList.contains('hidden')) {
-        console.log('✅ Auto-saving progress...');
         saveGameProgress();
         showToast('Progress Saved!', 'Your game progress has been saved successfully.', '💾');
-    } else {
-        console.log('⚠️ Not auto-saving: overlay not visible or not found');
     }
 }
 

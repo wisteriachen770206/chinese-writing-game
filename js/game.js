@@ -3,7 +3,8 @@
         // 
         // DEPENDENCIES (loaded before this file):
         // - game-state.js: All global variables
-        console.log('✅ game.js starting to load...');
+        const DEBUG = false;
+        const log = (...args) => { if (DEBUG) console.log(...args); };
         // - hp-system.js: HP and damage functions
         // - auth.js: Authentication and save/load
         // - ui-manager.js: UI interactions
@@ -19,6 +20,48 @@
                 return code >= 0x4E00 && code <= 0x9FFF;
             });
         }
+        
+        // Check if a character is punctuation (used for line/column breaks in completed chars container)
+        function isPunctuationForBreak(c) {
+            const code = c.charCodeAt(0);
+            if (code <= 0x20 || c === '\n' || c === '\r') return true; // whitespace, newline
+            if (code === 0x3001 || code === 0x3002) return true; // 、。
+            if (code === 0xFF0C || code === 0xFF01 || code === 0xFF1F) return true; // ，！？
+            if (code === 0x2014 || code === 0x2026) return true; // —…
+            return /[，。！？、；：""''（）【】\s]/.test(c);
+        }
+        
+        // Returns true if there is punctuation between Chinese char at index and the next one
+        function shouldAddBreakAfterIndex(originalText, chineseIndex) {
+            if (!originalText) return false;
+            let idx = -1;
+            let lastWasChinese = false;
+            for (const c of originalText) {
+                const isCJK = c.charCodeAt(0) >= 0x4E00 && c.charCodeAt(0) <= 0x9FFF;
+                if (isCJK) {
+                    idx++;
+                    if (idx === chineseIndex + 1) return lastWasChinese;
+                    lastWasChinese = false;
+                } else if (isPunctuationForBreak(c) && idx === chineseIndex) {
+                    lastWasChinese = true;
+                }
+            }
+            return false;
+        }
+        
+        function appendCompletedBreak(container) {
+            const breakEl = document.createElement('div');
+            breakEl.className = 'completed-break';
+            breakEl.setAttribute('aria-hidden', 'true');
+            container.appendChild(breakEl);
+        }
+        
+        function insertCompletedBreakAtStart(container) {
+            const breakEl = document.createElement('div');
+            breakEl.className = 'completed-break';
+            breakEl.setAttribute('aria-hidden', 'true');
+            container.insertBefore(breakEl, container.firstChild);
+        }
 
         // Level loading and selection functions
         async function loadLevelConfig() {
@@ -26,7 +69,7 @@
                 // Add cache-busting parameter to force reload of latest data
                 const response = await fetch(`level_config.json?v=${Date.now()}`);
                 levelConfig = await response.json();
-                console.log('Level config loaded:', levelConfig);
+                log('Level config loaded:', levelConfig);
                 return levelConfig;
             } catch (error) {
                 console.error('Error loading level config:', error);
@@ -250,13 +293,13 @@
             }
             
             // Check for saved progress (works with or without user login)
-            console.log('🔵 displayLevelSelection called');
-            console.log('🔵 currentUser at displayLevelSelection:', currentUser);
+            log('🔵 displayLevelSelection called');
+            log('🔵 currentUser at displayLevelSelection:', currentUser);
             const savedProgress = loadGameProgress();
-            console.log('🔵 displayLevelSelection - savedProgress:', savedProgress);
+            log('🔵 displayLevelSelection - savedProgress:', savedProgress);
             let savedLevelId = savedProgress ? savedProgress.currentLevel : null;
-            console.log('🔵 displayLevelSelection - savedLevelId:', savedLevelId);
-            console.log('🔵 This should be the NEXT level to play after the completed one');
+            log('🔵 displayLevelSelection - savedLevelId:', savedLevelId);
+            log('🔵 This should be the NEXT level to play after the completed one');
             
             const totalLevels = levelConfig.levels.length;
             
@@ -265,17 +308,17 @@
             let nextLevelId = null;
             if (savedLevelId) {
                 const savedLevelIndex = levelConfig.levels.findIndex(l => l.id === savedLevelId);
-                console.log('🔵 displayLevelSelection - savedLevelIndex:', savedLevelIndex);
+                log('🔵 displayLevelSelection - savedLevelIndex:', savedLevelIndex);
                 if (savedLevelIndex >= 0 && savedLevelIndex < totalLevels) {
                     // savedLevelId is already the next level to play, no need to +1
                     continueLevelIndex = savedLevelIndex;
                     nextLevelId = levelConfig.levels[continueLevelIndex].id;
-                    console.log('✅ Continue level found:', nextLevelId, 'at index', continueLevelIndex);
+                    log('✅ Continue level found:', nextLevelId, 'at index', continueLevelIndex);
                 } else {
-                    console.log('❌ Saved level not found in levelConfig');
+                    log('❌ Saved level not found in levelConfig');
                 }
             } else {
-                console.log('⚠️ No saved level found in progress');
+                log('⚠️ No saved level found in progress');
             }
             
             let levelsToDisplay = [];
@@ -291,7 +334,7 @@
                 // Show first 10 search results
                 levelsToDisplay = searchResults.slice(0, 10);
 
-                console.log(`Search results for "${searchQuery}": ${searchResults.length} levels found, showing first 10`);
+                log(`Search results for "${searchQuery}": ${searchResults.length} levels found, showing first 10`);
             } else {
                 // No search - show 5 evenly-spaced representative levels
                 const spacing = Math.floor(totalLevels / 5);
@@ -302,9 +345,9 @@
                     }
                 }
                 
-                console.log(`Showing 6 levels (1 continue + 5 representative) from ${totalLevels} total:`);
+                log(`Showing 6 levels (1 continue + 5 representative) from ${totalLevels} total:`);
                 if (continueLevelIndex !== null) {
-                    console.log(`  Continue level: #${continueLevelIndex + 1} (ID: ${nextLevelId})`);
+                    log(`  Continue level: #${continueLevelIndex + 1} (ID: ${nextLevelId})`);
                 }
             }
             
@@ -407,7 +450,7 @@
             
             // Record start time
             levelStartTime = Date.now();
-            console.log('⏱️ Level started at:', new Date(levelStartTime).toLocaleTimeString());
+            log('⏱️ Level started at:', new Date(levelStartTime).toLocaleTimeString());
             
             // Set characters from level first (automatically filter out punctuation)
             const rawChars = level.characters;
@@ -416,13 +459,13 @@
             const filteredCount = rawChars.length - charactersToLearn.length;
             if (filteredCount > 0) {
                 const filtered = beforeFilter.filter(c => !charactersToLearn.includes(c));
-                console.log(`Filtered out ${filteredCount} non-Chinese characters:`, filtered.slice(0, 20).join(''));
+                log(`Filtered out ${filteredCount} non-Chinese characters:`, filtered.slice(0, 20).join(''));
             }
-            console.log(`Loaded ${charactersToLearn.length} Chinese characters (from ${rawChars.length} total)`);
+            log(`Loaded ${charactersToLearn.length} Chinese characters (from ${rawChars.length} total)`);
             
             // Load all_strokes.json if not already loaded
             if (Object.keys(allCharactersData).length === 0) {
-                console.log('Loading all_strokes.json for level...');
+                log('Loading all_strokes.json for level...');
                 const loaded = await loadStrokesDataFromFile();
                 if (!loaded) {
                     alert('Failed to load all_strokes.json. Please make sure the file exists.');
@@ -451,7 +494,7 @@
             if (missingCharacters.length > 0) {
                 alert(`Cannot start level: The following characters are not found in all_strokes.json:\n${missingCharacters.join(', ')}\n\nAvailable characters: ${Object.keys(allCharactersData).join(', ')}`);
                 console.error('Missing characters:', missingCharacters);
-                console.log('Available characters in all_strokes.json:', Object.keys(allCharactersData));
+                log('Available characters in all_strokes.json:', Object.keys(allCharactersData));
                 // Hide loading screen on error
                 if (loadingScreen) {
                     loadingScreen.classList.add('hidden');
@@ -508,9 +551,9 @@
             perfectStrokesCount = 0;
             notGoodStrokesCount = 0;
             
-            console.log(`Starting Level ${level.id}: ${level.name}`);
-            console.log(`Characters: ${level.characters}`);
-            console.log(`HP: ${level.maxHP}`);
+            log(`Starting Level ${level.id}: ${level.name}`);
+            log(`Characters: ${level.characters}`);
+            log(`HP: ${level.maxHP}`);
             
             // Initialize the game with the characters from this level only
             // Pass true to skip loading ToWriteText.txt
@@ -587,7 +630,6 @@
                 completedContainer.style.minHeight = '56px'; // Min height (padding + 1 row)
                 completedContainer.style.direction = 'ltr';
                 
-                console.log(`Mobile layout: ${numCharacters} chars → ${columns} columns, rows grow dynamically`);
             } else {
                 // DESKTOP (HORIZONTAL) LAYOUT — each column = fixed number of characters
                 if (numCharacters >= 40) {
@@ -613,13 +655,12 @@
                 completedContainer.style.height = 'fit-content'; // Allow height to grow
                 completedContainer.style.direction = 'rtl'; // New columns appear on the left
                 
-                console.log(`Desktop layout: ${numCharacters} chars → ${rows} rows, columns grow dynamically`);
             }
         }
         
         function onLevelComplete() {
-            console.log('🎉 onLevelComplete called');
-            console.log('🔵 currentUser at level complete:', currentUser);
+            log('🎉 onLevelComplete called');
+            log('🔵 currentUser at level complete:', currentUser);
             
             const hpLeft = Math.round(currentHP);
             
@@ -631,7 +672,7 @@
                 const minutes = Math.floor(elapsedSeconds / 60);
                 const seconds = elapsedSeconds % 60;
                 timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                console.log(`⏱️ Level completed in: ${timeStr} (${elapsedSeconds}s)`);
+                log(`⏱️ Level completed in: ${timeStr} (${elapsedSeconds}s)`);
             }
             
             // Find next level
@@ -716,7 +757,7 @@
             
             if (currentUser) {
                 // User already logged in - ALWAYS auto-save
-                console.log('✅ User logged in - auto-saving progress');
+                log('✅ User logged in - auto-saving progress');
                 setTimeout(() => {
                     saveGameProgress();
                     if (saveBtn) {
@@ -728,9 +769,9 @@
                 }, 50);
             } else {
                 // No user - auto-create demo user and save
-                console.log('🔵 No user - auto-creating demo user');
+                log('🔵 No user - auto-creating demo user');
                 setTimeout(() => {
-                    console.log('🔵 Creating demo user for auto-save...');
+                    log('🔵 Creating demo user for auto-save...');
                     simulateGoogleLogin();
                     // Save will happen automatically in onUserLogin callback
                     // Hide save button and show status after auto-save
@@ -783,13 +824,13 @@
             // Final score: accuracy × HP percentage
             const finalScore = (accuracyPercentage / 100) * hpPercentage;
             
-            console.log(`Level Score Calculation:`);
-            console.log(`  Perfect strokes: ${perfectStrokesCount}`);
-            console.log(`  Not good strokes: ${notGoodStrokesCount}`);
-            console.log(`  Total strokes: ${totalStrokes}`);
-            console.log(`  Accuracy: ${accuracyPercentage.toFixed(2)}%`);
-            console.log(`  HP: ${currentHP.toFixed(2)} / ${maxHP} (${hpPercentage.toFixed(2)}%)`);
-            console.log(`  Final Score: ${finalScore.toFixed(2)}%`);
+            log(`Level Score Calculation:`);
+            log(`  Perfect strokes: ${perfectStrokesCount}`);
+            log(`  Not good strokes: ${notGoodStrokesCount}`);
+            log(`  Total strokes: ${totalStrokes}`);
+            log(`  Accuracy: ${accuracyPercentage.toFixed(2)}%`);
+            log(`  HP: ${currentHP.toFixed(2)} / ${maxHP} (${hpPercentage.toFixed(2)}%)`);
+            log(`  Final Score: ${finalScore.toFixed(2)}%`);
             
             return {
                 score: finalScore,
@@ -963,7 +1004,7 @@
             const saveKey = `gameProgress_${currentUser.id}`;
             localStorage.setItem(saveKey, JSON.stringify(gameProgress));
             
-            console.log('Game progress saved:', gameProgress);
+            log('Game progress saved:', gameProgress);
             return gameProgress;
         }
 
@@ -971,7 +1012,7 @@
 
         function loadGameProgress() {
             if (!currentUser) {
-                console.log('No user logged in, cannot load progress');
+                log('No user logged in, cannot load progress');
                 return null;
             }
 
@@ -981,7 +1022,7 @@
             if (savedData) {
                 try {
                     const progress = JSON.parse(savedData);
-                    console.log('Game progress loaded:', progress);
+                    log('Game progress loaded:', progress);
                     return progress;
                 } catch (e) {
                     console.error('Error loading game progress:', e);
@@ -1049,7 +1090,7 @@
             if (overlay) {
                 overlay.classList.remove('hidden');
             }
-            console.log('GAME OVER! HP reached 0.');
+            log('GAME OVER! HP reached 0.');
         }
         
         /* ===== DUPLICATE FUNCTION - Already defined in separate module =====
@@ -1073,7 +1114,7 @@
         function applyDamage(damage) {
             const newHP = currentHP - damage;
             updateHPBar(newHP);
-            console.log(`HP: ${Math.round(currentHP)} / ${maxHP} (Damage: ${damage.toFixed(2)})`);
+            log(`HP: ${Math.round(currentHP)} / ${maxHP} (Damage: ${damage.toFixed(2)})`);
         }
         
         
@@ -1115,7 +1156,7 @@
                 oscillator.start(audioContext.currentTime);
                 oscillator.stop(audioContext.currentTime + 0.5);
             } catch (e) {
-                console.log('Could not play completion sound:', e);
+                log('Could not play completion sound:', e);
             }
         }
         
@@ -1127,7 +1168,7 @@
                 if (saved !== null) {
                     const index = parseInt(saved, 10);
                     if (!isNaN(index) && index >= 0) {
-                        console.log(`Loaded saved character index: ${index}`);
+                        log(`Loaded saved character index: ${index}`);
                         return index;
                     }
                 }
@@ -1142,7 +1183,7 @@
         function saveCharacterIndex(index) {
             try {
                 localStorage.setItem(STORAGE_KEY, index.toString());
-                console.log(`Saved character index: ${index}`);
+                log(`Saved character index: ${index}`);
             } catch (e) {
                 console.warn('Could not save character index:', e);
             }
@@ -1262,9 +1303,16 @@
         async function loadPreviousCharactersThumbnails(startIndex) {
             if (startIndex <= 0) return; // No previous characters
             
-            console.log(`Loading thumbnails for previous ${startIndex} characters...`);
+            const container = document.getElementById('completed-characters-container');
+            if (!container) return;
+            
+            const originalText = currentLevel && currentLevel.characters;
+            log(`Loading thumbnails for previous ${startIndex} characters...`);
             
             for (let i = 0; i < startIndex; i++) {
+                if (i > 0 && originalText && shouldAddBreakAfterIndex(originalText, i - 1)) {
+                    insertCompletedBreakAtStart(container);
+                }
                 const char = charactersToLearn[i];
                 const charData = charactersStrokeDataList.find(c => c.character === char);
                 
@@ -1272,7 +1320,7 @@
                     const thumbnail = generateCharacterThumbnail(char, charData);
                     if (thumbnail) {
                         addThumbnailToContainer(char, thumbnail);
-                        console.log(`Loaded thumbnail for character ${i + 1}: ${char}`);
+                        log(`Loaded thumbnail for character ${i + 1}: ${char}`);
                     }
                 } else {
                     console.warn(`Could not find data for character ${i + 1}: ${char}`);
@@ -1324,7 +1372,7 @@
                 if (musicEnabled) {
                     musicToggle.classList.add('active');
                     backgroundMusic.play().catch(err => {
-                        console.log('Could not play music:', err);
+                        log('Could not play music:', err);
                         // If autoplay fails, user will need to interact first
                     });
                 } else {
@@ -1337,14 +1385,14 @@
             document.addEventListener('click', function startMusic() {
                 if (musicEnabled && backgroundMusic.paused) {
                     backgroundMusic.play().catch(err => {
-                        console.log('Could not autoplay music:', err);
+                        log('Could not autoplay music:', err);
                     });
                 }
                 // Remove listener after first click
                 document.removeEventListener('click', startMusic);
             }, { once: true });
             
-            console.log('Music control initialized');
+            log('Music control initialized');
         }
         ===== END DUPLICATE FUNCTION ===== */
         
@@ -1363,11 +1411,11 @@
                 e.preventDefault();
                 
                 if (!character) {
-                    console.log('No character to read');
+                    log('No character to read');
                     return;
                 }
                 
-                console.log(`Reading character: ${character}`);
+                log(`Reading character: ${character}`);
                 
                 try {
                     // Cancel any ongoing speech
@@ -1381,27 +1429,27 @@
                     utterance.volume = 1.0;
                     
                     utterance.onstart = () => {
-                        console.log(`Started speaking: ${character}`);
+                        log(`Started speaking: ${character}`);
                         voiceBtn.style.background = 'rgba(74, 222, 128, 0.3)';
                     };
                     
                     utterance.onend = () => {
-                        console.log(`Finished speaking: ${character}`);
+                        log(`Finished speaking: ${character}`);
                         voiceBtn.style.background = 'rgba(255, 255, 255, 0.1)';
                     };
                     
                     utterance.onerror = (e) => {
-                        console.log('Error speaking:', e);
+                        log('Error speaking:', e);
                         voiceBtn.style.background = 'rgba(255, 255, 255, 0.1)';
                     };
                     
                     window.speechSynthesis.speak(utterance);
                 } catch (e) {
-                    console.log('Could not speak character:', e);
+                    log('Could not speak character:', e);
                 }
             });
             
-            console.log('Voice button initialized');
+            log('Voice button initialized');
         }
         
         
@@ -1527,7 +1575,7 @@
             // Function to process and store stroke data
             function processStrokeData(charData) {
                 if (!charData || !charData.strokes) {
-                    console.log('No stroke data to process');
+                    log('No stroke data to process');
                     return;
                 }
                 
@@ -1620,8 +1668,8 @@
                 }
                 
                 hanziWriter.strokeData.initialized = true;
-                console.log('Stroke data processed:', hanziWriter.strokeData);
-                console.log(`Processed ${hanziWriter.strokeData.strokes.length} strokes`);
+                log('Stroke data processed:', hanziWriter.strokeData);
+                log(`Processed ${hanziWriter.strokeData.strokes.length} strokes`);
             }
             
             // Fallback function for browsers without File System Access API
@@ -1640,7 +1688,7 @@
                 // Clean up
                 URL.revokeObjectURL(url);
                 
-                console.log(`File downloaded as: ${link.download}`);
+                log(`File downloaded as: ${link.download}`);
             }
             
 
@@ -1653,10 +1701,10 @@
                     btn.addEventListener('click', function(e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        console.log('=== BUTTON CLICKED ===');
+                        log('=== BUTTON CLICKED ===');
                         drawNextStroke();
                     });
-                    console.log('✓ Button click handler attached');
+                    log('✓ Button click handler attached');
                     return true;
                 } else {
                     // Button doesn't exist, which is fine - it's optional
@@ -1667,22 +1715,22 @@
             // Try to attach immediately (silently fail if button doesn't exist)
             attachButtonHandler();
             
-        console.log('✅ Past button handler attachment');
+        log('✅ Past button handler attachment');
         
         // Load all characters into new structure (in order from ToWriteText.txt)
         function loadAllCharactersIntoStructure() {
             // Clear existing data to prevent duplicates
             if (charactersStrokeDataList.length > 0) {
-                console.log('Clearing existing structure data...');
+                log('Clearing existing structure data...');
                 charactersStrokeDataList = [];
             }
             
             // charactersToLearn is already populated from ToWriteText.txt in order
-            console.log(`Loading ${charactersToLearn.length} characters into new structure (in order from ToWriteText.txt)...`);
+            log(`Loading ${charactersToLearn.length} characters into new structure (in order from ToWriteText.txt)...`);
             
             for (let i = 0; i < charactersToLearn.length; i++) {
                 const char = charactersToLearn[i];
-                console.log(`Processing character ${i + 1}/${charactersToLearn.length}: ${char}`);
+                log(`Processing character ${i + 1}/${charactersToLearn.length}: ${char}`);
                 
                 if (!allCharactersData[char]) {
                     console.warn(`Character ${char} not found in allCharactersData`);
@@ -1716,27 +1764,27 @@
                 
                 // If strokes array is empty but we have rawCharData, we'll process it on demand
                 if (structuredData.strokes.length === 0 && structuredData.rawCharData) {
-                    console.log(`Character ${char} has no pre-processed strokes, will process from rawCharData when needed`);
+                    log(`Character ${char} has no pre-processed strokes, will process from rawCharData when needed`);
                 }
                 
                 if (calculatedTotalStrokes === 0) {
                     console.warn(`Character ${char} has totalStrokes = 0! This may cause issues.`);
-                    console.log('charData:', charData);
+                    log('charData:', charData);
                 }
                 
                 charactersStrokeDataList.push(structuredData);
-                console.log(`Added ${char} to structure list with ${structuredData.totalStrokes} strokes`);
+                log(`Added ${char} to structure list with ${structuredData.totalStrokes} strokes`);
             }
             
-            console.log(`Loaded ${charactersStrokeDataList.length} characters into structure list`);
+            log(`Loaded ${charactersStrokeDataList.length} characters into structure list`);
         }
         
-        console.log('✅ Checkpoint 1: Defined loadAllCharactersIntoStructure');
+        log('✅ Checkpoint 1: Defined loadAllCharactersIntoStructure');
         
         // Load ToWriteText.txt to get characters in order
         async function loadCharactersFromTextFile() {
             try {
-                console.log('Fetching ToWriteText.txt...');
+                log('Fetching ToWriteText.txt...');
                 const response = await fetch('ToWriteText.txt');
                 if (response.ok) {
                     const text = await response.text();
@@ -1745,8 +1793,8 @@
                         // Keep Chinese characters and other non-whitespace characters
                         return char.trim().length > 0 && char !== '\n' && char !== '\r';
                     });
-                    console.log(`Loaded ${charactersToLearn.length} characters from ToWriteText.txt in order`);
-                    console.log('First 20 characters:', charactersToLearn.slice(0, 20).join(''));
+                    log(`Loaded ${charactersToLearn.length} characters from ToWriteText.txt in order`);
+                    log('First 20 characters:', charactersToLearn.slice(0, 20).join(''));
                     return true;
                 } else {
                     console.error(`Failed to load ToWriteText.txt: ${response.status}`);
@@ -1762,18 +1810,18 @@
         async function initializeApp(skipTextFile = false) {
             // If skipTextFile is true, we're coming from level selection and charactersToLearn is already set
             if (!skipTextFile) {
-                console.log('Initializing app - loading ToWriteText.txt...');
+                log('Initializing app - loading ToWriteText.txt...');
                 const textLoaded = await loadCharactersFromTextFile();
                 if (!textLoaded) {
                     alert('Failed to load ToWriteText.txt. Please make sure the file exists in the same directory.');
                     return;
                 }
             } else {
-                console.log('Initializing app - using characters from selected level...');
-                console.log('Characters to learn:', charactersToLearn.join(''));
+                log('Initializing app - using characters from selected level...');
+                log('Characters to learn:', charactersToLearn.join(''));
             }
             
-            console.log('Initializing app - loading all_strokes.json...');
+            log('Initializing app - loading all_strokes.json...');
             const loaded = await loadStrokesDataFromFile();
             if (!loaded) {
                 alert('Failed to load all_strokes.json. Please make sure the file exists in the same directory.');
@@ -1781,11 +1829,11 @@
             }
             
             // Load all characters into new structure (in order from ToWriteText.txt or level)
-            console.log('Loading all characters into new structure...');
+            log('Loading all characters into new structure...');
             loadAllCharactersIntoStructure();
             
             // Log the loaded structure
-            console.log(`Loaded ${charactersStrokeDataList.length} characters into new structure`);
+            log(`Loaded ${charactersStrokeDataList.length} characters into new structure`);
             
             // Set initial character
             if (charactersToLearn.length > 0) {
@@ -1815,7 +1863,7 @@
             }
         }
         
-        console.log('✅ Checkpoint 2: Defined loadCharactersFromTextFile and initializeApp');
+        log('✅ Checkpoint 2: Defined loadCharactersFromTextFile and initializeApp');
         
         // Stop audio when page is about to unload (refresh/close)
         window.addEventListener('beforeunload', function() {
@@ -1883,7 +1931,7 @@
         
         // Initialize music control and app when page loads
         async function initPage() {
-            console.log('🚀 initPage() called');
+            log('🚀 initPage() called');
             
             // Show loading screen
             const loadingScreen = document.getElementById('loading-screen');
@@ -1898,20 +1946,20 @@
                 backgroundMusic.currentTime = 0;
             }
             // Initialize HP bar
-            console.log('Initializing HP bar...');
+            log('Initializing HP bar...');
                 updateHPBar(maxHP);
                 // Initialize restart button
                 const restartBtn = document.getElementById('restart-btn');
                 if (restartBtn) {
                     restartBtn.addEventListener('click', restartGame);
-                    console.log('✅ Restart button initialized');
+                    log('✅ Restart button initialized');
                 }
                 
                 // Revive button
                 const reviveBtn = document.getElementById('revive-btn');
                 if (reviveBtn) {
                     reviveBtn.addEventListener('click', revivePlayer);
-                    console.log('✅ Revive button initialized');
+                    log('✅ Revive button initialized');
                 } else {
                     console.warn('⚠️ Revive button not found in DOM');
                 }
@@ -1933,7 +1981,7 @@
                 
                 if (levelCompleteNextBtn) {
                     levelCompleteNextBtn.addEventListener('click', () => {
-                        console.log('🔵 Next Level button clicked');
+                        log('🔵 Next Level button clicked');
                         hideLevelComplete();
                         
                         // Find next level
@@ -1947,7 +1995,7 @@
                         } else {
                             // Last level - wait for save to complete before showing level selection
                             setTimeout(() => {
-                                console.log('🔵 Last level completed - showing level selection');
+                                log('🔵 Last level completed - showing level selection');
                                 showLevelSelection();
                                 displayLevelSelection('', false);
                             }, 400);
@@ -1957,20 +2005,20 @@
                 
                 if (levelCompleteMenuBtn) {
                     levelCompleteMenuBtn.addEventListener('click', () => {
-                        console.log('🔵 Level Select button clicked');
-                        console.log('🔵 Current level just completed:', currentLevel ? currentLevel.id : 'null');
+                        log('🔵 Level Select button clicked');
+                        log('🔵 Current level just completed:', currentLevel ? currentLevel.id : 'null');
                         hideLevelComplete();
                         
                         // Wait a bit to ensure auto-save is complete
                         setTimeout(() => {
-                            console.log('🔵 Showing level selection and refreshing display');
-                            console.log('🔵 currentUser before display:', currentUser);
+                            log('🔵 Showing level selection and refreshing display');
+                            log('🔵 currentUser before display:', currentUser);
                             showLevelSelection();
                             // Force reload - clear the grid completely and rebuild
                             const levelsGrid = document.getElementById('levels-grid');
                             if (levelsGrid) {
                                 levelsGrid.innerHTML = '';
-                                console.log('🔵 Cleared levels grid');
+                                log('🔵 Cleared levels grid');
                             }
                             // Refresh the level display to show Continue card with updated data
                             displayLevelSelection('', false);
@@ -1984,7 +2032,7 @@
                     levelCompleteSaveBtn.addEventListener('click', () => {
                         // If user not logged in, auto-login with demo mode for seamless mobile experience
                         if (!currentUser) {
-                            console.log('Auto-creating demo user for save...');
+                            log('Auto-creating demo user for save...');
                             simulateGoogleLogin();
                             // Save will happen in onUserLogin callback
                         } else {
@@ -2022,15 +2070,15 @@
                 initPlayingTips();
                 
                 // Load level config and show level selection
-                console.log('Loading level config...');
+                log('Loading level config...');
                 await loadLevelConfig();
-                console.log('Level config loaded:', levelConfig ? 'SUCCESS' : 'FAILED');
+                log('Level config loaded:', levelConfig ? 'SUCCESS' : 'FAILED');
                 if (levelConfig) {
-                    console.log('Displaying level selection...');
+                    log('Displaying level selection...');
                     displayLevelSelection();
                     initLevelSearch();
                     showLevelSelection();
-                    console.log('✅ Game initialized successfully!');
+                    log('✅ Game initialized successfully!');
                 } else {
                     alert('Failed to load level configuration. Please check level_config.json file.');
                 }
@@ -2096,13 +2144,13 @@
             }
         }
         
-        console.log('✅ Checkpoint 3: Defined initPage and initLevelSearch');
-        console.log('📋 Document ready state:', document.readyState);
+        log('✅ Checkpoint 3: Defined initPage and initLevelSearch');
+        log('📋 Document ready state:', document.readyState);
         if (document.readyState === 'loading') {
-            console.log('⏳ Waiting for DOMContentLoaded...');
+            log('⏳ Waiting for DOMContentLoaded...');
             document.addEventListener('DOMContentLoaded', initPage);
         } else {
-            console.log('✅ DOM already loaded, calling initPage()...');
+            log('✅ DOM already loaded, calling initPage()...');
             initPage();
         }
         
@@ -2119,25 +2167,23 @@
                 return false;
             }
             
-            console.log(`Loading character data from structure for: ${char}`);
-            console.log(`Found structured data: ${structuredCharData.totalStrokes} strokes`);
             
             // Update strokeData with structured data
             hanziWriter.strokeData.character = structuredCharData.character;
             hanziWriter.strokeData.rawCharData = structuredCharData.rawCharData || null;
             
-            console.log(`loadCharacterDataFromStructure: rawCharData for ${char}:`, hanziWriter.strokeData.rawCharData ? 'exists' : 'null');
+            log(`loadCharacterDataFromStructure: rawCharData for ${char}:`, hanziWriter.strokeData.rawCharData ? 'exists' : 'null');
             if (hanziWriter.strokeData.rawCharData) {
-                console.log('✓ rawCharData loaded successfully');
-                console.log('rawCharData keys:', Object.keys(hanziWriter.strokeData.rawCharData));
+                log('✓ rawCharData loaded successfully');
+                log('rawCharData keys:', Object.keys(hanziWriter.strokeData.rawCharData));
                 if (hanziWriter.strokeData.rawCharData.strokes) {
-                    console.log(`✓ rawCharData has ${hanziWriter.strokeData.rawCharData.strokes.length} strokes`);
+                    log(`✓ rawCharData has ${hanziWriter.strokeData.rawCharData.strokes.length} strokes`);
                 } else {
                     console.warn('✗ rawCharData has no strokes array');
                 }
             } else {
                 console.error('✗ rawCharData is null! This will cause problems.');
-                console.log('structuredCharData.rawCharData:', structuredCharData.rawCharData ? 'exists' : 'null');
+                log('structuredCharData.rawCharData:', structuredCharData.rawCharData ? 'exists' : 'null');
             }
             
             // Convert structured strokes to format expected by existing code
@@ -2160,8 +2206,8 @@
             hanziWriter.currentStrokeIndex = 0;
             hanziWriter.drawnStrokes = [];
             
-            console.log(`Successfully loaded ${char} from structure with ${hanziWriter.totalStrokes} strokes`);
-            console.log(`totalStrokes set to: ${hanziWriter.totalStrokes}`);
+            log(`Successfully loaded ${char} from structure with ${hanziWriter.totalStrokes} strokes`);
+            log(`totalStrokes set to: ${hanziWriter.totalStrokes}`);
             return true;
         }
         
@@ -2176,17 +2222,17 @@
             }
             
             // Fallback to old method if structure list is empty
-            console.log(`Loading character data for: ${char} (fallback to allCharactersData)`);
-            console.log(`Available characters:`, Object.keys(allCharactersData));
+            log(`Loading character data for: ${char} (fallback to allCharactersData)`);
+            log(`Available characters:`, Object.keys(allCharactersData));
             
             if (allCharactersData[char]) {
                 const charData = allCharactersData[char];
-                console.log(`Found data for ${char}:`, charData);
+                log(`Found data for ${char}:`, charData);
                 hanziWriter.strokeData.rawCharData = charData.rawCharData || null;
                 
                 // If strokes array is empty but we have rawCharData, process it
                 if (charData.strokes && charData.strokes.length > 0) {
-                    console.log(`Using pre-processed strokes for ${char}:`, charData.strokes.length);
+                    log(`Using pre-processed strokes for ${char}:`, charData.strokes.length);
                     hanziWriter.strokeData.strokes = charData.strokes.map(stroke => ({
                         index: stroke.index,
                         rawData: stroke.rawData || null,
@@ -2202,10 +2248,10 @@
                     hanziWriter.totalStrokes = charData.totalStrokes || hanziWriter.strokeData.strokes.length;
                 } else if (charData.rawCharData) {
                     // Process rawCharData to extract stroke information
-                    console.log(`Processing rawCharData for character: ${char}`);
+                    log(`Processing rawCharData for character: ${char}`);
                     processStrokeData(charData.rawCharData);
                     hanziWriter.totalStrokes = hanziWriter.strokeData.strokes.length;
-                    console.log(`Processed ${hanziWriter.totalStrokes} strokes for ${char}`);
+                    log(`Processed ${hanziWriter.totalStrokes} strokes for ${char}`);
                 } else {
                     console.error(`No stroke data available for character: ${char}`);
                     console.error('charData:', charData);
@@ -2216,7 +2262,7 @@
                 hanziWriter.currentStrokeIndex = 0;
                 hanziWriter.drawnStrokes = [];
                 hanziWriter.isAnimating = false;
-                console.log(`Successfully loaded ${char} with ${hanziWriter.totalStrokes} strokes`);
+                log(`Successfully loaded ${char} with ${hanziWriter.totalStrokes} strokes`);
                 return true;
             } else {
                 console.error(`Character ${char} not found in allCharactersData`);
@@ -2228,20 +2274,20 @@
         async function loadStrokesDataFromFile() {
             // Load stroke data from all_strokes.json file
             try {
-                console.log('Fetching all_strokes.json...');
+                log('Fetching all_strokes.json...');
                 // Add cache-busting parameter to force reload of latest data
                 const response = await fetch(`data/all_strokes.json?v=${Date.now()}`);
-                console.log('Response status:', response.status, response.statusText);
+                log('Response status:', response.status, response.statusText);
                 
                 if (response.ok) {
                     const loadedData = await response.json();
-                    console.log('Parsed JSON data. Keys:', Object.keys(loadedData));
+                    log('Parsed JSON data. Keys:', Object.keys(loadedData));
                     
                     if (loadedData.characters && typeof loadedData.characters === 'object') {
                         allCharactersData = loadedData.characters;
                         const charCount = Object.keys(allCharactersData).length;
-                        console.log(`Successfully loaded ${charCount} characters from all_strokes.json`);
-                        console.log('First few characters:', Object.keys(allCharactersData).slice(0, 10));
+                        log(`Successfully loaded ${charCount} characters from all_strokes.json`);
+                        log('First few characters:', Object.keys(allCharactersData).slice(0, 10));
                         return true;
                     } else {
                         console.error('Invalid data format. Expected "characters" object.');
@@ -2262,7 +2308,7 @@
             // Process a single character using the new structure list
             if (charIndex >= charactersToLearn.length) {
                 // All characters completed
-                console.log(`All ${charactersToLearn.length} characters completed!`);
+                log(`All ${charactersToLearn.length} characters completed!`);
                 alert(`Congratulations! You have completed all ${charactersToLearn.length} characters!`);
                 return;
             }
@@ -2272,7 +2318,6 @@
             // Save current character index to localStorage
             saveCharacterIndex(charIndex);
             
-            console.log(`Processing character ${charIndex + 1}/${charactersToLearn.length}: ${character}`);
             
             // Check if structure list is loaded
             if (charactersStrokeDataList.length === 0) {
@@ -2282,8 +2327,6 @@
             }
             
             // Load stroke data from the new structure list
-            console.log(`Loading stroke data for character: ${character}`);
-            console.log(`charactersStrokeDataList has ${charactersStrokeDataList.length} characters`);
             
             if (!loadCharacterDataFromStructure(character)) {
                 console.error(`Failed to load stroke data for: ${character} from structure list`);
@@ -2292,17 +2335,16 @@
                 return;
             }
             
-            console.log(`✓ Character data loaded. strokeData.rawCharData:`, hanziWriter.strokeData.rawCharData ? 'exists' : 'null');
+            log(`✓ Character data loaded. strokeData.rawCharData:`, hanziWriter.strokeData.rawCharData ? 'exists' : 'null');
             if (hanziWriter.strokeData.rawCharData) {
-                console.log(`✓ rawCharData has ${hanziWriter.strokeData.rawCharData.strokes ? hanziWriter.strokeData.rawCharData.strokes.length : 0} strokes`);
+                log(`✓ rawCharData has ${hanziWriter.strokeData.rawCharData.strokes ? hanziWriter.strokeData.rawCharData.strokes.length : 0} strokes`);
             }
             
-            console.log(`Loaded stroke data for ${character} from structure (${hanziWriter.totalStrokes} strokes)`);
             
             // Log structure information
             const structuredData = charactersStrokeDataList.find(c => c.character === character);
             if (structuredData) {
-                console.log(`Character structure:`, {
+                log(`Character structure:`, {
                     character: structuredData.character,
                     unicodeHex: structuredData.unicodeHex,
                     totalStrokes: structuredData.totalStrokes,
@@ -2317,17 +2359,16 @@
             hanziWriter.isAnimating = false;
             hanziWriter.guideDrawn = false; // Reset guide flag for new character
             // DON'T reset totalStrokes - it should already be set from loadCharacterDataFromStructure
-            console.log(`processSingleCharacter: totalStrokes = ${hanziWriter.totalStrokes}, character = ${character}`);
             
             // If totalStrokes is still 0, try to get it from structure
             if (hanziWriter.totalStrokes === 0) {
                 const charData = charactersStrokeDataList.find(c => c.character === character);
                 if (charData && charData.rawCharData && charData.rawCharData.medians) {
                     hanziWriter.totalStrokes = charData.rawCharData.medians.length;
-                    console.log(`Set totalStrokes to ${hanziWriter.totalStrokes} from medians in processSingleCharacter`);
+                    log(`Set totalStrokes to ${hanziWriter.totalStrokes} from medians in processSingleCharacter`);
                 } else if (charData) {
                     hanziWriter.totalStrokes = charData.totalStrokes || (charData.strokes ? charData.strokes.length : 0);
-                    console.log(`Set totalStrokes to ${hanziWriter.totalStrokes} from structure in processSingleCharacter`);
+                    log(`Set totalStrokes to ${hanziWriter.totalStrokes} from structure in processSingleCharacter`);
                 }
             }
             
@@ -2338,7 +2379,6 @@
                 setTimeout(() => {
                     updateProgressDisplay();
                     updateStrokeTip(hanziWriter);
-                    console.log(`Character ${character} displayed. Drag or touch anywhere to draw strokes...`);
                 }, 50);
             }, 100);
         }
@@ -2346,13 +2386,13 @@
         function onCharacterCompleted() {
             // Prevent duplicate calls
             if (isCompletingCharacter) {
-                console.log('Character completion already in progress, skipping duplicate call');
+                log('Character completion already in progress, skipping duplicate call');
                 return;
             }
             isCompletingCharacter = true;
+            const completedCharIndex = currentCharacterIndex;
             
             // Called when all strokes of current character are completed
-            console.log(`Character ${character} completed! Moving to next character...`);
             
             // Capture the completed character and add it to the top right corner
             if (hanziWriter.canvas && hanziWriter.ctx) {
@@ -2459,6 +2499,10 @@
                         
                         container.appendChild(completedDiv);
                         
+                        if (currentLevel && currentLevel.characters && shouldAddBreakAfterIndex(currentLevel.characters, completedCharIndex)) {
+                            appendCompletedBreak(container);
+                        }
+                        
                         // Container height is automatically managed by top/bottom positioning
                         container.style.overflow = 'hidden';
                         
@@ -2472,7 +2516,7 @@
                     // Handle case when all characters are completed
                     if (nextIndex >= charactersToLearn.length) {
                         setTimeout(() => {
-                            console.log('All characters completed!');
+                            log('All characters completed!');
                             isCompletingCharacter = false; // Reset flag
                             
                             // Check if we're in level mode
@@ -2577,12 +2621,12 @@
             
             // Get total strokes from our loaded structure
             if (hanziWriter.totalStrokes === 0) {
-                console.log('totalStrokes is 0, trying to get from structure...');
-                console.log('current character:', character);
+                log('totalStrokes is 0, trying to get from structure...');
+                log('current character:', character);
                 
                 // First, try to reload from structure if not initialized
                 if (!hanziWriter.strokeData.initialized || !hanziWriter.strokeData.rawCharData) {
-                    console.log('strokeData not initialized, reloading from structure...');
+                    log('strokeData not initialized, reloading from structure...');
                     if (!loadCharacterDataFromStructure(character)) {
                         console.error(`Failed to reload character data for: ${character}`);
                         alert(`Failed to load stroke data for ${character}`);
@@ -2593,16 +2637,16 @@
                 // Try to get from medians
                 if (hanziWriter.strokeData.rawCharData && hanziWriter.strokeData.rawCharData.medians) {
                     hanziWriter.totalStrokes = hanziWriter.strokeData.rawCharData.medians.length;
-                    console.log(`✓ Found ${hanziWriter.totalStrokes} strokes from medians`);
+                    log(`✓ Found ${hanziWriter.totalStrokes} strokes from medians`);
                 } else {
                     // Try to get from structure
                     const charData = charactersStrokeDataList.find(c => c.character === character);
                     if (charData && charData.rawCharData && charData.rawCharData.medians) {
                         hanziWriter.totalStrokes = charData.rawCharData.medians.length;
-                        console.log(`✓ Found ${hanziWriter.totalStrokes} strokes from structure medians`);
+                        log(`✓ Found ${hanziWriter.totalStrokes} strokes from structure medians`);
                     } else if (charData) {
                         hanziWriter.totalStrokes = charData.totalStrokes || 0;
-                        console.log(`✓ Found ${hanziWriter.totalStrokes} strokes from structure totalStrokes`);
+                        log(`✓ Found ${hanziWriter.totalStrokes} strokes from structure totalStrokes`);
                     }
                 }
                 
@@ -2616,20 +2660,19 @@
             
             // Check if all strokes are done (but only if not already completing)
             if (hanziWriter.currentStrokeIndex >= hanziWriter.totalStrokes && !isCompletingCharacter) {
-                console.log('All strokes done, moving to next character');
+                log('All strokes done, moving to next character');
                 onCharacterCompleted();
                 return;
             }
             
             if (hanziWriter.isAnimating) {
-                console.log('Already animating, ignoring click');
+                log('Already animating, ignoring click');
                 return;
             }
             
             const infoDisplay = document.getElementById('next-stroke-btn');
             const strokeNum = hanziWriter.currentStrokeIndex;
             
-            console.log(`=== About to draw stroke ${strokeNum + 1}/${hanziWriter.totalStrokes} ===`);
             
             // Set isAnimating flag early to prevent race conditions
             // It will be set again in drawStroke, but this ensures immediate protection
@@ -2697,7 +2740,7 @@
                         updateStrokeTip(hanziWriter);
                         
                         if (hanziWriter.currentStrokeIndex >= hanziWriter.totalStrokes) {
-                            console.log('All strokes completed for this character');
+                            log('All strokes completed for this character');
                             setTimeout(() => {
                                 onCharacterCompleted();
                             }, 200);
@@ -2810,7 +2853,7 @@
             };
             
             if (!userPath || userPath.length < 2) {
-                console.log('User path too short:', userPath ? userPath.length : 'null');
+                log('User path too short:', userPath ? userPath.length : 'null');
                 return result;
             }
             
@@ -2819,30 +2862,30 @@
             const userStart = userPath[0];
             const userEnd = userPath[userPath.length - 1];
             
-            console.log('User path start:', userStart, 'User path end:', userEnd);
-            console.log('User path length:', userPath.length);
+            log('User path start:', userStart, 'User path end:', userEnd);
+            log('User path length:', userPath.length);
             
             // Calculate direction vector (angle) - using screen coordinates
             const userDx = userEnd.x - userStart.x;
             const userDy = userEnd.y - userStart.y;
             
-            console.log('User dx:', userDx, 'User dy:', userDy);
+            log('User dx:', userDx, 'User dy:', userDy);
             
             // Calculate angle in radians using atan2
             // User coordinates: (0,0) at top-left, y increases downward
             result.userAngle = Math.atan2(userDy, userDx);
             
-            console.log('User angle (radians):', result.userAngle);
-            console.log('User angle (degrees):', result.userAngle * 180 / Math.PI);
+            log('User angle (radians):', result.userAngle);
+            log('User angle (degrees):', result.userAngle * 180 / Math.PI);
             
             // Get stroke angle from stored stroke data
             if (hanziWriter.strokeData.initialized && hanziWriter.strokeData.strokes[strokeIndex]) {
                 const storedStroke = hanziWriter.strokeData.strokes[strokeIndex];
                 result.strokeAngle = storedStroke.angle;
-                console.log('Stroke angle from stored data:', storedStroke.angle);
-                console.log('Stroke angle (degrees):', storedStroke.angleDegrees);
+                log('Stroke angle from stored data:', storedStroke.angle);
+                log('Stroke angle (degrees):', storedStroke.angleDegrees);
             } else {
-                console.log('Stroke data not initialized or stroke not found:', {
+                log('Stroke data not initialized or stroke not found:', {
                     initialized: hanziWriter.strokeData.initialized,
                     strokeIndex: strokeIndex,
                     strokesLength: hanziWriter.strokeData.strokes ? hanziWriter.strokeData.strokes.length : 0
@@ -2882,9 +2925,6 @@
             }
             
             // Display the angles
-            console.log(`User drag degree: ${userDragAngle.toFixed(2)}°`);
-            console.log(`Stroke degree: ${strokeAngle.toFixed(2)}°`);
-            console.log(`Angle difference: ${angleDifference.toFixed(2)}°, Raw difference: ${rawAngleDifference.toFixed(2)}°`);
             
             // Check if perfect:
             // 1. Within 30 degrees (same direction)
@@ -2892,11 +2932,6 @@
             const isOppositeDirection = (rawAngleDifference >= 170 && rawAngleDifference <= 190);
             
             if (angleDifference <= 30 || isOppositeDirection) {
-                if (isOppositeDirection) {
-                    console.log('perfect (opposite direction accepted)');
-                } else {
-                    console.log('perfect');
-                }
                 // Apply perfect stroke HP bonus (based on difficulty)
                 applyPerfectBonus();
                 // CrazyGames: Notify happy time on perfect stroke
@@ -2908,7 +2943,6 @@
                 // Return 0 for opposite direction to avoid punishment
                 return isOppositeDirection ? 0 : angleDifference;
             } else {
-                console.log('not good');
                 // Increment not good strokes counter
                 notGoodStrokesCount++;
             }
@@ -2925,7 +2959,6 @@
             let adjustedAngleDiff = angleDifference;
             if (angleDifference > 150) {
                 adjustedAngleDiff = Math.abs(angleDifference - 180);
-                console.log(`Opposite stroke detected: original angle diff = ${angleDifference.toFixed(2)}°, adjusted to ${adjustedAngleDiff.toFixed(2)}° (deviation from 180°)`);
             }
             
             // No punishment if within 30 degrees (using adjusted angle)
@@ -2966,7 +2999,7 @@
                         // Check if drag distance > 130% of sum of remaining strokes
                         if (dragDistance > sumRemainingStrokes * 1.3) {
                             const bigPunishment = numberOfStrokesDrawn * 60;
-                            console.log(`BIG PUNISHMENT: ${bigPunishment} = ${numberOfStrokesDrawn} strokes × 60 (drag too long: ${dragDistance.toFixed(2)}px > 130% of ${sumRemainingStrokes.toFixed(2)}px)`);
+                            log(`BIG PUNISHMENT: ${bigPunishment} = ${numberOfStrokesDrawn} strokes × 60 (drag too long: ${dragDistance.toFixed(2)}px > 130% of ${sumRemainingStrokes.toFixed(2)}px)`);
                             return bigPunishment;
                         }
                     }
@@ -2986,7 +3019,7 @@
                     if (firstStroke.length && secondStroke.length) {
                         // If second stroke is less than 50% of first stroke length, no punishment
                         if (secondStroke.length < firstStroke.length * 0.5) {
-                            console.log('No punishment: second stroke is short (< 50% of first stroke)');
+                            log('No punishment: second stroke is short (< 50% of first stroke)');
                             return 0;
                         }
                     }
@@ -2995,7 +3028,6 @@
             
             // Calculate punishment: (degree difference - 30) * number of strokes drawn
             const punishment = Math.abs(angleDifference - 30) * numberOfStrokesDrawn;
-            console.log(`Punishment: ${punishment.toFixed(2)} = (${angleDifference.toFixed(2)}° - 30°) × ${numberOfStrokesDrawn} strokes`);
             
             return punishment;
         }
@@ -3037,7 +3069,29 @@
                 
                 return totalDistance;
             }
-
+            
+            // Check if drag path is nearly straight using path length vs direct distance ratio.
+            // curvature = pathLength / straightDistance; 1.0 = perfect line, higher = more curved.
+            function isNearlyStraight(points, threshold = 1.5) {
+                if (!points || points.length < 2) return true;
+                
+                let pathLength = 0;
+                for (let i = 1; i < points.length; i++) {
+                    const dx = points[i].x - points[i - 1].x;
+                    const dy = points[i].y - points[i - 1].y;
+                    pathLength += Math.hypot(dx, dy);
+                }
+                
+                const dx = points[points.length - 1].x - points[0].x;
+                const dy = points[points.length - 1].y - points[0].y;
+                const straightDistance = Math.hypot(dx, dy);
+                
+                if (straightDistance === 0) return false;
+                
+                const curvature = pathLength / straightDistance;
+                return curvature <= threshold;
+            }
+            
             function handleStart(e) {
                 // Check if settings overlay is visible
                 const settingsOverlay = document.getElementById('settings-overlay');
@@ -3232,8 +3286,16 @@
                 // Check drag direction against current stroke direction
                 const angleDifference = checkDragDirection(startX, startY, endX, endY, hanziWriter.currentStrokeIndex);
                 
-                // Calculate how many strokes to draw based on drag distance vs stroke lengths
-                const strokesToDraw = calculateStrokesFromDragDistance(dragDistance);
+                // If drag path is nearly straight (pathLength/straightDistance <= 1.5), treat as single stroke
+                const remainingStrokes = hanziWriter.totalStrokes - hanziWriter.currentStrokeIndex;
+                const pathSmooth = isNearlyStraight(dragPath, 1.5);
+                let strokesToDraw;
+                if (pathSmooth) {
+                    strokesToDraw = 1;
+                } else {
+                    strokesToDraw = calculateStrokesFromDragDistance(dragDistance);
+                }
+                strokesToDraw = Math.min(Math.max(1, strokesToDraw), remainingStrokes);
                 
                 // Calculate punishment if we have a valid angle difference
                 if (angleDifference !== null) {

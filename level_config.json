@@ -145,16 +145,16 @@
     },
     {
       "id": "lesson_012",
-      "name": "XinJing",
-      "description": "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。",
-      "characters": "观自在菩萨行深般若波罗蜜多时照见五蕴皆空度一切苦厄",
+      "name": "Buy Something",
+      "description": "老板这个多少钱，美女这个二十五，好的老板来两个，两个一共是五十。",
+      "characters": "老板这个多少钱，美女这个二十五，好的老板来两个，两个一共是五十",
       "numCharacters": 28,
       "totalStrokes": 0,
       "difficulty": "easy",
       "maxHP": 100,
       "estimatedTime": "2-3 mins",
-      "backgroundImage": "guanyin.jpg",
-      "backgroundMusic": "XJ.mp3"
+      "backgroundImage": "011.jpg",
+      "backgroundMusic": "011.mp3"
     },
     {
       "id": "poem_223",
@@ -1468,6 +1468,19 @@
       "estimatedTime": "3 mins",
       "backgroundImage": "323.jpeg",
       "backgroundMusic": "323.mp3"
+    } ,
+    {
+      "id": "final",
+      "name": "XinJing",
+      "description": "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。",
+      "characters": "观自在菩萨行深般若波罗蜜多时照见五蕴皆空度一切苦厄",
+      "numCharacters": 28,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
     }
   ],
   "difficulties": {
