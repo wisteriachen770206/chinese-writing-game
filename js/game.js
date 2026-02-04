@@ -522,6 +522,7 @@
                     loadingScreen.classList.add('hidden');
                     setTimeout(() => {
                         loadingScreen.style.display = 'none';
+                        maybeShowPlayingTips();
                     }, 500);
                 }, 300);
             }
@@ -2018,6 +2019,7 @@
                 
                 initMusicControl();
                 initSettingsMenu();
+                initPlayingTips();
                 
                 // Load level config and show level selection
                 console.log('Loading level config...');
@@ -2043,6 +2045,33 @@
                         }, 500);
                     }, 300);
                 }
+            }
+        }
+        
+        const PLAYING_TIPS_KEY = 'hasSeenPlayingTips';
+        
+        function initPlayingTips() {
+            const tipsOverlay = document.getElementById('playing-tips-overlay');
+            const gotItBtn = document.getElementById('playing-tips-got-it-btn');
+            if (gotItBtn && tipsOverlay) {
+                gotItBtn.addEventListener('click', () => {
+                    try {
+                        localStorage.setItem(PLAYING_TIPS_KEY, '1');
+                    } catch (e) {}
+                    tipsOverlay.classList.add('hidden');
+                    tipsOverlay.style.display = '';
+                });
+            }
+        }
+        
+        function maybeShowPlayingTips() {
+            try {
+                if (localStorage.getItem(PLAYING_TIPS_KEY)) return;
+            } catch (e) { return; }
+            const tipsOverlay = document.getElementById('playing-tips-overlay');
+            if (tipsOverlay) {
+                tipsOverlay.classList.remove('hidden');
+                tipsOverlay.style.display = 'flex';
             }
         }
         

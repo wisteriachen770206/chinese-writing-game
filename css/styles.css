@@ -69,6 +69,68 @@
         pointer-events: none;
     }
     
+    /* Playing Tips Overlay (first-time users) */
+    #playing-tips-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 99998;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.4s ease-out;
+    }
+    
+    #playing-tips-overlay.hidden {
+        display: none;
+    }
+    
+    #playing-tips-content {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        border: 2px solid #64748b;
+        border-radius: 16px;
+        padding: 28px 32px;
+        max-width: 380px;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        animation: slideIn 0.4s ease-out;
+    }
+    
+    #playing-tips-title {
+        color: #f8fafc;
+        font-size: 24px;
+        margin: 0 0 20px 0;
+    }
+    
+    .playing-tips-text {
+        color: #cbd5e1;
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 12px 0;
+        text-align: left;
+    }
+    
+    .playing-tips-btn {
+        margin-top: 24px;
+        padding: 12px 32px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .playing-tips-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 20px rgba(139, 92, 246, 0.5);
+    }
+    
     #loading-content {
         text-align: center;
         color: #ffffff;
