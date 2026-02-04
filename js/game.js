@@ -25,6 +25,7 @@
         function isPunctuationForBreak(c) {
             const code = c.charCodeAt(0);
             if (code <= 0x20 || c === '\n' || c === '\r') return true; // whitespace, newline
+            if (code === 0x2C || code === 0x2E) return true; // ASCII , .
             if (code === 0x3001 || code === 0x3002) return true; // 、。
             if (code === 0xFF0C || code === 0xFF01 || code === 0xFF1F) return true; // ，！？
             if (code === 0x2014 || code === 0x2026) return true; // —…
@@ -61,6 +62,30 @@
             breakEl.className = 'completed-break';
             breakEl.setAttribute('aria-hidden', 'true');
             container.insertBefore(breakEl, container.firstChild);
+        }
+        
+        function hasPunctuationInCharacters(text) {
+            if (!text) return false;
+            for (const c of text) {
+                if (isPunctuationForBreak(c)) return true;
+            }
+            return false;
+        }
+        
+        // Longest run of Chinese chars between punctuation breaks (for grid autosize)
+        function getMaxSegmentLength(text) {
+            if (!text) return 1;
+            let max = 0, cur = 0;
+            for (const c of text) {
+                const isCJK = c.charCodeAt(0) >= 0x4E00 && c.charCodeAt(0) <= 0x9FFF;
+                if (isCJK) cur++;
+                else if (isPunctuationForBreak(c)) {
+                    if (cur > max) max = cur;
+                    cur = 0;
+                }
+            }
+            if (cur > max) max = cur;
+            return Math.max(1, max);
         }
 
         // Level loading and selection functions
@@ -535,8 +560,8 @@
                 completedContainer.innerHTML = '';
             }
             
-            // Set dynamic grid layout for mobile based on character count
-            setCompletedCharactersLayout(level.numCharacters);
+            // Set dynamic grid layout (pass characters for punctuation-aware layout)
+            setCompletedCharactersLayout(level.numCharacters, level.characters);
             
             // Set HP
             maxHP = level.maxHP;
@@ -597,64 +622,79 @@
             if (topLine) topLine.classList.add('visible');
         }
         
-        function setCompletedCharactersLayout(numCharacters) {
+        function setCompletedCharactersLayout(numCharacters, charactersText) {
             const completedContainer = document.getElementById('completed-characters-container');
             if (!completedContainer) return;
             
+            const usePunctuationOnly = hasPunctuationInCharacters(charactersText);
             const isMobile = window.innerWidth < 768;
             let columns, rows;
             
-            if (isMobile) {
-                // MOBILE (VERTICAL) LAYOUT — each line = fixed number of characters
-                if (numCharacters >= 40) {
-                    columns = 10; // 10 characters per line
+            if (usePunctuationOnly) {
+                // Layout driven ONLY by punctuation breaks — autosize to longest segment
+                if (isMobile) {
+                    columns = getMaxSegmentLength(charactersText);
                     rows = 'auto';
-                } else if (numCharacters <= 28) {
-                    columns = Math.ceil(numCharacters / 4);
-                    rows = 4;
                 } else {
-                    columns = 7;
-                    rows = 'auto';
+                    rows = getMaxSegmentLength(charactersText); // Height = longest column
+                    columns = 'auto';
                 }
-                
-                // Apply mobile grid layout (row-based)
+            } else {
+                // Original logic when no punctuation
+                if (isMobile) {
+                    if (numCharacters >= 40) {
+                        columns = 10;
+                        rows = 'auto';
+                    } else if (numCharacters <= 28) {
+                        columns = Math.ceil(numCharacters / 4);
+                        rows = 4;
+                    } else {
+                        columns = 7;
+                        rows = 'auto';
+                    }
+                } else {
+                    if (numCharacters >= 40) {
+                        rows = 10;
+                        columns = 'auto';
+                    } else if (numCharacters > 28) {
+                        rows = 7;
+                        columns = 'auto';
+                    } else {
+                        rows = Math.ceil(numCharacters / 4);
+                        columns = 4;
+                    }
+                }
+            }
+            
+            if (isMobile) {
                 completedContainer.style.gridAutoFlow = 'row';
                 completedContainer.style.gridTemplateColumns = `repeat(${columns}, 36px)`;
-                completedContainer.style.gridTemplateRows = ''; // Clear template rows
-                completedContainer.style.gridAutoRows = '36px'; // Each row is 36px as added
-                completedContainer.style.gridAutoColumns = ''; // Clear auto columns
-                completedContainer.style.width = `calc(${columns} * 36px + 20px)`; // Set explicit width
-                completedContainer.style.minWidth = `calc(${columns} * 36px + 20px)`;
-                completedContainer.style.maxWidth = `calc(${columns} * 36px + 20px)`;
-                completedContainer.style.height = 'auto'; // Allow height to grow
-                completedContainer.style.minHeight = '56px'; // Min height (padding + 1 row)
-                completedContainer.style.direction = 'ltr';
-                
-            } else {
-                // DESKTOP (HORIZONTAL) LAYOUT — each column = fixed number of characters
-                if (numCharacters >= 40) {
-                    rows = 10; // 10 characters per column
-                    columns = 'auto';
-                } else if (numCharacters > 28) {
-                    rows = 7;
-                    columns = 'auto';
+                completedContainer.style.gridTemplateRows = '';
+                completedContainer.style.gridAutoRows = usePunctuationOnly ? 'minmax(0, auto)' : '36px';
+                completedContainer.style.gridAutoColumns = '';
+                if (usePunctuationOnly) {
+                    completedContainer.style.width = 'fit-content';
+                    completedContainer.style.minWidth = 'auto';
+                    completedContainer.style.maxWidth = 'none';
                 } else {
-                    rows = Math.ceil(numCharacters / 4);
-                    columns = 4;
+                    completedContainer.style.width = `calc(${columns} * 36px + 20px)`;
+                    completedContainer.style.minWidth = `calc(${columns} * 36px + 20px)`;
+                    completedContainer.style.maxWidth = `calc(${columns} * 36px + 20px)`;
                 }
-                
-                // Apply desktop grid layout (column-based)
+                completedContainer.style.height = 'auto';
+                completedContainer.style.minHeight = '56px';
+                completedContainer.style.direction = 'ltr';
+            } else {
                 completedContainer.style.gridAutoFlow = 'column';
                 completedContainer.style.gridTemplateRows = `repeat(${rows}, 36px)`;
-                completedContainer.style.gridTemplateColumns = ''; // CLEAR columns constraint
-                completedContainer.style.gridAutoColumns = '36px'; // Each column is 36px as added
-                completedContainer.style.gridAutoRows = ''; // Clear auto rows
-                completedContainer.style.width = ''; // CLEAR fixed width
-                completedContainer.style.minWidth = ''; // CLEAR min width
-                completedContainer.style.maxWidth = ''; // CLEAR max width
-                completedContainer.style.height = 'fit-content'; // Allow height to grow
-                completedContainer.style.direction = 'rtl'; // New columns appear on the left
-                
+                completedContainer.style.gridTemplateColumns = '';
+                completedContainer.style.gridAutoColumns = usePunctuationOnly ? 'minmax(0, auto)' : '36px';
+                completedContainer.style.gridAutoRows = '';
+                completedContainer.style.width = '';
+                completedContainer.style.minWidth = '';
+                completedContainer.style.maxWidth = '';
+                completedContainer.style.height = 'fit-content';
+                completedContainer.style.direction = 'rtl';
             }
         }
         
@@ -1311,7 +1351,7 @@
             
             for (let i = 0; i < startIndex; i++) {
                 if (i > 0 && originalText && shouldAddBreakAfterIndex(originalText, i - 1)) {
-                    insertCompletedBreakAtStart(container);
+                    appendCompletedBreak(container);
                 }
                 const char = charactersToLearn[i];
                 const charData = charactersStrokeDataList.find(c => c.character === char);
@@ -2592,7 +2632,7 @@
                     
                     // Update grid layout for vertical mode
                     if (currentLevel && currentLevel.numCharacters) {
-                        setCompletedCharactersLayout(currentLevel.numCharacters);
+                        setCompletedCharactersLayout(currentLevel.numCharacters, currentLevel.characters);
                     }
                 } else {
                     // Enough space - use horizontal layout
@@ -2606,7 +2646,7 @@
                     
                     // Update grid layout for horizontal mode
                     if (currentLevel && currentLevel.numCharacters) {
-                        setCompletedCharactersLayout(currentLevel.numCharacters);
+                        setCompletedCharactersLayout(currentLevel.numCharacters, currentLevel.characters);
                     }
                 }
             }
