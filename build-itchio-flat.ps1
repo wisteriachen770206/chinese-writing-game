@@ -62,13 +62,18 @@ Push-Location $scriptDir
 $zip = [System.IO.Compression.ZipFile]::Open((Join-Path $scriptDir $zipName), [System.IO.Compression.ZipArchiveMode]::Create)
 $entryCount = 0
 try {
-    # index.html (rewrite paths for flat structure, update build timestamp)
+    # index.html (rewrite paths for flat structure, update build timestamp, cache-bust)
     Write-Host "Adding index.html..."
     $indexContent = Get-Content "index.html" -Raw -Encoding UTF8
     $indexContent = $indexContent -replace '<div id="build-timestamp">build: [^<]+</div>', "<div id=`"build-timestamp`">build: $buildTimeDisplay</div>"
-    $indexContent = $indexContent -replace 'href="css/styles\.css"', 'href="styles.css"'
-    $indexContent = $indexContent -replace 'src="js/([^"]+)"', 'src="$1"'
+    # Cache-bust: script and CSS URLs get ?v=timestamp so each new zip bypasses browser cache
+    $indexContent = $indexContent -replace 'href="css/styles\.css"', "href=`"styles.css?v=$timestamp`""
+    $indexContent = $indexContent -replace 'src="js/([^"]+)"', "src=`"`$1?v=$timestamp`""
     $indexContent = $indexContent -replace 'src="res/([^"]+)"', 'src="$1"'
+    # Discourage caching of the HTML page itself
+    $indexContent = $indexContent -replace '(<meta charset="UTF-8">)', "`$1`n    <meta http-equiv=`"Cache-Control`" content=`"no-cache, no-store, must-revalidate`">`n    <meta http-equiv=`"Pragma`" content=`"no-cache`">"
+    # Inject build version for JSON fetches (level_config, all_strokes) so they also bypass cache
+    $indexContent = $indexContent -replace '(<body>)', "`$1`n    <script>window.BUILD_VERSION=`"$timestamp`";</script>"
     Add-ZipTextEntry -Zip $zip -EntryName "index.html" -Content $indexContent
     $entryCount++
 

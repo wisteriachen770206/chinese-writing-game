@@ -91,8 +91,9 @@
         // Level loading and selection functions
         async function loadLevelConfig() {
             try {
-                // Add cache-busting parameter to force reload of latest data
-                const response = await fetch(`level_config.json?v=${Date.now()}`);
+                // Cache-bust: use build version when set (itch zip) so each deploy gets fresh data without clearing cache
+                const cacheBust = (typeof window.BUILD_VERSION !== 'undefined') ? window.BUILD_VERSION : Date.now();
+                const response = await fetch(`level_config.json?v=${cacheBust}`);
                 levelConfig = await response.json();
                 log('Level config loaded:', levelConfig);
                 return levelConfig;
@@ -2315,8 +2316,9 @@
             // Load stroke data from all_strokes.json file
             try {
                 log('Fetching all_strokes.json...');
-                // Add cache-busting parameter to force reload of latest data
-                const response = await fetch(`data/all_strokes.json?v=${Date.now()}`);
+                // Cache-bust: use build version when set (itch zip) so each deploy gets fresh data without clearing cache
+                const cacheBust = (typeof window.BUILD_VERSION !== 'undefined') ? window.BUILD_VERSION : Date.now();
+                const response = await fetch(`data/all_strokes.json?v=${cacheBust}`);
                 log('Response status:', response.status, response.statusText);
                 
                 if (response.ok) {
