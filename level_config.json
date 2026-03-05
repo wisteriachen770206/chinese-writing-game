@@ -157,21 +157,8 @@
       "backgroundMusic": "012.mp3"
     },
     {
-      "id": "poem_223",
-      "name": "王维：鹿柴",
-      "description": "空山不见人，但闻人语响。返景入深林，复照青苔上。...",
-      "characters": "空山",
-      "numCharacters": 2,
-      "totalStrokes": 0,
-      "difficulty": "easy",
-      "maxHP": 100,
-      "estimatedTime": "2-3 mins",
-      "backgroundImage": "223.png",
-      "backgroundMusic": "223.mp3"
-    },
-    {
-      "id": "poem_224",
-      "name": "王维：鹿柴",
+      "id": "poem_001",
+      "name": "唐诗三百首-王维：鹿柴",
       "description": "空山不见人，但闻人语响。返景入深林，复照青苔上。...",
       "characters": "空山不见人但闻人语响返景入深林复照青苔上",
       "numCharacters": 20,
@@ -1470,8 +1457,8 @@
       "backgroundMusic": "323.mp3"
     },
     {
-      "id": "final",
-      "name": "XinJing",
+      "id": "xinjing_001",
+      "name": "般若波罗蜜多心经",
       "description": "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。",
       "characters": "观自在菩萨,行深般若波罗蜜多时,照见五蕴皆空,度一切苦厄",
       "numCharacters": 28,
@@ -1483,8 +1470,112 @@
       "backgroundMusic": "XJ.mp3"
     },
     {
+      "id": "xinjing_002",
+      "name": "舍利子",
+      "description": "舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。",
+      "characters": "舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。",
+      "numCharacters": 34,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_003",
+      "name": "舍利子",
+      "description": "舍利子，是诸法空相，不生不灭，不垢不净，不增不减。",
+      "characters": "舍利子，是诸法空相，不生不灭，不垢不净，不增不减。",
+      "numCharacters": 25,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_004",
+      "name": "是故空中无色",
+      "description": "是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。",
+      "characters": "是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。",
+      "numCharacters": 62,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_005",
+      "name": "无苦集灭道",
+      "description": "无苦集灭道，无智亦无得。",
+      "characters": "无苦集灭道，无智亦无得。",
+      "numCharacters": 12,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_006",
+      "name": "以无所得故",
+      "description": "以无所得故，菩提萨埵，依般若波罗蜜多故，心无挂碍，无挂碍故，无有恐怖，远离颠倒梦想，究竟涅槃。",
+      "characters": "以无所得故，菩提萨埵，依般若波罗蜜多故，心无挂碍，无挂碍故，无有恐怖，远离颠倒梦想，究竟涅槃。",
+      "numCharacters": 47,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_007",
+      "name": "三世诸佛",
+      "description": "三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。",
+      "characters": "三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。",
+      "numCharacters": 25,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_008",
+      "name": "故知般若波罗蜜多",
+      "description": "故知般若波罗蜜多，是大神咒，是大明咒，是无上咒，是无等等咒，能除一切苦，真实不虚。",
+      "characters": "故知般若波罗蜜多，是大神咒，是大明咒，是无上咒，是无等等咒，能除一切苦，真实不虚。",
+      "numCharacters": 41,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_009",
+      "name": "故说般若波罗蜜多咒",
+      "description": "故说般若波罗蜜多咒，即说咒曰：揭谛揭谛，波罗揭谛，波罗僧揭谛，菩提萨婆诃。",
+      "characters": "故说般若波罗蜜多咒，即说咒曰：揭谛揭谛，波罗揭谛，波罗僧揭谛，菩提萨婆诃。",
+      "numCharacters": 37,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
       "id": "puxian_001",
-      "name": "普贤行愿 1",
+      "name": "普贤行愿品",
       "description": "所有十方世界中，三世一切人师子，我以清净身语意，一切遍礼尽无余。",
       "characters": "所有十方世界中三世一切人师子我以清净身语意一切遍礼尽无余",
       "numCharacters": 28,
@@ -1497,7 +1588,7 @@
     },
     {
       "id": "puxian_002",
-      "name": "普贤行愿 2",
+      "name": "普贤行愿威神力",
       "description": "普贤行愿威神力，普现一切如来前，一身复现刹尘身，一一遍礼刹尘佛。",
       "characters": "普贤行愿威神力普现一切如来前一身复现刹尘身一一遍礼刹尘佛",
       "numCharacters": 28,
@@ -1510,7 +1601,7 @@
     },
     {
       "id": "puxian_003",
-      "name": "普贤行愿 3",
+      "name": "于一尘中尘数佛",
       "description": "于一尘中尘数佛，各处菩萨众会中，无尽法界尘亦然，深信诸佛皆充满。",
       "characters": "于一尘中尘数佛各处菩萨众会中无尽法界尘亦然深信诸佛皆充满",
       "numCharacters": 28,
@@ -1523,7 +1614,7 @@
     },
     {
       "id": "puxian_004",
-      "name": "普贤行愿 4",
+      "name": "各以一切音声海",
       "description": "各以一切音声海，普出无尽妙言辞，尽于未来一切劫，赞佛甚深功德海。",
       "characters": "各以一切音声海普出无尽妙言辞尽于未来一切劫赞佛甚深功德海",
       "numCharacters": 28,
@@ -1536,7 +1627,7 @@
     },
     {
       "id": "puxian_005",
-      "name": "普贤行愿 5",
+      "name": "以诸最胜妙华缦",
       "description": "以诸最胜妙华缦，伎乐涂香及伞盖，如是最胜庄严具，我以供养诸如来。",
       "characters": "以诸最胜妙华缦伎乐涂香及伞盖如是最胜庄严具我以供养诸如来",
       "numCharacters": 28,
@@ -1549,7 +1640,7 @@
     },
     {
       "id": "puxian_006",
-      "name": "普贤行愿 6",
+      "name": "最胜衣服最胜香",
       "description": "最胜衣服最胜香，末香烧香与灯烛，一一皆如妙高聚，我悉供养诸如来。",
       "characters": "最胜衣服最胜香末香烧香与灯烛一一皆如妙高聚我悉供养诸如来",
       "numCharacters": 28,
@@ -1562,7 +1653,7 @@
     },
     {
       "id": "puxian_007",
-      "name": "普贤行愿 7",
+      "name": "我以广大胜解心",
       "description": "我以广大胜解心，深信一切三世佛，悉以普贤行愿力，普遍供养诸如来。",
       "characters": "我以广大胜解心深信一切三世佛悉以普贤行愿力普遍供养诸如来",
       "numCharacters": 28,
@@ -1575,7 +1666,7 @@
     },
     {
       "id": "puxian_008",
-      "name": "普贤行愿 8",
+      "name": "我昔所造诸恶业",
       "description": "我昔所造诸恶业，皆由无始贪嗔痴，从身语意之所生，一切我今皆忏悔。",
       "characters": "我昔所造诸恶业皆由无始贪嗔痴从身语意之所生一切我今皆忏悔",
       "numCharacters": 28,
@@ -1588,7 +1679,7 @@
     },
     {
       "id": "puxian_009",
-      "name": "普贤行愿 9",
+      "name": "十方一切诸众生",
       "description": "十方一切诸众生，二乘有学及无学，一切如来与菩萨，所有功德皆随喜。",
       "characters": "十方一切诸众生二乘有学及无学一切如来与菩萨所有功德皆随喜",
       "numCharacters": 28,
@@ -1601,7 +1692,7 @@
     },
     {
       "id": "puxian_010",
-      "name": "普贤行愿 10",
+      "name": "十方所有世间灯",
       "description": "十方所有世间灯，最初成就菩提者，我今一切皆劝请，转于无上妙法轮。",
       "characters": "十方所有世间灯最初成就菩提者我今一切皆劝请转于无上妙法轮",
       "numCharacters": 28,
@@ -1614,7 +1705,7 @@
     },
     {
       "id": "puxian_011",
-      "name": "普贤行愿 11",
+      "name": "诸佛若欲示涅槃",
       "description": "诸佛若欲示涅槃，我悉至诚而劝请，唯愿久住刹尘劫，利乐一切诸众生。",
       "characters": "诸佛若欲示涅槃我悉至诚而劝请唯愿久住刹尘劫利乐一切诸众生",
       "numCharacters": 28,
@@ -1627,7 +1718,7 @@
     },
     {
       "id": "puxian_012",
-      "name": "普贤行愿 12",
+      "name": "所有礼赞供养福",
       "description": "所有礼赞供养福，请佛住世转法轮，随喜忏悔诸善根，回向众生及佛道。",
       "characters": "所有礼赞供养福请佛住世转法轮随喜忏悔诸善根回向众生及佛道",
       "numCharacters": 28,
@@ -1640,7 +1731,7 @@
     },
     {
       "id": "puxian_013",
-      "name": "普贤行愿 13",
+      "name": "我随一切如来学",
       "description": "我随一切如来学，修习普贤圆满行，供养过去诸如来，及与现在十方佛。",
       "characters": "我随一切如来学修习普贤圆满行供养过去诸如来及与现在十方佛",
       "numCharacters": 28,
@@ -1653,7 +1744,7 @@
     },
     {
       "id": "puxian_014",
-      "name": "普贤行愿 14",
+      "name": "未来一切天人师",
       "description": "未来一切天人师，一切意乐皆圆满，我愿普随三世学，速得成就大菩提。",
       "characters": "未来一切天人师一切意乐皆圆满我愿普随三世学速得成就大菩提",
       "numCharacters": 28,
@@ -1666,7 +1757,7 @@
     },
     {
       "id": "puxian_015",
-      "name": "普贤行愿 15",
+      "name": "所有十方三世刹",
       "description": "所有十方三世刹，广大清净妙庄严，众会围绕诸如来，悉在菩提树王下。",
       "characters": "所有十方三世刹广大清净妙庄严众会围绕诸如来悉在菩提树王下",
       "numCharacters": 28,
@@ -1679,7 +1770,7 @@
     },
     {
       "id": "puxian_016",
-      "name": "普贤行愿 16",
+      "name": "十方所有诸众生",
       "description": "十方所有诸众生，愿离忧患常安乐，获得甚深正法利，灭除烦恼尽无余。",
       "characters": "十方所有诸众生愿离忧患常安乐获得甚深正法利灭除烦恼尽无余",
       "numCharacters": 28,
@@ -1692,7 +1783,7 @@
     },
     {
       "id": "puxian_017",
-      "name": "普贤行愿 17",
+      "name": "我为菩提修行时",
       "description": "我为菩提修行时，一切趣中成宿命，常得出家修净戒，无垢无破无穿漏。",
       "characters": "我为菩提修行时一切趣中成宿命常得出家修净戒无垢无破无穿漏",
       "numCharacters": 28,
@@ -1705,7 +1796,7 @@
     },
     {
       "id": "puxian_018",
-      "name": "普贤行愿 18",
+      "name": "天龙夜叉鸠槃茶",
       "description": "天龙夜叉鸠槃茶，乃至人与非人等，所有一切众生语，悉以诸音而说法。",
       "characters": "天龙夜叉鸠槃茶乃至人与非人等所有一切众生语悉以诸音而说法",
       "numCharacters": 28,
@@ -1718,7 +1809,7 @@
     },
     {
       "id": "puxian_019",
-      "name": "普贤行愿 19",
+      "name": "勤修清净波罗密",
       "description": "勤修清净波罗密，恒不忘失菩提心，灭除障垢无有余，一切妙行皆成就。",
       "characters": "勤修清净波罗密恒不忘失菩提心灭除障垢无有余一切妙行皆成就",
       "numCharacters": 28,
@@ -1731,7 +1822,7 @@
     },
     {
       "id": "puxian_020",
-      "name": "普贤行愿 20",
+      "name": "于诸惑业及魔境",
       "description": "于诸惑业及魔境，世间道中得解脱，犹如莲华不著水，亦如日月不住空。",
       "characters": "于诸惑业及魔境世间道中得解脱犹如莲华不著水亦如日月不住空",
       "numCharacters": 28,
@@ -1744,7 +1835,7 @@
     },
     {
       "id": "puxian_021",
-      "name": "普贤行愿 21",
+      "name": "悉除一切恶道苦",
       "description": "悉除一切恶道苦，等与一切群生乐，如是经于刹尘劫，十方利益恒无尽。",
       "characters": "悉除一切恶道苦等与一切群生乐如是经于刹尘劫十方利益恒无尽",
       "numCharacters": 28,
@@ -1757,7 +1848,7 @@
     },
     {
       "id": "puxian_022",
-      "name": "普贤行愿 22",
+      "name": "我常随顺诸众生",
       "description": "我常随顺诸众生，尽于未来一切劫，恒修普贤广大行，圆满无上大菩提。",
       "characters": "我常随顺诸众生尽于未来一切劫恒修普贤广大行圆满无上大菩提",
       "numCharacters": 28,
@@ -1770,7 +1861,7 @@
     },
     {
       "id": "puxian_023",
-      "name": "普贤行愿 23",
+      "name": "所有与我同行者",
       "description": "所有与我同行者，于一切处同集会，身口意业皆同等，一切行愿同修学。",
       "characters": "所有与我同行者于一切处同集会身口意业皆同等一切行愿同修学",
       "numCharacters": 28,
@@ -1783,7 +1874,7 @@
     },
     {
       "id": "puxian_024",
-      "name": "普贤行愿 24",
+      "name": "所有益我善知识",
       "description": "所有益我善知识，为我显示普贤行，常愿与我同集会，于我常生欢喜心。",
       "characters": "所有益我善知识为我显示普贤行常愿与我同集会于我常生欢喜心",
       "numCharacters": 28,
@@ -1796,7 +1887,7 @@
     },
     {
       "id": "puxian_025",
-      "name": "普贤行愿 25",
+      "name": "愿常面见诸如来",
       "description": "愿常面见诸如来，及诸佛子众围绕，于彼皆兴广大供，尽未来劫无疲厌。",
       "characters": "愿常面见诸如来及诸佛子众围绕于彼皆兴广大供尽未来劫无疲厌",
       "numCharacters": 28,
@@ -1809,7 +1900,7 @@
     },
     {
       "id": "puxian_026",
-      "name": "普贤行愿 26",
+      "name": "愿持诸佛微妙法",
       "description": "愿持诸佛微妙法，光显一切菩提行，究竟清净普贤道，尽未来劫常修习。",
       "characters": "愿持诸佛微妙法光显一切菩提行究竟清净普贤道尽未来劫常修习",
       "numCharacters": 28,
@@ -1822,7 +1913,7 @@
     },
     {
       "id": "puxian_027",
-      "name": "普贤行愿 27",
+      "name": "我于一切诸有中",
       "description": "我于一切诸有中，所修福智恒无尽，定慧方便及解脱，获诸无尽功德藏。",
       "characters": "我于一切诸有中所修福智恒无尽定慧方便及解脱获诸无尽功德藏",
       "numCharacters": 28,
@@ -1835,7 +1926,7 @@
     },
     {
       "id": "puxian_028",
-      "name": "普贤行愿 28",
+      "name": "一尘中有尘数刹",
       "description": "一尘中有尘数刹，一一刹有难思佛，一一佛处众会中，我见恒演菩提行。",
       "characters": "一尘中有尘数刹一一刹有难思佛一一佛处众会中我见恒演菩提行",
       "numCharacters": 28,
@@ -1848,7 +1939,7 @@
     },
     {
       "id": "puxian_029",
-      "name": "普贤行愿 29",
+      "name": "普尽十方诸刹海",
       "description": "普尽十方诸刹海，一一毛端三世海，佛海及与国土海，我遍修行经劫海。",
       "characters": "普尽十方诸刹海一一毛端三世海佛海及与国土海我遍修行经劫海",
       "numCharacters": 28,
@@ -1861,7 +1952,7 @@
     },
     {
       "id": "puxian_030",
-      "name": "普贤行愿 30",
+      "name": "一切如来语清净",
       "description": "一切如来语清净，一言具众音声海，随诸众生意乐音，一一流佛辩才海。",
       "characters": "一切如来语清净一言具众音声海随诸众生意乐音一一流佛辩才海",
       "numCharacters": 28,
@@ -1874,7 +1965,7 @@
     },
     {
       "id": "puxian_031",
-      "name": "普贤行愿 31",
+      "name": "三世一切诸如来",
       "description": "三世一切诸如来，于彼无尽语言海，恒转理趣妙法轮，我深智力普能入。",
       "characters": "三世一切诸如来于彼无尽语言海恒转理趣妙法轮我深智力普能入",
       "numCharacters": 28,
@@ -1887,7 +1978,7 @@
     },
     {
       "id": "puxian_032",
-      "name": "普贤行愿 32",
+      "name": "我能深入于未来",
       "description": "我能深入于未来，尽一切劫为一念，三世所有一切劫，为一念际我皆入。",
       "characters": "我能深入于未来尽一切劫为一念三世所有一切劫为一念际我皆入",
       "numCharacters": 28,
@@ -1900,7 +1991,7 @@
     },
     {
       "id": "puxian_033",
-      "name": "普贤行愿 33",
+      "name": "我于一念见三世",
       "description": "我于一念见三世，所有一切人师子，亦常入佛境界中，如幻解脱及威力。",
       "characters": "我于一念见三世所有一切人师子亦常入佛境界中如幻解脱及威力",
       "numCharacters": 28,
@@ -1913,7 +2004,7 @@
     },
     {
       "id": "puxian_034",
-      "name": "普贤行愿 34",
+      "name": "于一毛端极微中",
       "description": "于一毛端极微中，出现三世庄严刹，十方尘刹诸毛端，我皆深入而严净。",
       "characters": "于一毛端极微中出现三世庄严刹十方尘刹诸毛端我皆深入而严净",
       "numCharacters": 28,
@@ -1926,7 +2017,7 @@
     },
     {
       "id": "puxian_035",
-      "name": "普贤行愿 35",
+      "name": "所有未来照世灯",
       "description": "所有未来照世灯，成道转法悟群有，究竟佛事示涅槃，我皆往诣而亲近。",
       "characters": "所有未来照世灯成道转法悟群有究竟佛事示涅槃我皆往诣而亲近",
       "numCharacters": 28,
@@ -1939,7 +2030,7 @@
     },
     {
       "id": "puxian_036",
-      "name": "普贤行愿 36",
+      "name": "速疾周遍神通力",
       "description": "速疾周遍神通力，普门遍入大乘力，智行普修功德力，威神普覆大慈力。",
       "characters": "速疾周遍神通力普门遍入大乘力智行普修功德力威神普覆大慈力",
       "numCharacters": 28,
@@ -1952,7 +2043,7 @@
     },
     {
       "id": "puxian_037",
-      "name": "普贤行愿 37",
+      "name": "遍净庄严胜福力",
       "description": "遍净庄严胜福力，无著无依智慧力，定慧方便威神力，普能积集菩提力，",
       "characters": "遍净庄严胜福力无著无依智慧力定慧方便威神力普能积集菩提力",
       "numCharacters": 28,
@@ -1965,7 +2056,7 @@
     },
     {
       "id": "puxian_038",
-      "name": "普贤行愿 38",
+      "name": "清净一切善业力",
       "description": "清净一切善业力，摧灭一切烦恼力，降服一切诸魔力，圆满普贤诸行力。",
       "characters": "清净一切善业力摧灭一切烦恼力降服一切诸魔力圆满普贤诸行力",
       "numCharacters": 28,
@@ -1978,7 +2069,7 @@
     },
     {
       "id": "puxian_039",
-      "name": "普贤行愿 39",
+      "name": "普能严净诸刹海",
       "description": "普能严净诸刹海，解脱一切众生海。善能分别诸法海，能甚深入智慧海。",
       "characters": "普能严净诸刹海解脱一切众生海善能分别诸法海能甚深入智慧海",
       "numCharacters": 28,
@@ -1991,7 +2082,7 @@
     },
     {
       "id": "puxian_040",
-      "name": "普贤行愿 40",
+      "name": "普能清净诸行海",
       "description": "普能清净诸行海，圆满一切诸愿海，亲近供养诸佛海，修行无倦经劫海。",
       "characters": "普能清净诸行海圆满一切诸愿海亲近供养诸佛海修行无倦经劫海",
       "numCharacters": 28,
@@ -2004,7 +2095,7 @@
     },
     {
       "id": "puxian_041",
-      "name": "普贤行愿 41",
+      "name": "三世一切诸如来",
       "description": "三世一切诸如来，最胜菩提诸行愿，我皆供养圆满修，以普贤行悟菩提。",
       "characters": "三世一切诸如来最胜菩提诸行愿我皆供养圆满修以普贤行悟菩提",
       "numCharacters": 28,
@@ -2017,7 +2108,7 @@
     },
     {
       "id": "puxian_042",
-      "name": "普贤行愿 42",
+      "name": "一切如来有长子",
       "description": "一切如来有长子，彼名号曰普贤尊，我今回向诸善根，愿诸智行悉同彼。",
       "characters": "一切如来有长子彼名号曰普贤尊我今回向诸善根愿诸智行悉同彼",
       "numCharacters": 28,
@@ -2030,7 +2121,7 @@
     },
     {
       "id": "puxian_043",
-      "name": "普贤行愿 43",
+      "name": "愿身口意恒清净",
       "description": "愿身口意恒清净，诸行刹土亦复然，如是智慧号普贤，愿我与彼皆同等。",
       "characters": "愿身口意恒清净诸行刹土亦复然如是智慧号普贤愿我与彼皆同等",
       "numCharacters": 28,
@@ -2043,7 +2134,7 @@
     },
     {
       "id": "puxian_044",
-      "name": "普贤行愿 44",
+      "name": "我为遍净普贤行",
       "description": "我为遍净普贤行，文殊师利诸大愿，满彼事业尽无余，未来际劫恒无倦。",
       "characters": "我为遍净普贤行文殊师利诸大愿满彼事业尽无余未来际劫恒无倦",
       "numCharacters": 28,
@@ -2056,7 +2147,7 @@
     },
     {
       "id": "puxian_045",
-      "name": "普贤行愿 45",
+      "name": "我所修行无有量",
       "description": "我所修行无有量，获得无量诸功德，安住无量诸行中，了达一切神通力。",
       "characters": "我所修行无有量获得无量诸功德安住无量诸行中了达一切神通力",
       "numCharacters": 28,
@@ -2069,7 +2160,7 @@
     },
     {
       "id": "puxian_046",
-      "name": "普贤行愿 46",
+      "name": "文殊师利勇猛智",
       "description": "文殊师利勇猛智，普贤慧行亦复然，我今回向诸善根，随彼一切常修学。",
       "characters": "文殊师利勇猛智普贤慧行亦复然我今回向诸善根随彼一切常修学",
       "numCharacters": 28,
@@ -2082,7 +2173,7 @@
     },
     {
       "id": "puxian_047",
-      "name": "普贤行愿 47",
+      "name": "三世诸佛所称叹",
       "description": "三世诸佛所称叹，如是最胜诸大愿，我今回向诸善根，为得普贤殊胜行。",
       "characters": "三世诸佛所称叹如是最胜诸大愿我今回向诸善根为得普贤殊胜行",
       "numCharacters": 28,
@@ -2095,7 +2186,7 @@
     },
     {
       "id": "puxian_048",
-      "name": "普贤行愿 48",
+      "name": "愿我临欲命终时",
       "description": "愿我临欲命终时，尽除一切诸障碍，面见彼佛阿弥陀，即得往生安乐刹。",
       "characters": "愿我临欲命终时尽除一切诸障碍面见彼佛阿弥陀即得往生安乐刹",
       "numCharacters": 28,
@@ -2108,7 +2199,7 @@
     },
     {
       "id": "puxian_049",
-      "name": "普贤行愿 49",
+      "name": "我既往生彼国已",
       "description": "我既往生彼国已，现前成就此大愿，一切圆满尽无余，利乐一切众生界。",
       "characters": "我既往生彼国已现前成就此大愿一切圆满尽无余利乐一切众生界",
       "numCharacters": 28,
@@ -2121,7 +2212,7 @@
     },
     {
       "id": "puxian_050",
-      "name": "普贤行愿 50",
+      "name": "彼佛众会咸清净",
       "description": "彼佛众会咸清净，我时于胜莲华生，亲睹如来无量光，现前授我菩提记。",
       "characters": "彼佛众会咸清净我时于胜莲华生亲睹如来无量光现前授我菩提记",
       "numCharacters": 28,
@@ -2134,7 +2225,7 @@
     },
     {
       "id": "puxian_051",
-      "name": "普贤行愿 51",
+      "name": "蒙彼如来授记已",
       "description": "蒙彼如来授记已，化身无数百俱胝，智力广大遍十方，普利一切众生界。",
       "characters": "蒙彼如来授记已化身无数百俱胝智力广大遍十方普利一切众生界",
       "numCharacters": 28,
@@ -2147,7 +2238,7 @@
     },
     {
       "id": "puxian_052",
-      "name": "普贤行愿 52",
+      "name": "乃至虚空世界尽",
       "description": "乃至虚空世界尽，众生及业烦恼尽，如是一切无尽时，我愿究竟恒无尽。",
       "characters": "乃至虚空世界尽众生及业烦恼尽如是一切无尽时我愿究竟恒无尽",
       "numCharacters": 28,
@@ -2160,7 +2251,7 @@
     },
     {
       "id": "puxian_053",
-      "name": "普贤行愿 53",
+      "name": "十方所有无边刹",
       "description": "十方所有无边刹，庄严众宝供如来，最胜安乐施天人，经一切刹微尘劫。",
       "characters": "十方所有无边刹庄严众宝供如来最胜安乐施天人经一切刹微尘劫",
       "numCharacters": 28,
@@ -2173,7 +2264,7 @@
     },
     {
       "id": "puxian_054",
-      "name": "普贤行愿 54",
+      "name": "若人于此胜愿王",
       "description": "若人于此胜愿王，一经于耳能生信，求胜菩提心渴仰，获胜功德过于彼。",
       "characters": "若人于此胜愿王一经于耳能生信求胜菩提心渴仰获胜功德过于彼",
       "numCharacters": 28,
@@ -2186,7 +2277,7 @@
     },
     {
       "id": "puxian_055",
-      "name": "普贤行愿 55",
+      "name": "即常远离恶知识",
       "description": "即常远离恶知识，永离一切诸恶道，速见如来无量光，具此普贤最胜愿。",
       "characters": "即常远离恶知识永离一切诸恶道速见如来无量光具此普贤最胜愿",
       "numCharacters": 28,
@@ -2199,7 +2290,7 @@
     },
     {
       "id": "puxian_056",
-      "name": "普贤行愿 56",
+      "name": "此人善得胜寿命",
       "description": "此人善得胜寿命，此人善来人中生，此人不久当成就，如彼普贤菩萨行。",
       "characters": "此人善得胜寿命此人善来人中生此人不久当成就如彼普贤菩萨行",
       "numCharacters": 28,
@@ -2212,7 +2303,7 @@
     },
     {
       "id": "puxian_057",
-      "name": "普贤行愿 57",
+      "name": "往昔由无智慧力",
       "description": "往昔由无智慧力，所造极恶五无间，诵此普贤大愿王，一念速疾皆消灭。",
       "characters": "往昔由无智慧力所造极恶五无间诵此普贤大愿王一念速疾皆消灭",
       "numCharacters": 28,
@@ -2225,7 +2316,7 @@
     },
     {
       "id": "puxian_058",
-      "name": "普贤行愿 58",
+      "name": "族姓种类及容色",
       "description": "族姓种类及容色，相好智慧咸圆满，诸魔外道不能摧，堪为三界所应供。",
       "characters": "族姓种类及容色相好智慧咸圆满诸魔外道不能摧堪为三界所应供",
       "numCharacters": 28,
@@ -2238,7 +2329,7 @@
     },
     {
       "id": "puxian_059",
-      "name": "普贤行愿 59",
+      "name": "速诣菩提大树王",
       "description": "速诣菩提大树王，坐已降服诸魔众，成等正觉转法轮，普利一切诸含识。",
       "characters": "速诣菩提大树王坐已降服诸魔众成等正觉转法轮普利一切诸含识",
       "numCharacters": 28,
@@ -2251,7 +2342,7 @@
     },
     {
       "id": "puxian_060",
-      "name": "普贤行愿 60",
+      "name": "若人于此普贤愿",
       "description": "若人于此普贤愿，读诵受持及演说，果报唯佛能证知，决定获胜菩提道。",
       "characters": "若人于此普贤愿读诵受持及演说果报唯佛能证知决定获胜菩提道",
       "numCharacters": 28,
@@ -2264,7 +2355,7 @@
     },
     {
       "id": "puxian_061",
-      "name": "普贤行愿 61",
+      "name": "若人诵持普贤愿",
       "description": "若人诵持普贤愿，我说少分之善根，一念一切悉皆圆，成就众生清净愿。",
       "characters": "若人诵持普贤愿我说少分之善根一念一切悉皆圆成就众生清净愿",
       "numCharacters": 28,
@@ -2277,7 +2368,7 @@
     },
     {
       "id": "puxian_062",
-      "name": "普贤行愿 62",
+      "name": "我此普贤殊胜行",
       "description": "我此普贤殊胜行，无边胜福皆回向，普愿沉溺诸众生，速往无量光佛刹。",
       "characters": "我此普贤殊胜行无边胜福皆回向普愿沉溺诸众生速往无量光佛刹",
       "numCharacters": 28,
@@ -2290,7 +2381,7 @@
     },
     {
       "id": "sixzu_001",
-      "name": "六祖偈頌 1",
+      "name": "六祖坛经",
       "description": "史君請師說，摩訶般若法；三教官與民，恭敬聞法要。",
       "characters": "史君請師說摩訶般若法三教官與民恭敬聞法要",
       "numCharacters": 20,
@@ -2303,7 +2394,7 @@
     },
     {
       "id": "sixzu_002",
-      "name": "六祖偈頌 2",
+      "name": "般若除妄心",
       "description": "般若除妄心，息妄顯真心；自性本清淨，真妄盡假名。",
       "characters": "般若除妄心息妄顯真心自性本清淨真妄盡假名",
       "numCharacters": 20,
@@ -2316,7 +2407,7 @@
     },
     {
       "id": "sixzu_003",
-      "name": "六祖偈頌 3",
+      "name": "三歲父既没",
       "description": "三歲父既没，孝養侍老母；無錢上學堂，安貧隨緣過。",
       "characters": "三歲父既没孝養侍老母無錢上學堂安貧隨緣過",
       "numCharacters": 20,
@@ -2329,7 +2420,7 @@
     },
     {
       "id": "sixzu_004",
-      "name": "六祖偈頌 4",
+      "name": "先有苦其志",
       "description": "先有苦其志，後能聞經入；心若無所住，何愁不開悟。",
       "characters": "先有苦其志後能聞經入心若無所住何愁不開悟",
       "numCharacters": 20,
@@ -2342,7 +2433,7 @@
     },
     {
       "id": "sixzu_005",
-      "name": "六祖偈頌 5",
+      "name": "見道未證道",
       "description": "見道未證道，悟後始修道；求法心迫切，安家至黃梅。",
       "characters": "見道未證道悟後始修道求法心迫切安家至黃梅",
       "numCharacters": 20,
@@ -2355,7 +2446,7 @@
     },
     {
       "id": "sixzu_006",
-      "name": "六祖偈頌 6",
+      "name": "萬緣盡放下",
       "description": "萬緣盡放下，為求佛智慧；一切如空花，不存餘物想。",
       "characters": "萬緣盡放下為求佛智慧一切如空花不存餘物想",
       "numCharacters": 20,
@@ -2368,7 +2459,7 @@
     },
     {
       "id": "sixzu_007",
-      "name": "六祖偈頌 7",
+      "name": "行者為法來",
       "description": "行者為法來，祖試其見地；相雖有差別，佛性本無二。",
       "characters": "行者為法來祖試其見地相雖有差別佛性本無二",
       "numCharacters": 20,
@@ -2381,7 +2472,7 @@
     },
     {
       "id": "sixzu_008",
-      "name": "六祖偈頌 8",
+      "name": "福自心中來",
       "description": "福自心中來，慧由自性生；兩者本不離，何處修福慧。",
       "characters": "福自心中來慧由自性生兩者本不離何處修福慧",
       "numCharacters": 20,
@@ -2394,7 +2485,7 @@
     },
     {
       "id": "sixzu_009",
-      "name": "六祖偈頌 9",
+      "name": "見地雖可用",
       "description": "見地雖可用，亦莫強出頭；嫉妒人心惡，潛藏待機緣。",
       "characters": "見地雖可用亦莫強出頭嫉妒人心惡潛藏待機緣",
       "numCharacters": 20,
@@ -2407,7 +2498,7 @@
     },
     {
       "id": "sixzu_010",
-      "name": "六祖偈頌 10",
+      "name": "人生何事重",
       "description": "人生何事重，生死為最大；修福不修慧，豈能了生死。",
       "characters": "人生何事重生死為最大修福不修慧豈能了生死",
       "numCharacters": 20,
@@ -2420,7 +2511,7 @@
     },
     {
       "id": "sixzu_011",
-      "name": "六祖偈頌 11",
+      "name": "生死無人替",
       "description": "生死無人替，有誰可依怙；他人無法度，唯靠眾自度。",
       "characters": "生死無人替有誰可依怙他人無法度唯靠眾自度",
       "numCharacters": 20,
@@ -2433,7 +2524,7 @@
     },
     {
       "id": "sixzu_012",
-      "name": "六祖偈頌 12",
+      "name": "呈偈與不呈",
       "description": "呈偈與不呈，妄想起分別；心若無所求，何來有難矣。",
       "characters": "呈偈與不呈妄想起分別心若無所求何來有難矣",
       "numCharacters": 20,
@@ -2446,7 +2537,7 @@
     },
     {
       "id": "sixzu_013",
-      "name": "六祖偈頌 13",
+      "name": "見性自能知",
       "description": "見性自能知，何須由偈證；心亂意不淨，呈偈亦枉然。",
       "characters": "見性自能知何須由偈證心亂意不淨呈偈亦枉然",
       "numCharacters": 20,
@@ -2459,7 +2550,7 @@
     },
     {
       "id": "sixzu_014",
-      "name": "六祖偈頌 14",
+      "name": "終身在道場",
       "description": "終身在道場，畢生不見道；慚愧心生起，始能成佛道。",
       "characters": "終身在道場畢生不見道慚愧心生起始能成佛道",
       "numCharacters": 20,
@@ -2472,7 +2563,7 @@
     },
     {
       "id": "sixzu_015",
-      "name": "六祖偈頌 15",
+      "name": "色身本無常",
       "description": "色身本無常，心念亦生滅；著相覓菩提，何時能見性。",
       "characters": "色身本無常心念亦生滅著相覓菩提何時能見性",
       "numCharacters": 20,
@@ -2485,7 +2576,7 @@
     },
     {
       "id": "sixzu_016",
-      "name": "六祖偈頌 16",
+      "name": "妄心不止息",
       "description": "妄心不止息，念念煩惱生；緣過當放下，莫於境上轉。",
       "characters": "妄心不止息念念煩惱生緣過當放下莫於境上轉",
       "numCharacters": 20,
@@ -2498,7 +2589,7 @@
     },
     {
       "id": "sixzu_017",
-      "name": "六祖偈頌 17",
+      "name": "諸相因緣起",
       "description": "諸相因緣起，無常故虛妄；五祖權巧說，修此能利益。",
       "characters": "諸相因緣起無常故虛妄五祖權巧說修此能利益",
       "numCharacters": 20,
@@ -2511,7 +2602,7 @@
     },
     {
       "id": "sixzu_018",
-      "name": "六祖偈頌 18",
+      "name": "神秀教授師",
       "description": "神秀教授師，為人說佛法；說者心未明，依然門外漢。",
       "characters": "神秀教授師為人說佛法說者心未明依然門外漢",
       "numCharacters": 20,
@@ -2524,7 +2615,7 @@
     },
     {
       "id": "sixzu_019",
-      "name": "六祖偈頌 19",
+      "name": "自性無生滅",
       "description": "自性無生滅，豈是相上修；菩提本來有，一悟一切悟。",
       "characters": "自性無生滅豈是相上修菩提本來有一悟一切悟",
       "numCharacters": 20,
@@ -2537,7 +2628,7 @@
     },
     {
       "id": "sixzu_020",
-      "name": "六祖偈頌 20",
+      "name": "弘忍愍弟子",
       "description": "弘忍愍弟子，不捨一眾生；神秀今未悟，執偈掛心頭。",
       "characters": "弘忍愍弟子不捨一眾生神秀今未悟執偈掛心頭",
       "numCharacters": 20,
@@ -2550,7 +2641,7 @@
     },
     {
       "id": "sixzu_021",
-      "name": "六祖偈頌 21",
+      "name": "惠能未蒙授",
       "description": "惠能未蒙授，早悟佛法意；童子久在寺，聞法不會意。",
       "characters": "惠能未蒙授早悟佛法意童子久在寺聞法不會意",
       "numCharacters": 20,
@@ -2563,7 +2654,7 @@
     },
     {
       "id": "sixzu_022",
-      "name": "六祖偈頌 22",
+      "name": "童子不識聖",
       "description": "童子不識聖，如人不見佛；今朝塵盡破，放光照大千。",
       "characters": "童子不識聖如人不見佛今朝塵盡破放光照大千",
       "numCharacters": 20,
@@ -2576,7 +2667,7 @@
     },
     {
       "id": "sixzu_023",
-      "name": "六祖偈頌 23",
+      "name": "別駕名日用",
       "description": "別駕名日用，識字不識佛；惠能雖柴夫，識佛非文字。",
       "characters": "別駕名日用識字不識佛惠能雖柴夫識佛非文字",
       "numCharacters": 20,
@@ -2589,7 +2680,7 @@
     },
     {
       "id": "sixzu_024",
-      "name": "六祖偈頌 24",
+      "name": "佛性無形體",
       "description": "佛性無形體，豈可事相論；輕慢智成識，恭謙識轉智。",
       "characters": "佛性無形體豈可事相論輕慢智成識恭謙識轉智",
       "numCharacters": 20,
@@ -2602,7 +2693,7 @@
     },
     {
       "id": "sixzu_025",
-      "name": "六祖偈頌 25",
+      "name": "身由四假合",
       "description": "身由四假合，心從五蘊生；一切如幻化，何能染性空。",
       "characters": "身由四假合心從五蘊生一切如幻化何能染性空",
       "numCharacters": 20,
@@ -2615,7 +2706,7 @@
     },
     {
       "id": "sixzu_026",
-      "name": "六祖偈頌 26",
+      "name": "聞道有先後",
       "description": "聞道有先後，悟道無分別；其貌雖不揚，心地卻菩提。",
       "characters": "聞道有先後悟道無分別其貌雖不揚心地卻菩提",
       "numCharacters": 20,
@@ -2628,7 +2719,7 @@
     },
     {
       "id": "sixzu_027",
-      "name": "六祖偈頌 27",
+      "name": "惠能來求法",
       "description": "惠能來求法，為此忘身軀；並非不見性，猶欠祖印可。",
       "characters": "惠能來求法為此忘身軀並非不見性猶欠祖印可",
       "numCharacters": 20,
@@ -2641,7 +2732,7 @@
     },
     {
       "id": "sixzu_028",
-      "name": "六祖偈頌 28",
+      "name": "金剛自性身",
       "description": "金剛自性身，能生萬種法；無住離諸相，即生智慧心。",
       "characters": "金剛自性身能生萬種法無住離諸相即生智慧心",
       "numCharacters": 20,
@@ -2654,7 +2745,7 @@
     },
     {
       "id": "sixzu_029",
-      "name": "六祖偈頌 29",
+      "name": "空性自具足",
       "description": "空性自具足，清淨不動搖；性空能緣起，法本不生滅。",
       "characters": "空性自具足清淨不動搖性空能緣起法本不生滅",
       "numCharacters": 20,
@@ -2667,7 +2758,7 @@
     },
     {
       "id": "sixzu_030",
-      "name": "六祖偈頌 30",
+      "name": "萬物有本末",
       "description": "萬物有本末，凡事有終始；不識自本心，學法有何益。",
       "characters": "萬物有本末凡事有終始不識自本心學法有何益",
       "numCharacters": 20,
@@ -2680,7 +2771,7 @@
     },
     {
       "id": "sixzu_031",
-      "name": "六祖偈頌 31",
+      "name": "護念此本心",
       "description": "護念此本心，付囑度群倫；發願化眾生，實無一人度。",
       "characters": "護念此本心付囑度群倫發願化眾生實無一人度",
       "numCharacters": 20,
@@ -2693,7 +2784,7 @@
     },
     {
       "id": "sixzu_032",
-      "name": "六祖偈頌 32",
+      "name": "昔時人未信",
       "description": "昔時人未信，故藉衣钵證；法本心傳心，無須身外求。",
       "characters": "昔時人未信故藉衣钵證法本心傳心無須身外求",
       "numCharacters": 20,
@@ -2706,7 +2797,7 @@
     },
     {
       "id": "sixzu_033",
-      "name": "六祖偈頌 33",
+      "name": "迷時師度徒",
       "description": "迷時師度徒，悟了乃自度；本無迷悟事，原是人糊塗。",
       "characters": "迷時師度徒悟了乃自度本無迷悟事原是人糊塗",
       "numCharacters": 20,
@@ -2719,7 +2810,7 @@
     },
     {
       "id": "sixzu_034",
-      "name": "六祖偈頌 34",
+      "name": "和尚怎有病",
       "description": "和尚怎有病，只因眾生惱；誰能識其義，便是大醫王。",
       "characters": "和尚怎有病只因眾生惱誰能識其義便是大醫王",
       "numCharacters": 20,
@@ -2732,7 +2823,7 @@
     },
     {
       "id": "sixzu_035",
-      "name": "六祖偈頌 35",
+      "name": "息緣總淨心",
       "description": "息緣總淨心，莫思善與惡；當下無別想，即見真面目。",
       "characters": "息緣總淨心莫思善與惡當下無別想即見真面目",
       "numCharacters": 20,
@@ -2745,7 +2836,7 @@
     },
     {
       "id": "sixzu_036",
-      "name": "六祖偈頌 36",
+      "name": "人人有佛性",
       "description": "人人有佛性，個個卻不知；原是無秘密，全由此心造。",
       "characters": "人人有佛性個個卻不知原是無秘密全由此心造",
       "numCharacters": 20,
@@ -2758,7 +2849,7 @@
     },
     {
       "id": "sixzu_037",
-      "name": "六祖偈頌 37",
+      "name": "惠能向南去",
       "description": "惠能向南去，惠明往北行；二人隨法緣，各自在一方。",
       "characters": "惠能向南去惠明往北行二人隨法緣各自在一方",
       "numCharacters": 20,
@@ -2771,7 +2862,7 @@
     },
     {
       "id": "sixzu_038",
-      "name": "六祖偈頌 38",
+      "name": "無緣待時機",
       "description": "無緣待時機，有緣則說法；悲憫眾生故，潛藏十餘載。",
       "characters": "無緣待時機有緣則說法悲憫眾生故潛藏十餘載",
       "numCharacters": 20,
@@ -2784,7 +2875,7 @@
     },
     {
       "id": "sixzu_039",
-      "name": "六祖偈頌 39",
+      "name": "緣熟當弘法",
       "description": "緣熟當弘法，時值涅槃會；風幡境上爭，實乃心妄動。",
       "characters": "緣熟當弘法時值涅槃會風幡境上爭實乃心妄動",
       "numCharacters": 20,
@@ -2797,7 +2888,7 @@
     },
     {
       "id": "sixzu_040",
-      "name": "六祖偈頌 40",
+      "name": "印宗門內人",
       "description": "印宗門內人，能識非常人；聞言契實相，不由文字出。",
       "characters": "印宗門內人能識非常人聞言契實相不由文字出",
       "numCharacters": 20,
@@ -2810,7 +2901,7 @@
     },
     {
       "id": "sixzu_041",
-      "name": "六祖偈頌 41",
+      "name": "入道之首要",
       "description": "入道之首要，以慧解為本；不論次第法，直言見性門。",
       "characters": "入道之首要以慧解為本不論次第法直言見性門",
       "numCharacters": 20,
@@ -2823,7 +2914,7 @@
     },
     {
       "id": "sixzu_042",
-      "name": "六祖偈頌 42",
+      "name": "佛法不二法",
       "description": "佛法不二法，人心有差別；性本無對待，何來起分別。",
       "characters": "佛法不二法人心有差別性本無對待何來起分別",
       "numCharacters": 20,
@@ -2836,7 +2927,7 @@
     },
     {
       "id": "sixzu_043",
-      "name": "六祖偈頌 43",
+      "name": "昔時是人師",
       "description": "昔時是人師，今日願為徒；印宗此風範，世人永讚歎。",
       "characters": "昔時是人師今日願為徒印宗此風範世人永讚歎",
       "numCharacters": 20,
@@ -2849,7 +2940,7 @@
     },
     {
       "id": "sixzu_044",
-      "name": "六祖偈頌 44",
+      "name": "此生聞頓教",
       "description": "此生聞頓教，又逢六祖言；若無善根厚，豈會遇斯法。",
       "characters": "此生聞頓教又逢六祖言若無善根厚豈會遇斯法",
       "numCharacters": 20,
@@ -2862,7 +2953,7 @@
     },
     {
       "id": "sixzu_045",
-      "name": "六祖偈頌 45",
+      "name": "般若世人有",
       "description": "般若世人有，自迷不能悟；只因狂心起，歇息即菩提。",
       "characters": "般若世人有自迷不能悟只因狂心起歇息即菩提",
       "numCharacters": 20,
@@ -2875,7 +2966,7 @@
     },
     {
       "id": "sixzu_046",
-      "name": "六祖偈頌 46",
+      "name": "口說為迷人",
       "description": "口說為迷人，心行乃智者；自性本是佛，離性無別佛。",
       "characters": "口說為迷人心行乃智者自性本是佛離性無別佛",
       "numCharacters": 20,
@@ -2888,7 +2979,7 @@
     },
     {
       "id": "sixzu_047",
-      "name": "六祖偈頌 47",
+      "name": "自性本空寂",
       "description": "自性本空寂，何有一法得；應觀諸法性，無有差別相。",
       "characters": "自性本空寂何有一法得應觀諸法性無有差別相",
       "numCharacters": 20,
@@ -2901,7 +2992,7 @@
     },
     {
       "id": "sixzu_048",
-      "name": "六祖偈頌 48",
+      "name": "性空並不空",
       "description": "性空並不空，能含一切法；若見諸法相，不著亦不染。",
       "characters": "性空並不空能含一切法若見諸法相不著亦不染",
       "numCharacters": 20,
@@ -2914,7 +3005,7 @@
     },
     {
       "id": "sixzu_049",
-      "name": "六祖偈頌 49",
+      "name": "迷人不識空",
       "description": "迷人不識空，靜坐無所思；猶如無情物，曠劫不見性。",
       "characters": "迷人不識空靜坐無所思猶如無情物曠劫不見性",
       "numCharacters": 20,
@@ -2927,7 +3018,7 @@
     },
     {
       "id": "sixzu_050",
-      "name": "六祖偈頌 50",
+      "name": "般若非無情",
       "description": "般若非無情，分明知一切；應用無障礙，方是自性空。",
       "characters": "般若非無情分明知一切應用無障礙方是自性空",
       "numCharacters": 20,
@@ -2940,7 +3031,7 @@
     },
     {
       "id": "sixzu_051",
-      "name": "六祖偈頌 51",
+      "name": "般若從性生",
       "description": "般若從性生，非由身外得；修口不修心，自欺到何時。",
       "characters": "般若從性生非由身外得修口不修心自欺到何時",
       "numCharacters": 20,
@@ -2953,7 +3044,7 @@
     },
     {
       "id": "sixzu_052",
-      "name": "六祖偈頌 52",
+      "name": "時時念不愚",
       "description": "時時念不愚，處處心不迷；對境無取捨，即是般若行。",
       "characters": "時時念不愚處處心不迷對境無取捨即是般若行",
       "numCharacters": 20,
@@ -2966,7 +3057,7 @@
     },
     {
       "id": "sixzu_053",
-      "name": "六祖偈頌 53",
+      "name": "著相即眾生",
       "description": "著相即眾生，是故有生死；離相則為佛，是故名涅槃。",
       "characters": "著相即眾生是故有生死離相則為佛是故名涅槃",
       "numCharacters": 20,
@@ -2979,7 +3070,7 @@
     },
     {
       "id": "sixzu_054",
-      "name": "六祖偈頌 54",
+      "name": "迷人口說空",
       "description": "迷人口說空，念念卻不空；智者心悟空，一切盡無礙。",
       "characters": "迷人口說空念念卻不空智者心悟空一切盡無礙",
       "numCharacters": 20,
@@ -2992,7 +3083,7 @@
     },
     {
       "id": "sixzu_055",
-      "name": "六祖偈頌 55",
+      "name": "迷時佛眾生",
       "description": "迷時佛眾生，悟時眾生佛；煩惱即眾生，菩提即是佛。",
       "characters": "迷時佛眾生悟時眾生佛煩惱即眾生菩提即是佛",
       "numCharacters": 20,
@@ -3005,7 +3096,7 @@
     },
     {
       "id": "sixzu_056",
-      "name": "六祖偈頌 56",
+      "name": "諸佛般若生",
       "description": "諸佛般若生，眾生無明起；了知五蘊空，三毒成三學。",
       "characters": "諸佛般若生眾生無明起了知五蘊空三毒成三學",
       "numCharacters": 20,
@@ -3018,7 +3109,7 @@
     },
     {
       "id": "sixzu_057",
-      "name": "六祖偈頌 57",
+      "name": "心生千萬智",
       "description": "心生千萬智，誑妄故塵勞；若無一切心，何用一切法。",
       "characters": "心生千萬智誑妄故塵勞若無一切心何用一切法",
       "numCharacters": 20,
@@ -3031,7 +3122,7 @@
     },
     {
       "id": "sixzu_058",
-      "name": "六祖偈頌 58",
+      "name": "金剛本自性",
       "description": "金剛本自性，般若由此生；誰能識心性，即明此經義。",
       "characters": "金剛本自性般若由此生誰能識心性即明此經義",
       "numCharacters": 20,
@@ -3044,7 +3135,7 @@
     },
     {
       "id": "sixzu_059",
-      "name": "六祖偈頌 59",
+      "name": "自有般若智",
       "description": "自有般若智，當起智慧觀；文字由心造，字字不離心。",
       "characters": "自有般若智當起智慧觀文字由心造字字不離心",
       "numCharacters": 20,
@@ -3057,7 +3148,7 @@
     },
     {
       "id": "sixzu_060",
-      "name": "六祖偈頌 60",
+      "name": "根小不識大",
       "description": "根小不識大，性劣不堪授；若傳大乘法，未利先受害。",
       "characters": "根小不識大性劣不堪授若傳大乘法未利先受害",
       "numCharacters": 20,
@@ -3070,7 +3161,7 @@
     },
     {
       "id": "sixzu_061",
-      "name": "六祖偈頌 61",
+      "name": "般若無大小",
       "description": "般若無大小，根性有利鈍；聞法不開悟，邪見煩惱深。",
       "characters": "般若無大小根性有利鈍聞法不開悟邪見煩惱深",
       "numCharacters": 20,
@@ -3083,7 +3174,7 @@
     },
     {
       "id": "sixzu_062",
-      "name": "六祖偈頌 62",
+      "name": "自心起正見",
       "description": "自心起正見，不執一切法；塵煩不能染，即是見性人。",
       "characters": "自心起正見不執一切法塵煩不能染即是見性人",
       "numCharacters": 20,
@@ -3096,7 +3187,7 @@
     },
     {
       "id": "sixzu_063",
-      "name": "六祖偈頌 63",
+      "name": "內外不執著",
       "description": "內外不執著，來去皆自在；若能如此修，即是真受持。",
       "characters": "內外不執著來去皆自在若能如此修即是真受持",
       "numCharacters": 20,
@@ -3109,7 +3200,7 @@
     },
     {
       "id": "sixzu_064",
-      "name": "六祖偈頌 64",
+      "name": "有病良醫治",
       "description": "有病良醫治，因病良藥服；若無眾生心，何勞佛說法。",
       "characters": "有病良醫治因病良藥服若無眾生心何勞佛說法",
       "numCharacters": 20,
@@ -3122,7 +3213,7 @@
     },
     {
       "id": "sixzu_065",
-      "name": "六祖偈頌 65",
+      "name": "不問為愚人",
       "description": "不問為愚人，問人即不愚；聞法心開解，與智無差別。",
       "characters": "不問為愚人問人即不愚聞法心開解與智無差別",
       "numCharacters": 20,
@@ -3135,7 +3226,7 @@
     },
     {
       "id": "sixzu_066",
-      "name": "六祖偈頌 66",
+      "name": "心生一切法",
       "description": "心生一切法，萬法盡在心；從心直頓入，見性成佛道。",
       "characters": "心生一切法萬法盡在心從心直頓入見性成佛道",
       "numCharacters": 20,
@@ -3148,7 +3239,7 @@
     },
     {
       "id": "sixzu_067",
-      "name": "六祖偈頌 67",
+      "name": "六祖是何人",
       "description": "六祖是何人，眾生亦如是；若能自見性，您我同惠能。",
       "characters": "六祖是何人眾生亦如是若能自見性您我同惠能",
       "numCharacters": 20,
@@ -3161,7 +3252,7 @@
     },
     {
       "id": "sixzu_068",
-      "name": "六祖偈頌 68",
+      "name": "凡愚自不悟",
       "description": "凡愚自不悟，須求善知識；此是過來人，直示汝正路。",
       "characters": "凡愚自不悟須求善知識此是過來人直示汝正路",
       "numCharacters": 20,
@@ -3174,7 +3265,7 @@
     },
     {
       "id": "sixzu_069",
-      "name": "六祖偈頌 69",
+      "name": "師父引進門",
       "description": "師父引進門，修行在個人；若是不自悟，誰來也枉然。",
       "characters": "師父引進門修行在個人若是不自悟誰來也枉然",
       "numCharacters": 20,
@@ -3187,7 +3278,7 @@
     },
     {
       "id": "sixzu_070",
-      "name": "六祖偈頌 70",
+      "name": "正觀內與外",
       "description": "正觀內與外，一切唯心造；心若不執著，解脫得三昧。",
       "characters": "正觀內與外一切唯心造心若不執著解脫得三昧",
       "numCharacters": 20,
@@ -3200,7 +3291,7 @@
     },
     {
       "id": "sixzu_071",
-      "name": "六祖偈頌 71",
+      "name": "諸法心不染",
       "description": "諸法心不染，自然念清淨；妙用亦不著，來去自通達。",
       "characters": "諸法心不染自然念清淨妙用亦不著來去自通達",
       "numCharacters": 20,
@@ -3213,7 +3304,7 @@
     },
     {
       "id": "sixzu_072",
-      "name": "六祖偈頌 72",
+      "name": "無念無障礙",
       "description": "無念無障礙，萬法盡通達；誰悟無念法，與佛同一般。",
       "characters": "無念無障礙萬法盡通達誰悟無念法與佛同一般",
       "numCharacters": 20,
@@ -3226,7 +3317,7 @@
     },
     {
       "id": "sixzu_073",
-      "name": "六祖偈頌 73",
+      "name": "同見伴同行",
       "description": "同見伴同行，發願得受持；知見若有異，各自好珍重。",
       "characters": "同見伴同行發願得受持知見若有異各自好珍重",
       "numCharacters": 20,
@@ -3239,7 +3330,7 @@
     },
     {
       "id": "sixzu_074",
-      "name": "六祖偈頌 74",
+      "name": "僧俗相不同",
       "description": "僧俗相不同，願力亦有別；人人依法修，皆可成佛道。",
       "characters": "僧俗相不同願力亦有別人人依法修皆可成佛道",
       "numCharacters": 20,
@@ -3252,7 +3343,7 @@
     },
     {
       "id": "sixzu_075",
-      "name": "六祖偈頌 75",
+      "name": "口說心能行",
       "description": "口說心能行，智者無不通；教人自見性，行正破邪執。",
       "characters": "口說心能行智者無不通教人自見性行正破邪執",
       "numCharacters": 20,
@@ -3265,7 +3356,7 @@
     },
     {
       "id": "sixzu_076",
-      "name": "六祖偈頌 76",
+      "name": "佛法本無分",
       "description": "佛法本無分，眾生自有別；只論見本性，不談其餘事。",
       "characters": "佛法本無分眾生自有別只論見本性不談其餘事",
       "numCharacters": 20,
@@ -3278,7 +3369,7 @@
     },
     {
       "id": "sixzu_077",
-      "name": "六祖偈頌 77",
+      "name": "八萬四千法",
       "description": "八萬四千法，總歸此一心；妄起無明蔽，妄除智慧生。",
       "characters": "八萬四千法總歸此一心妄起無明蔽妄除智慧生",
       "numCharacters": 20,
@@ -3291,7 +3382,7 @@
     },
     {
       "id": "sixzu_078",
-      "name": "六祖偈頌 78",
+      "name": "邪見煩惱至",
       "description": "邪見煩惱至，正見煩惱除；二見皆不執，當下自清淨。",
       "characters": "邪見煩惱至正見煩惱除二見皆不執當下自清淨",
       "numCharacters": 20,
@@ -3304,7 +3395,7 @@
     },
     {
       "id": "sixzu_079",
-      "name": "六祖偈頌 79",
+      "name": "覺性本自有",
       "description": "覺性本自有，何須起心求；淨妄同一心，但因惑所障。",
       "characters": "覺性本自有何須起心求淨妄同一心但因惑所障",
       "numCharacters": 20,
@@ -3317,7 +3408,7 @@
     },
     {
       "id": "sixzu_080",
-      "name": "六祖偈頌 80",
+      "name": "修道修自心",
       "description": "修道修自心，心當無所礙；常改自身過，即是修道人。",
       "characters": "修道修自心心當無所礙常改自身過即是修道人",
       "numCharacters": 20,
@@ -3330,7 +3421,7 @@
     },
     {
       "id": "sixzu_081",
-      "name": "六祖偈頌 81",
+      "name": "眾生本不同",
       "description": "眾生本不同，相處當寬容；自若離道心，豈能見大道。",
       "characters": "眾生本不同相處當寬容自若離道心豈能見大道",
       "numCharacters": 20,
@@ -3343,7 +3434,7 @@
     },
     {
       "id": "sixzu_082",
-      "name": "六祖偈頌 82",
+      "name": "聞道莫虛度",
       "description": "聞道莫虛度，精進勤修行；若欲見真道，依教當奉行。",
       "characters": "聞道莫虛度精進勤修行若欲見真道依教當奉行",
       "numCharacters": 20,
@@ -3356,7 +3447,7 @@
     },
     {
       "id": "sixzu_083",
-      "name": "六祖偈頌 83",
+      "name": "無心道不成",
       "description": "無心道不成，無行道不至；有心來修行，只見己過失。",
       "characters": "無心道不成無行道不至有心來修行只見己過失",
       "numCharacters": 20,
@@ -3369,7 +3460,7 @@
     },
     {
       "id": "sixzu_084",
-      "name": "六祖偈頌 84",
+      "name": "人非即我非",
       "description": "人非即我非，我非心不正；人非我不非，我非枉修行。",
       "characters": "人非即我非我非心不正人非我不非我非枉修行",
       "numCharacters": 20,
@@ -3382,7 +3473,7 @@
     },
     {
       "id": "sixzu_085",
-      "name": "六祖偈頌 85",
+      "name": "自心除邪見",
       "description": "自心除邪見，正起煩惱破；無貪亦無瞋，無執便自在。",
       "characters": "自心除邪見正起煩惱破無貪亦無瞋無執便自在",
       "numCharacters": 20,
@@ -3395,7 +3486,7 @@
     },
     {
       "id": "sixzu_086",
-      "name": "六祖偈頌 86",
+      "name": "自覺當覺他",
       "description": "自覺當覺他，度人須善巧；化解彼疑迷，令他得見性。",
       "characters": "自覺當覺他度人須善巧化解彼疑迷令他得見性",
       "numCharacters": 20,
@@ -3408,7 +3499,7 @@
     },
     {
       "id": "sixzu_087",
-      "name": "六祖偈頌 87",
+      "name": "佛法在人間",
       "description": "佛法在人間，人間遍佛法；不悟法身現，何處覓菩提。",
       "characters": "佛法在人間人間遍佛法不悟法身現何處覓菩提",
       "numCharacters": 20,
@@ -3421,7 +3512,7 @@
     },
     {
       "id": "sixzu_088",
-      "name": "六祖偈頌 88",
+      "name": "本來無正邪",
       "description": "本來無正邪，亦無出與入，邪除正亦亡，菩提自可見。",
       "characters": "本來無正邪亦無出與入邪除正亦亡菩提自可見",
       "numCharacters": 20,
@@ -3434,7 +3525,7 @@
     },
     {
       "id": "sixzu_089",
-      "name": "六祖偈頌 89",
+      "name": "頓悟究竟義",
       "description": "頓悟究竟義，真實一乘法；迷人總不信，捨近向遠求。",
       "characters": "頓悟究竟義真實一乘法迷人總不信捨近向遠求",
       "numCharacters": 20,
@@ -3447,7 +3538,7 @@
     },
     {
       "id": "sixzu_090",
-      "name": "六祖偈頌 90",
+      "name": "師示頓教門",
       "description": "師示頓教門，令人皆見性；若非佛出世，誰能演大法。",
       "characters": "師示頓教門令人皆見性若非佛出世誰能演大法",
       "numCharacters": 20,
@@ -3460,7 +3551,7 @@
     },
     {
       "id": "sixzu_091",
-      "name": "六祖偈頌 91",
+      "name": "有疑當請問",
       "description": "有疑當請問，師為弟子說；聞後應思惟，信解依教行。",
       "characters": "有疑當請問師為弟子說聞後應思惟信解依教行",
       "numCharacters": 20,
@@ -3473,7 +3564,7 @@
     },
     {
       "id": "sixzu_092",
-      "name": "六祖偈頌 92",
+      "name": "修外不修內",
       "description": "修外不修內，著相性不明；有漏之福田，報盡後便墜。",
       "characters": "修外不修內著相性不明有漏之福田報盡後便墜",
       "numCharacters": 20,
@@ -3486,7 +3577,7 @@
     },
     {
       "id": "sixzu_093",
-      "name": "六祖偈頌 93",
+      "name": "武帝久學佛",
       "description": "武帝久學佛，尚且無正見；何況一般人，福功分不清。",
       "characters": "武帝久學佛尚且無正見何況一般人福功分不清",
       "numCharacters": 20,
@@ -3499,7 +3590,7 @@
     },
     {
       "id": "sixzu_094",
-      "name": "六祖偈頌 94",
+      "name": "因地有功行",
       "description": "因地有功行，果德終成就；證得法性身，方是真功德。",
       "characters": "因地有功行果德終成就證得法性身方是真功德",
       "numCharacters": 20,
@@ -3512,7 +3603,7 @@
     },
     {
       "id": "sixzu_095",
-      "name": "六祖偈頌 95",
+      "name": "自身有功德",
       "description": "自身有功德，心謙行普敬；貢高內無功，虛偽外無德。",
       "characters": "自身有功德心謙行普敬貢高內無功虛偽外無德",
       "numCharacters": 20,
@@ -3525,7 +3616,7 @@
     },
     {
       "id": "sixzu_096",
-      "name": "六祖偈頌 96",
+      "name": "修心是功夫",
       "description": "修心是功夫，修身有德行；修善得福報，修行名功德。",
       "characters": "修心是功夫修身有德行修善得福報修行名功德",
       "numCharacters": 20,
@@ -3538,7 +3629,7 @@
     },
     {
       "id": "sixzu_097",
-      "name": "六祖偈頌 97",
+      "name": "念佛念自心",
       "description": "念佛念自心，自心即是佛；念念若清淨，當下極樂國。",
       "characters": "念佛念自心自心即是佛念念若清淨當下極樂國",
       "numCharacters": 20,
@@ -3551,7 +3642,7 @@
     },
     {
       "id": "sixzu_098",
-      "name": "六祖偈頌 98",
+      "name": "心邪造惡業",
       "description": "心邪造惡業，西方路遙遠；心正意清淨，西方在眼前。",
       "characters": "心邪造惡業西方路遙遠心正意清淨西方在眼前",
       "numCharacters": 20,
@@ -3564,7 +3655,7 @@
     },
     {
       "id": "sixzu_099",
-      "name": "六祖偈頌 99",
+      "name": "迷人相上求",
       "description": "迷人相上求，悟者心上作；端看淨不淨，莫分東與西。",
       "characters": "迷人相上求悟者心上作端看淨不淨莫分東與西",
       "numCharacters": 20,
@@ -3577,7 +3668,7 @@
     },
     {
       "id": "sixzu_100",
-      "name": "六祖偈頌 100",
+      "name": "若真念佛人",
       "description": "若真念佛人，除惡行諸善；信願念覺悟，便睹阿彌陀。",
       "characters": "若真念佛人除惡行諸善信願念覺悟便睹阿彌陀",
       "numCharacters": 20,
@@ -3590,7 +3681,7 @@
     },
     {
       "id": "sixzu_101",
-      "name": "六祖偈頌 101",
+      "name": "彌陀在西方",
       "description": "彌陀在西方，西方於汝心；汝心能作佛，作佛是自心。",
       "characters": "彌陀在西方西方於汝心汝心能作佛作佛是自心",
       "numCharacters": 20,
@@ -3603,7 +3694,7 @@
     },
     {
       "id": "sixzu_102",
-      "name": "六祖偈頌 102",
+      "name": "自迷即眾生",
       "description": "自迷即眾生，自覺即是佛；原來凡與聖，只在一念間。",
       "characters": "自迷即眾生自覺即是佛原來凡與聖只在一念間",
       "numCharacters": 20,
@@ -3616,7 +3707,7 @@
     },
     {
       "id": "sixzu_103",
-      "name": "六祖偈頌 103",
+      "name": "心地無三毒",
       "description": "心地無三毒，自有覺性起；淨土非何方，遍地皆淨土。",
       "characters": "心地無三毒自有覺性起淨土非何方遍地皆淨土",
       "numCharacters": 20,
@@ -3629,7 +3720,7 @@
     },
     {
       "id": "sixzu_104",
-      "name": "六祖偈頌 104",
+      "name": "人人可修行",
       "description": "人人可修行，不論缁白衣；心若能清淨，自性即西方。",
       "characters": "人人可修行不論缁白衣心若能清淨自性即西方",
       "numCharacters": 20,
@@ -3642,7 +3733,7 @@
     },
     {
       "id": "sixzu_105",
-      "name": "六祖偈頌 105",
+      "name": "理性無差別",
       "description": "理性無差別，事相善分別；想修當要行，見性與師同。",
       "characters": "理性無差別事相善分別想修當要行見性與師同",
       "numCharacters": 20,
@@ -3655,7 +3746,7 @@
     },
     {
       "id": "sixzu_106",
-      "name": "六祖偈頌 106",
+      "name": "心平真持戒",
       "description": "心平真持戒，行直實修禪；智者能心行，圓具戒定慧。",
       "characters": "心平真持戒行直實修禪智者能心行圓具戒定慧",
       "numCharacters": 20,
@@ -3668,7 +3759,7 @@
     },
     {
       "id": "sixzu_107",
-      "name": "六祖偈頌 107",
+      "name": "人成即佛成",
       "description": "人成即佛成，不分親與疏；報恩孝父母，仁義愍眾生。",
       "characters": "人成即佛成不分親與疏報恩孝父母仁義愍眾生",
       "numCharacters": 20,
@@ -3681,7 +3772,7 @@
     },
     {
       "id": "sixzu_108",
-      "name": "六祖偈頌 108",
+      "name": "謙讓能下心",
       "description": "謙讓能下心，尊卑自和睦；忍辱無所诤，眾人便無喧。",
       "characters": "謙讓能下心尊卑自和睦忍辱無所诤眾人便無喧",
       "numCharacters": 20,
@@ -3694,7 +3785,7 @@
     },
     {
       "id": "sixzu_109",
-      "name": "六祖偈頌 109",
+      "name": "鑽木久取火",
       "description": "鑽木久取火，精進定成就；人在紅塵裡，不染心自淨。",
       "characters": "鑽木久取火精進定成就人在紅塵裡不染心自淨",
       "numCharacters": 20,
@@ -3707,7 +3798,7 @@
     },
     {
       "id": "sixzu_110",
-      "name": "六祖偈頌 110",
+      "name": "不悟當求教",
       "description": "不悟當求教，聞法虛心受；佛法是良藥，汝須親口服。",
       "characters": "不悟當求教聞法虛心受佛法是良藥汝須親口服",
       "numCharacters": 20,
@@ -3720,7 +3811,7 @@
     },
     {
       "id": "sixzu_111",
-      "name": "六祖偈頌 111",
+      "name": "知錯即改過",
       "description": "知錯即改過，無過智慧生；護短不修正，非賢便是愚。",
       "characters": "知錯即改過無過智慧生護短不修正非賢便是愚",
       "numCharacters": 20,
@@ -3733,7 +3824,7 @@
     },
     {
       "id": "sixzu_112",
-      "name": "六祖偈頌 112",
+      "name": "諸惡雖不造",
       "description": "諸惡雖不造，仍應眾善行；成道非修福，但須利眾生。",
       "characters": "諸惡雖不造仍應眾善行成道非修福但須利眾生",
       "numCharacters": 20,
@@ -3746,7 +3837,7 @@
     },
     {
       "id": "sixzu_113",
-      "name": "六祖偈頌 113",
+      "name": "佛在心中坐",
       "description": "佛在心中坐，何勞身外求；迷悟全由己，毋須向人尋。",
       "characters": "佛在心中坐何勞身外求迷悟全由己毋須向人尋",
       "numCharacters": 20,
@@ -3759,7 +3850,7 @@
     },
     {
       "id": "sixzu_114",
-      "name": "六祖偈頌 114",
+      "name": "聞此無相頌",
       "description": "聞此無相頌，依教來奉行；心淨佛土淨，即是西方境。",
       "characters": "聞此無相頌依教來奉行心淨佛土淨即是西方境",
       "numCharacters": 20,
@@ -3772,7 +3863,7 @@
     },
     {
       "id": "sixzu_115",
-      "name": "六祖偈頌 115",
+      "name": "佛法甚難遇",
       "description": "佛法甚難遇，聞法當珍惜；若要真修道，各自見己性。",
       "characters": "佛法甚難遇聞法當珍惜若要真修道各自見己性",
       "numCharacters": 20,
@@ -3785,7 +3876,7 @@
     },
     {
       "id": "sixzu_116",
-      "name": "六祖偈頌 116",
+      "name": "定慧本不二",
       "description": "定慧本不二，不二是佛法；性體本自定，妙用名為慧。",
       "characters": "定慧本不二不二是佛法性體本自定妙用名為慧",
       "numCharacters": 20,
@@ -3798,7 +3889,7 @@
     },
     {
       "id": "sixzu_117",
-      "name": "六祖偈頌 117",
+      "name": "心定智慧生",
       "description": "心定智慧生，開口妙善語；心亂無明起，胡言又亂語。",
       "characters": "心定智慧生開口妙善語心亂無明起胡言又亂語",
       "numCharacters": 20,
@@ -3811,7 +3902,7 @@
     },
     {
       "id": "sixzu_118",
-      "name": "六祖偈頌 118",
+      "name": "無诤心平等",
       "description": "無诤心平等，有诤心得失；修行自身事，莫與他人辯。",
       "characters": "無诤心平等有诤心得失修行自身事莫與他人辯",
       "numCharacters": 20,
@@ -3824,7 +3915,7 @@
     },
     {
       "id": "sixzu_119",
-      "name": "六祖偈頌 119",
+      "name": "一心勤修行",
       "description": "一心勤修行，自然入三昧；面對一切法，念念不執著。",
       "characters": "一心勤修行自然入三昧面對一切法念念不執著",
       "numCharacters": 20,
@@ -3837,7 +3928,7 @@
     },
     {
       "id": "sixzu_120",
-      "name": "六祖偈頌 120",
+      "name": "若修坐不動",
       "description": "若修坐不動，恰似無情物；對境心不起，猶如木頭人。",
       "characters": "若修坐不動恰似無情物對境心不起猶如木頭人",
       "numCharacters": 20,
@@ -3850,7 +3941,7 @@
     },
     {
       "id": "sixzu_121",
-      "name": "六祖偈頌 121",
+      "name": "天生一切物",
       "description": "天生一切物，必然有所用；心若有所滯，豈能道通流。",
       "characters": "天生一切物必然有所用心若有所滯豈能道通流",
       "numCharacters": 20,
@@ -3863,7 +3954,7 @@
     },
     {
       "id": "sixzu_122",
-      "name": "六祖偈頌 122",
+      "name": "一盲引眾盲",
       "description": "一盲引眾盲，執修不動起；心似活湧泉，豈是死水灘。",
       "characters": "一盲引眾盲執修不動起心似活湧泉豈是死水灘",
       "numCharacters": 20,
@@ -3876,7 +3967,7 @@
     },
     {
       "id": "sixzu_123",
-      "name": "六祖偈頌 123",
+      "name": "心定如明燈",
       "description": "心定如明燈，慧光破暗夜；燈在光亦在，燈亡火也亡。",
       "characters": "心定如明燈慧光破暗夜燈在光亦在燈亡火也亡",
       "numCharacters": 20,
@@ -3889,7 +3980,7 @@
     },
     {
       "id": "sixzu_124",
-      "name": "六祖偈頌 124",
+      "name": "法本無高下",
       "description": "法本無高下，人卻有不同；空中無差別，姑且立假名。",
       "characters": "法本無高下人卻有不同空中無差別姑且立假名",
       "numCharacters": 20,
@@ -3902,7 +3993,7 @@
     },
     {
       "id": "sixzu_125",
-      "name": "六祖偈頌 125",
+      "name": "若要能見性",
       "description": "若要能見性，直參無一字；管它念相住，盡概不執著。",
       "characters": "若要能見性直參無一字管它念相住盡概不執著",
       "numCharacters": 20,
@@ -3915,7 +4006,7 @@
     },
     {
       "id": "sixzu_126",
-      "name": "六祖偈頌 126",
+      "name": "諸法本來空",
       "description": "諸法本來空，自性亦如是；念念無所住，不縛生其心。",
       "characters": "諸法本來空自性亦如是念念無所住不縛生其心",
       "numCharacters": 20,
@@ -3928,7 +4019,7 @@
     },
     {
       "id": "sixzu_127",
-      "name": "六祖偈頌 127",
+      "name": "見相非實有",
       "description": "見相非實有，自然離諸相；能離諸法相，清淨心無著。",
       "characters": "見相非實有自然離諸相能離諸法相清淨心無著",
       "numCharacters": 20,
@@ -3941,7 +4032,7 @@
     },
     {
       "id": "sixzu_128",
-      "name": "六祖偈頌 128",
+      "name": "遇境心清楚",
       "description": "遇境心清楚，只是不染境；事來心相應，事去不停留。",
       "characters": "遇境心清楚只是不染境事來心相應事去不停留",
       "numCharacters": 20,
@@ -3954,7 +4045,7 @@
     },
     {
       "id": "sixzu_129",
-      "name": "六祖偈頌 129",
+      "name": "無念念即正",
       "description": "無念念即正，有念念成邪；法本無可得，妄起有所獲。",
       "characters": "無念念即正有念念成邪法本無可得妄起有所獲",
       "numCharacters": 20,
@@ -3967,7 +4058,7 @@
     },
     {
       "id": "sixzu_130",
-      "name": "六祖偈頌 130",
+      "name": "諸法無二相",
       "description": "諸法無二相，故無塵勞心；念念見本性，即是真如用。",
       "characters": "諸法無二相故無塵勞心念念見本性即是真如用",
       "numCharacters": 20,
@@ -3980,7 +4071,7 @@
     },
     {
       "id": "sixzu_131",
-      "name": "六祖偈頌 131",
+      "name": "若明諸法相",
       "description": "若明諸法相，根即不染境；真性常自在，如如亦不動。",
       "characters": "若明諸法相根即不染境真性常自在如如亦不動",
       "numCharacters": 20,
@@ -3993,7 +4084,7 @@
     },
     {
       "id": "sixzu_132",
-      "name": "六祖偈頌 132",
+      "name": "對境不著相",
       "description": "對境不著相，自見性不動；所有諸境界，一切無障礙。",
       "characters": "對境不著相自見性不動所有諸境界一切無障礙",
       "numCharacters": 20,
@@ -4006,7 +4097,7 @@
     },
     {
       "id": "sixzu_133",
-      "name": "六祖偈頌 133",
+      "name": "離相心自淨",
       "description": "離相心自淨，不亂心自定；性本淨且定，著境動則亂。",
       "characters": "離相心自淨不亂心自定性本淨且定著境動則亂",
       "numCharacters": 20,
@@ -4019,7 +4110,7 @@
     },
     {
       "id": "sixzu_134",
-      "name": "六祖偈頌 134",
+      "name": "離相心得定",
       "description": "離相心得定，是名為禪定；念念當清淨，自然成佛道。",
       "characters": "離相心得定是名為禪定念念當清淨自然成佛道",
       "numCharacters": 20,
@@ -4032,7 +4123,7 @@
     },
     {
       "id": "sixzu_135",
-      "name": "六祖偈頌 135",
+      "name": "坐禪非定相",
       "description": "坐禪非定相，唯有不執著；不是不能動，而是心不動。",
       "characters": "坐禪非定相唯有不執著不是不能動而是心不動",
       "numCharacters": 20,
@@ -4045,7 +4136,7 @@
     },
     {
       "id": "sixzu_136",
-      "name": "六祖偈頌 136",
+      "name": "口非身不動",
       "description": "口非身不動，與道相違背；守心執清淨，卻是障道因。",
       "characters": "口非身不動與道相違背守心執清淨卻是障道因",
       "numCharacters": 20,
@@ -4058,7 +4149,7 @@
     },
     {
       "id": "sixzu_137",
-      "name": "六祖偈頌 137",
+      "name": "自性生萬法",
       "description": "自性生萬法，萬法從性起；念念淨其心，自度己成佛。",
       "characters": "自性生萬法萬法從性起念念淨其心自度己成佛",
       "numCharacters": 20,
@@ -4071,7 +4162,7 @@
     },
     {
       "id": "sixzu_138",
-      "name": "六祖偈頌 138",
+      "name": "不犯諸過錯",
       "description": "不犯諸過錯，心中自無非；惡念不再起，是名為戒香。",
       "characters": "不犯諸過錯心中自無非惡念不再起是名為戒香",
       "numCharacters": 20,
@@ -4084,7 +4175,7 @@
     },
     {
       "id": "sixzu_139",
-      "name": "六祖偈頌 139",
+      "name": "睹善心不嫉",
       "description": "睹善心不嫉，見惡心不瞋；順逆皆不著，不亂名定香。",
       "characters": "睹善心不嫉見惡心不瞋順逆皆不著不亂名定香",
       "numCharacters": 20,
@@ -4097,7 +4188,7 @@
     },
     {
       "id": "sixzu_140",
-      "name": "六祖偈頌 140",
+      "name": "止惡修眾善",
       "description": "止惡修眾善，不執行善心；自心常觀照，見性名慧香。",
       "characters": "止惡修眾善不執行善心自心常觀照見性名慧香",
       "numCharacters": 20,
@@ -4110,7 +4201,7 @@
     },
     {
       "id": "sixzu_141",
-      "name": "六祖偈頌 141",
+      "name": "自心息諸緣",
       "description": "自心息諸緣，善惡皆放下；從今無所礙，自在解脫香。",
       "characters": "自心息諸緣善惡皆放下從今無所礙自在解脫香",
       "numCharacters": 20,
@@ -4123,7 +4214,7 @@
     },
     {
       "id": "sixzu_142",
-      "name": "六祖偈頌 142",
+      "name": "放下並提起",
       "description": "放下並提起，不可守空寂；學法度群生，解脫知見香。",
       "characters": "放下並提起不可守空寂學法度群生解脫知見香",
       "numCharacters": 20,
@@ -4136,7 +4227,7 @@
     },
     {
       "id": "sixzu_143",
-      "name": "六祖偈頌 143",
+      "name": "香從自心燃",
       "description": "香從自心燃，內薰莫外覓；久修證菩提，如同然燈佛。",
       "characters": "香從自心燃內薰莫外覓久修證菩提如同然燈佛",
       "numCharacters": 20,
@@ -4149,7 +4240,7 @@
     },
     {
       "id": "sixzu_144",
-      "name": "六祖偈頌 144",
+      "name": "事懺為有相",
       "description": "事懺為有相，理懺名無相；三世不可得，悟空業清淨。",
       "characters": "事懺為有相理懺名無相三世不可得悟空業清淨",
       "numCharacters": 20,
@@ -4162,7 +4253,7 @@
     },
     {
       "id": "sixzu_145",
-      "name": "六祖偈頌 145",
+      "name": "往昔念不覺",
       "description": "往昔念不覺，皆因愚迷染；我今皆懺悔；永不讓它起。",
       "characters": "往昔念不覺皆因愚迷染我今皆懺悔永不讓它起",
       "numCharacters": 20,
@@ -4175,7 +4266,7 @@
     },
     {
       "id": "sixzu_146",
-      "name": "六祖偈頌 146",
+      "name": "從前念不正",
       "description": "從前念不正，皆被骄誑染；我今決心改；永不讓它犯。",
       "characters": "從前念不正皆被骄誑染我今決心改永不讓它犯",
       "numCharacters": 20,
@@ -4188,7 +4279,7 @@
     },
     {
       "id": "sixzu_147",
-      "name": "六祖偈頌 147",
+      "name": "過去念不善",
       "description": "過去念不善，皆被嫉妒染；我今誓願斷，永不讓它造。",
       "characters": "過去念不善皆被嫉妒染我今誓願斷永不讓它造",
       "numCharacters": 20,
@@ -4201,7 +4292,7 @@
     },
     {
       "id": "sixzu_148",
-      "name": "六祖偈頌 148",
+      "name": "懺則永不起",
       "description": "懺則永不起，悔則不復作；如是能做到，即名無相懺。",
       "characters": "懺則永不起悔則不復作如是能做到即名無相懺",
       "numCharacters": 20,
@@ -4214,7 +4305,7 @@
     },
     {
       "id": "sixzu_149",
-      "name": "六祖偈頌 149",
+      "name": "無相無不相",
       "description": "無相無不相，理空事不空；若無信因果，怎能真懺悔。",
       "characters": "無相無不相理空事不空若無信因果怎能真懺悔",
       "numCharacters": 20,
@@ -4227,7 +4318,7 @@
     },
     {
       "id": "sixzu_150",
-      "name": "六祖偈頌 150",
+      "name": "煩惱成眾生",
       "description": "煩惱成眾生，自度斷煩惱；學法當見性，誓願成佛道。",
       "characters": "煩惱成眾生自度斷煩惱學法當見性誓願成佛道",
       "numCharacters": 20,
@@ -4240,7 +4331,7 @@
     },
     {
       "id": "sixzu_151",
-      "name": "六祖偈頌 151",
+      "name": "佛法雖無邊",
       "description": "佛法雖無邊，眾生仍自度；並非佛不度，而是人不覺。",
       "characters": "佛法雖無邊眾生仍自度並非佛不度而是人不覺",
       "numCharacters": 20,
@@ -4253,7 +4344,7 @@
     },
     {
       "id": "sixzu_152",
-      "name": "六祖偈頌 152",
+      "name": "度化心眾生",
       "description": "度化心眾生，止惡除邪迷；無明盡散去，自性乃自度。",
       "characters": "度化心眾生止惡除邪迷無明盡散去自性乃自度",
       "numCharacters": 20,
@@ -4266,7 +4357,7 @@
     },
     {
       "id": "sixzu_153",
-      "name": "六祖偈頌 153",
+      "name": "邪來正見度",
       "description": "邪來正見度，愚迷智慧破；十惡成十善，是名為真度。",
       "characters": "邪來正見度愚迷智慧破十惡成十善是名為真度",
       "numCharacters": 20,
@@ -4279,7 +4370,7 @@
     },
     {
       "id": "sixzu_154",
-      "name": "六祖偈頌 154",
+      "name": "煩惱本來空",
       "description": "煩惱本來空，妄想執著有；了知如夢幻，不斷自然除。",
       "characters": "煩惱本來空妄想執著有了知如夢幻不斷自然除",
       "numCharacters": 20,
@@ -4292,7 +4383,7 @@
     },
     {
       "id": "sixzu_155",
-      "name": "六祖偈頌 155",
+      "name": "萬法不離性",
       "description": "萬法不離性，故須自見性；時時依正行，是名為真學。",
       "characters": "萬法不離性故須自見性時時依正行是名為真學",
       "numCharacters": 20,
@@ -4305,7 +4396,7 @@
     },
     {
       "id": "sixzu_156",
-      "name": "六祖偈頌 156",
+      "name": "行正離迷覺",
       "description": "行正離迷覺，不執般若生；真妄亦不實，言下佛道成。",
       "characters": "行正離迷覺不執般若生真妄亦不實言下佛道成",
       "numCharacters": 20,
@@ -4318,7 +4409,7 @@
     },
     {
       "id": "sixzu_157",
-      "name": "六祖偈頌 157",
+      "name": "歸心不依外",
       "description": "歸心不依外，性具覺正淨；修福兼修慧，離欲眾所尊。",
       "characters": "歸心不依外性具覺正淨修福兼修慧離欲眾所尊",
       "numCharacters": 20,
@@ -4331,7 +4422,7 @@
     },
     {
       "id": "sixzu_158",
-      "name": "六祖偈頌 158",
+      "name": "正覺無邪迷",
       "description": "正覺無邪迷，清淨不染著；自性有三寶，名曰佛法僧。",
       "characters": "正覺無邪迷清淨不染著自性有三寶名曰佛法僧",
       "numCharacters": 20,
@@ -4344,7 +4435,7 @@
     },
     {
       "id": "sixzu_159",
-      "name": "六祖偈頌 159",
+      "name": "少欲能知足",
       "description": "少欲能知足，自離財與色；布施種福田，離色般若生。",
       "characters": "少欲能知足自離財與色布施種福田離色般若生",
       "numCharacters": 20,
@@ -4357,7 +4448,7 @@
     },
     {
       "id": "sixzu_160",
-      "name": "六祖偈頌 160",
+      "name": "心正念無邪",
       "description": "心正念無邪，無邪無執愛；人我眾壽者，四相盡不著。",
       "characters": "心正念無邪無邪無執愛人我眾壽者四相盡不著",
       "numCharacters": 20,
@@ -4370,7 +4461,7 @@
     },
     {
       "id": "sixzu_161",
-      "name": "六祖偈頌 161",
+      "name": "六根觸六塵",
       "description": "六根觸六塵，不染便無勞；於境不取捨，心地自清淨。",
       "characters": "六根觸六塵不染便無勞於境不取捨心地自清淨",
       "numCharacters": 20,
@@ -4383,7 +4474,7 @@
     },
     {
       "id": "sixzu_162",
-      "name": "六祖偈頌 162",
+      "name": "昔佛今不在",
       "description": "昔佛今不在，自佛未遠離；外求三歸戒，何不自歸依。",
       "characters": "昔佛今不在自佛未遠離外求三歸戒何不自歸依",
       "numCharacters": 20,
@@ -4396,7 +4487,7 @@
     },
     {
       "id": "sixzu_163",
-      "name": "六祖偈頌 163",
+      "name": "性有覺正淨",
       "description": "性有覺正淨，內調自心性；相有佛法僧，外敬人如佛。",
       "characters": "性有覺正淨內調自心性相有佛法僧外敬人如佛",
       "numCharacters": 20,
@@ -4409,7 +4500,7 @@
     },
     {
       "id": "sixzu_164",
-      "name": "六祖偈頌 164",
+      "name": "色身即是假",
       "description": "色身即是假，三身名為真；借假來修真，真亦不可得。",
       "characters": "色身即是假三身名為真借假來修真真亦不可得",
       "numCharacters": 20,
@@ -4422,7 +4513,7 @@
     },
     {
       "id": "sixzu_165",
-      "name": "六祖偈頌 165",
+      "name": "殿中三如來",
       "description": "殿中三如來，迷人心外求；性中三身佛，智者心內見。",
       "characters": "殿中三如來迷人心外求性中三身佛智者心內見",
       "numCharacters": 20,
@@ -4435,7 +4526,7 @@
     },
     {
       "id": "sixzu_166",
-      "name": "六祖偈頌 166",
+      "name": "性中自清淨",
       "description": "性中自清淨，只緣無明蓋；浮雲若散去，天清日常明。",
       "characters": "性中自清淨只緣無明蓋浮雲若散去天清日常明",
       "numCharacters": 20,
@@ -4448,7 +4539,7 @@
     },
     {
       "id": "sixzu_167",
-      "name": "六祖偈頌 167",
+      "name": "明事乃為智",
       "description": "明事乃為智，達理名為慧；不明不達者，聞法除迷妄。",
       "characters": "明事乃為智達理名為慧不明不達者聞法除迷妄",
       "numCharacters": 20,
@@ -4461,7 +4552,7 @@
     },
     {
       "id": "sixzu_168",
-      "name": "六祖偈頌 168",
+      "name": "自心歸自性",
       "description": "自心歸自性，除迷即見性；心平行正道，通達無滯礙。",
       "characters": "自心歸自性除迷即見性心平行正道通達無滯礙",
       "numCharacters": 20,
@@ -4474,7 +4565,7 @@
     },
     {
       "id": "sixzu_169",
-      "name": "六祖偈頌 169",
+      "name": "自性能多變",
       "description": "自性能多變，法界任遊走；善惡一念間，天地各有別。",
       "characters": "自性能多變法界任遊走善惡一念間天地各有別",
       "numCharacters": 20,
@@ -4487,7 +4578,7 @@
     },
     {
       "id": "sixzu_170",
-      "name": "六祖偈頌 170",
+      "name": "一燈除千暗",
       "description": "一燈除千暗，一智滅萬愚；去執三世心，念念智圓明。",
       "characters": "一燈除千暗一智滅萬愚去執三世心念念智圓明",
       "numCharacters": 20,
@@ -4500,7 +4591,7 @@
     },
     {
       "id": "sixzu_171",
-      "name": "六祖偈頌 171",
+      "name": "善惡性無二",
       "description": "善惡性無二，果報卻不同；愚者造諸惡，智者兩不執。",
       "characters": "善惡性無二果報卻不同愚者造諸惡智者兩不執",
       "numCharacters": 20,
@@ -4513,7 +4604,7 @@
     },
     {
       "id": "sixzu_172",
-      "name": "六祖偈頌 172",
+      "name": "性具體相用",
       "description": "性具體相用，亦是三身佛；法體變化相，起用為報身。",
       "characters": "性具體相用亦是三身佛法體變化相起用為報身",
       "numCharacters": 20,
@@ -4526,7 +4617,7 @@
     },
     {
       "id": "sixzu_173",
-      "name": "六祖偈頌 173",
+      "name": "一佛說三佛",
       "description": "一佛說三佛，一性言三身；自悟自修行，乃是真歸依。",
       "characters": "一佛說三佛一性言三身自悟自修行乃是真歸依",
       "numCharacters": 20,
@@ -4539,7 +4630,7 @@
     },
     {
       "id": "sixzu_174",
-      "name": "六祖偈頌 174",
+      "name": "往昔造諸惡",
       "description": "往昔造諸惡，皆因貪瞋癡；今向心中懺，勤修戒定慧。",
       "characters": "往昔造諸惡皆因貪瞋癡今向心中懺勤修戒定慧",
       "numCharacters": 20,
@@ -4552,7 +4643,7 @@
     },
     {
       "id": "sixzu_175",
-      "name": "六祖偈頌 175",
+      "name": "行善名修福",
       "description": "行善名修福，不執乃修道；有漏非無漏，福與道不同。",
       "characters": "行善名修福不執乃修道有漏非無漏福與道不同",
       "numCharacters": 20,
@@ -4565,7 +4656,7 @@
     },
     {
       "id": "sixzu_176",
-      "name": "六祖偈頌 176",
+      "name": "無住行施供",
       "description": "無住行施供，福德無有邊；執善不斷惡，三毒依來造。",
       "characters": "無住行施供福德無有邊執善不斷惡三毒依來造",
       "numCharacters": 20,
@@ -4578,7 +4669,7 @@
     },
     {
       "id": "sixzu_177",
-      "name": "六祖偈頌 177",
+      "name": "作惡得惡果",
       "description": "作惡得惡果，行善乃善報；因果總不差，修福罪還在。",
       "characters": "作惡得惡果行善乃善報因果總不差修福罪還在",
       "numCharacters": 20,
@@ -4591,7 +4682,7 @@
     },
     {
       "id": "sixzu_178",
-      "name": "六祖偈頌 178",
+      "name": "罪緣由心來",
       "description": "罪緣由心來，故向此中除；善惡性本空，永不造新殃。",
       "characters": "罪緣由心來故向此中除善惡性本空永不造新殃",
       "numCharacters": 20,
@@ -4604,7 +4695,7 @@
     },
     {
       "id": "sixzu_179",
-      "name": "六祖偈頌 179",
+      "name": "深達罪福相",
       "description": "深達罪福相，一切畢竟空；往昔諸惡業，從今罪不生。",
       "characters": "深達罪福相一切畢竟空往昔諸惡業從今罪不生",
       "numCharacters": 20,
@@ -4617,7 +4708,7 @@
     },
     {
       "id": "sixzu_180",
-      "name": "六祖偈頌 180",
+      "name": "常觀性清淨",
       "description": "常觀性清淨，萬法從此生；直至無上道，與佛同一般。",
       "characters": "常觀性清淨萬法從此生直至無上道與佛同一般",
       "numCharacters": 20,
@@ -4630,7 +4721,7 @@
     },
     {
       "id": "sixzu_181",
-      "name": "六祖偈頌 181",
+      "name": "佛傳一乘法",
       "description": "佛傳一乘法，祖師授此心；普願大眾等，悟空性平等。",
       "characters": "佛傳一乘法祖師授此心普願大眾等悟空性平等",
       "numCharacters": 20,
@@ -4643,7 +4734,7 @@
     },
     {
       "id": "sixzu_182",
-      "name": "六祖偈頌 182",
+      "name": "清淨法身佛",
       "description": "清淨法身佛，人人本身是；離諸法相塵，垢除自性現。",
       "characters": "清淨法身佛人人本身是離諸法相塵垢除自性現",
       "numCharacters": 20,
@@ -4656,7 +4747,7 @@
     },
     {
       "id": "sixzu_183",
-      "name": "六祖偈頌 183",
+      "name": "行者當努力",
       "description": "行者當努力，切勿空悠悠；一息尚不來，輪迴至何時。",
       "characters": "行者當努力切勿空悠悠一息尚不來輪迴至何時",
       "numCharacters": 20,
@@ -4669,7 +4760,7 @@
     },
     {
       "id": "sixzu_184",
-      "name": "六祖偈頌 184",
+      "name": "若見自心佛",
       "description": "若見自心佛，即悟大乘法；虔恭求佛道，得法度群倫。",
       "characters": "若見自心佛即悟大乘法虔恭求佛道得法度群倫",
       "numCharacters": 20,
@@ -4682,7 +4773,7 @@
     },
     {
       "id": "sixzu_185",
-      "name": "六祖偈頌 185",
+      "name": "佛性莫遠求",
       "description": "佛性莫遠求，只在汝心頭；自心見本性，自悟證佛道。",
       "characters": "佛性莫遠求只在汝心頭自心見本性自悟證佛道",
       "numCharacters": 20,
@@ -4695,7 +4786,7 @@
     },
     {
       "id": "sixzu_186",
-      "name": "六祖偈頌 186",
+      "name": "明月非手指",
       "description": "明月非手指，因手見明月；佛理非文字，因字悟佛理。",
       "characters": "明月非手指因手見明月佛理非文字因字悟佛理",
       "numCharacters": 20,
@@ -4708,7 +4799,7 @@
     },
     {
       "id": "sixzu_187",
-      "name": "六祖偈頌 187",
+      "name": "雖藏在村落",
       "description": "雖藏在村落，盛名早遠播；招來惡黨尋，隱身避難石。",
       "characters": "雖藏在村落盛名早遠播招來惡黨尋隱身避難石",
       "numCharacters": 20,
@@ -4721,7 +4812,7 @@
     },
     {
       "id": "sixzu_188",
-      "name": "六祖偈頌 188",
+      "name": "念過心不執",
       "description": "念過心不執，念起能覺知；一切唯心造，離相即是佛。",
       "characters": "念過心不執念起能覺知一切唯心造離相即是佛",
       "numCharacters": 20,
@@ -4734,7 +4825,7 @@
     },
     {
       "id": "sixzu_189",
-      "name": "六祖偈頌 189",
+      "name": "明心有智慧",
       "description": "明心有智慧，見性乃禪定；定慧須雙修，等持意清淨。",
       "characters": "明心有智慧見性乃禪定定慧須雙修等持意清淨",
       "numCharacters": 20,
@@ -4747,7 +4838,7 @@
     },
     {
       "id": "sixzu_190",
-      "name": "六祖偈頌 190",
+      "name": "心迷是眾生",
       "description": "心迷是眾生，心悟是自佛：雙修離諸相，清淨即是佛。",
       "characters": "心迷是眾生心悟是自佛雙修離諸相清淨即是佛",
       "numCharacters": 20,
@@ -4760,7 +4851,7 @@
     },
     {
       "id": "sixzu_191",
-      "name": "六祖偈頌 191",
+      "name": "久誦有功夫",
       "description": "久誦有功夫，執著無德行；實修不為勝，即與師偕行。",
       "characters": "久誦有功夫執著無德行實修不為勝即與師偕行",
       "numCharacters": 20,
@@ -4773,7 +4864,7 @@
     },
     {
       "id": "sixzu_192",
-      "name": "六祖偈頌 192",
+      "name": "禮拜折傲慢",
       "description": "禮拜折傲慢，對人應恭謙；我慢罪即生，不執功乃大。",
       "characters": "禮拜折傲慢對人應恭謙我慢罪即生不執功乃大",
       "numCharacters": 20,
@@ -4786,7 +4877,7 @@
     },
     {
       "id": "sixzu_193",
-      "name": "六祖偈頌 193",
+      "name": "空誦不解經",
       "description": "空誦不解經，迷人執功行；知佛說妙義，依教菩薩行。",
       "characters": "空誦不解經迷人執功行知佛說妙義依教菩薩行",
       "numCharacters": 20,
@@ -4799,7 +4890,7 @@
     },
     {
       "id": "sixzu_194",
-      "name": "六祖偈頌 194",
+      "name": "誦經三千部",
       "description": "誦經三千部，仍然不解義；況且一般人，何時明大意。",
       "characters": "誦經三千部仍然不解義況且一般人何時明大意",
       "numCharacters": 20,
@@ -4812,7 +4903,7 @@
     },
     {
       "id": "sixzu_195",
-      "name": "六祖偈頌 195",
+      "name": "諸法本通達",
       "description": "諸法本通達，妄心起障礙；念經不明宗，如同鸚鵡啼。",
       "characters": "諸法本通達妄心起障礙念經不明宗如同鸚鵡啼",
       "numCharacters": 20,
@@ -4825,7 +4916,7 @@
     },
     {
       "id": "sixzu_196",
-      "name": "六祖偈頌 196",
+      "name": "諸佛來世間",
       "description": "諸佛來世間，為說佛知見；眾生有佛性，教人見本性。",
       "characters": "諸佛來世間為說佛知見眾生有佛性教人見本性",
       "numCharacters": 20,
@@ -4838,7 +4929,7 @@
     },
     {
       "id": "sixzu_197",
-      "name": "六祖偈頌 197",
+      "name": "外迷著事相",
       "description": "外迷著事相，內迷著空理；有無皆不落，一念自心開。",
       "characters": "外迷著事相內迷著空理有無皆不落一念自心開",
       "numCharacters": 20,
@@ -4851,7 +4942,7 @@
     },
     {
       "id": "sixzu_198",
-      "name": "六祖偈頌 198",
+      "name": "覺為迷開示",
       "description": "覺為迷開示，心淨自契入；開示生信解，行證則悟入。",
       "characters": "覺為迷開示心淨自契入開示生信解行證則悟入",
       "numCharacters": 20,
@@ -4864,7 +4955,7 @@
     },
     {
       "id": "sixzu_199",
-      "name": "六祖偈頌 199",
+      "name": "人悉有佛性",
       "description": "人悉有佛性，早已具知見；自心本有覺，何用佛開啟。",
       "characters": "人悉有佛性早已具知見自心本有覺何用佛開啟",
       "numCharacters": 20,
@@ -4877,7 +4968,7 @@
     },
     {
       "id": "sixzu_200",
-      "name": "六祖偈頌 200",
+      "name": "眾生覺未現",
       "description": "眾生覺未現，執取蔽光明；勞佛苦口勸，息緣莫外攀。",
       "characters": "眾生覺未現執取蔽光明勞佛苦口勸息緣莫外攀",
       "numCharacters": 20,
@@ -4890,7 +4981,7 @@
     },
     {
       "id": "sixzu_201",
-      "name": "六祖偈頌 201",
+      "name": "心邪造惡業",
       "description": "心邪造惡業，自開眾生見；心正修福慧，即開佛知見。",
       "characters": "心邪造惡業自開眾生見心正修福慧即開佛知見",
       "numCharacters": 20,
@@ -4903,7 +4994,7 @@
     },
     {
       "id": "sixzu_202",
-      "name": "六祖偈頌 202",
+      "name": "念念佛知見",
       "description": "念念佛知見，正見名出世；時時眾生見，邪見是世間。",
       "characters": "念念佛知見正見名出世時時眾生見邪見是世間",
       "numCharacters": 20,
@@ -4916,7 +5007,7 @@
     },
     {
       "id": "sixzu_203",
-      "name": "六祖偈頌 203",
+      "name": "解義明其理",
       "description": "解義明其理，不妨誦經事；迷悟在於人，損益全由己。",
       "characters": "解義明其理不妨誦經事迷悟在於人損益全由己",
       "numCharacters": 20,
@@ -4929,7 +5020,7 @@
     },
     {
       "id": "sixzu_204",
-      "name": "六祖偈頌 204",
+      "name": "心迷被經轉",
       "description": "心迷被經轉，心悟能轉經；念念俱不執，即是一佛乘。",
       "characters": "心迷被經轉心悟能轉經念念俱不執即是一佛乘",
       "numCharacters": 20,
@@ -4942,7 +5033,7 @@
     },
     {
       "id": "sixzu_205",
-      "name": "六祖偈頌 205",
+      "name": "誦經不解義",
       "description": "誦經不解義，即是被經轉；若明經中義，時時能轉經。",
       "characters": "誦經不解義即是被經轉若明經中義時時能轉經",
       "numCharacters": 20,
@@ -4955,7 +5046,7 @@
     },
     {
       "id": "sixzu_206",
-      "name": "六祖偈頌 206",
+      "name": "諸佛智甚深",
       "description": "諸佛智甚深，不解豈能知；唯有一乘法，無二亦無三。",
       "characters": "諸佛智甚深不解豈能知唯有一乘法無二亦無三",
       "numCharacters": 20,
@@ -4968,7 +5059,7 @@
     },
     {
       "id": "sixzu_207",
-      "name": "六祖偈頌 207",
+      "name": "人患在度量",
       "description": "人患在度量，不能測佛智；此理不肯信，勸他也徒然。",
       "characters": "人患在度量不能測佛智此理不肯信勸他也徒然",
       "numCharacters": 20,
@@ -4981,7 +5072,7 @@
     },
     {
       "id": "sixzu_208",
-      "name": "六祖偈頌 208",
+      "name": "汝坐白牛車",
       "description": "汝坐白牛車，於外覓三車；昔權今歸實，實亦不可得。",
       "characters": "汝坐白牛車於外覓三車昔權今歸實實亦不可得",
       "numCharacters": 20,
@@ -4994,7 +5085,7 @@
     },
     {
       "id": "sixzu_209",
-      "name": "六祖偈頌 209",
+      "name": "人人有珍財",
       "description": "人人有珍財，迷時不知用；佛與眾生名，心悟本無別。",
       "characters": "人人有珍財迷時不知用佛與眾生名心悟本無別",
       "numCharacters": 20,
@@ -5007,7 +5098,7 @@
     },
     {
       "id": "sixzu_210",
-      "name": "六祖偈頌 210",
+      "name": "經含無量義",
       "description": "經含無量義，唯教人去執；幾經千番尋，原是法中王。",
       "characters": "經含無量義唯教人去執幾經千番尋原是法中王",
       "numCharacters": 20,
@@ -5020,7 +5111,7 @@
     },
     {
       "id": "sixzu_211",
-      "name": "六祖偈頌 211",
+      "name": "悟後起修行",
       "description": "悟後起修行，誦經亦不斷；法門千百種，明心為首要。",
       "characters": "悟後起修行誦經亦不斷法門千百種明心為首要",
       "numCharacters": 20,
@@ -5033,7 +5124,7 @@
     },
     {
       "id": "sixzu_212",
-      "name": "六祖偈頌 212",
+      "name": "看經千餘遍",
       "description": "看經千餘遍，不了其中義；自知理不明，求師解其義。",
       "characters": "看經千餘遍不了其中義自知理不明求師解其義",
       "numCharacters": 20,
@@ -5046,7 +5137,7 @@
     },
     {
       "id": "sixzu_213",
-      "name": "六祖偈頌 213",
+      "name": "分別說三身",
       "description": "分別說三身，不離自性身；若悟畢竟空，自然四智生。",
       "characters": "分別說三身不離自性身若悟畢竟空自然四智生",
       "numCharacters": 20,
@@ -5059,7 +5150,7 @@
     },
     {
       "id": "sixzu_214",
-      "name": "六祖偈頌 214",
+      "name": "性體具三身",
       "description": "性體具三身，妙用成四智；隨緣境所現，不執亦不離。",
       "characters": "性體具三身妙用成四智隨緣境所現不執亦不離",
       "numCharacters": 20,
@@ -5072,7 +5163,7 @@
     },
     {
       "id": "sixzu_215",
-      "name": "六祖偈頌 215",
+      "name": "三身及四智",
       "description": "三身及四智，悟體即達用；豈有明三身，不識四智義。",
       "characters": "三身及四智悟體即達用豈有明三身不識四智義",
       "numCharacters": 20,
@@ -5085,7 +5176,7 @@
     },
     {
       "id": "sixzu_216",
-      "name": "六祖偈頌 216",
+      "name": "迷時說八識",
       "description": "迷時說八識，悟了成四智；識智本一心，轉名不轉體。",
       "characters": "迷時說八識悟了成四智識智本一心轉名不轉體",
       "numCharacters": 20,
@@ -5098,7 +5189,7 @@
     },
     {
       "id": "sixzu_217",
-      "name": "六祖偈頌 217",
+      "name": "體用融無礙",
       "description": "體用融無礙，一切盡假名；動靜皆不是，隨緣任應變。",
       "characters": "體用融無礙一切盡假名動靜皆不是隨緣任應變",
       "numCharacters": 20,
@@ -5111,7 +5202,7 @@
     },
     {
       "id": "sixzu_218",
-      "name": "六祖偈頌 218",
+      "name": "少覺浮生夢",
       "description": "少覺浮生夢，捨親來割愛；立志求見性，終有證悟時。",
       "characters": "少覺浮生夢捨親來割愛立志求見性終有證悟時",
       "numCharacters": 20,
@@ -5124,7 +5215,7 @@
     },
     {
       "id": "sixzu_219",
-      "name": "六祖偈頌 219",
+      "name": "未見與存見",
       "description": "未見與存見，同是汝知見；知見而立知，即是無明本。",
       "characters": "未見與存見同是汝知見知見而立知即是無明本",
       "numCharacters": 20,
@@ -5137,7 +5228,7 @@
     },
     {
       "id": "sixzu_220",
-      "name": "六祖偈頌 220",
+      "name": "心存無知見",
       "description": "心存無知見，不知守空見；自知此見非，靈光常顯現。",
       "characters": "心存無知見不知守空見自知此見非靈光常顯現",
       "numCharacters": 20,
@@ -5150,7 +5241,7 @@
     },
     {
       "id": "sixzu_221",
-      "name": "六祖偈頌 221",
+      "name": "無端起二見",
       "description": "無端起二見，茫然趣兩頭；離相悟菩提，昔迷今覺悟。",
       "characters": "無端起二見茫然趣兩頭離相悟菩提昔迷今覺悟",
       "numCharacters": 20,
@@ -5163,7 +5254,7 @@
     },
     {
       "id": "sixzu_222",
-      "name": "六祖偈頌 222",
+      "name": "諸法本寂滅",
       "description": "諸法本寂滅，何來四乘法；但觀自本心，一切人分別。",
       "characters": "諸法本寂滅何來四乘法但觀自本心一切人分別",
       "numCharacters": 20,
@@ -5176,7 +5267,7 @@
     },
     {
       "id": "sixzu_223",
-      "name": "六祖偈頌 223",
+      "name": "四乘方便說",
       "description": "四乘方便說，唯有一佛乘；見聞依法修，無執萬法通。",
       "characters": "四乘方便說唯有一佛乘見聞依法修無執萬法通",
       "numCharacters": 20,
@@ -5189,7 +5280,7 @@
     },
     {
       "id": "sixzu_224",
-      "name": "六祖偈頌 224",
+      "name": "萬相雖生滅",
       "description": "萬相雖生滅，其性本是空；生滅本寂滅，常樂我淨故。",
       "characters": "萬相雖生滅其性本是空生滅本寂滅常樂我淨故",
       "numCharacters": 20,
@@ -5202,7 +5293,7 @@
     },
     {
       "id": "sixzu_225",
-      "name": "六祖偈頌 225",
+      "name": "二身原一身",
       "description": "二身原一身，性相不可離；佛性能覺知，非常非無常。",
       "characters": "二身原一身性相不可離佛性能覺知非常非無常",
       "numCharacters": 20,
@@ -5215,7 +5306,7 @@
     },
     {
       "id": "sixzu_226",
-      "name": "六祖偈頌 226",
+      "name": "諸法寂滅相",
       "description": "諸法寂滅相，何身來言滅；執身有苦樂，無著乃自在。",
       "characters": "諸法寂滅相何身來言滅執身有苦樂無著乃自在",
       "numCharacters": 20,
@@ -5228,7 +5319,7 @@
     },
     {
       "id": "sixzu_227",
-      "name": "六祖偈頌 227",
+      "name": "常見永不死",
       "description": "常見永不死，斷見永不生；常斷皆邪見，非是佛之意。",
       "characters": "常見永不死斷見永不生常斷皆邪見非是佛之意",
       "numCharacters": 20,
@@ -5241,7 +5332,7 @@
     },
     {
       "id": "sixzu_228",
-      "name": "六祖偈頌 228",
+      "name": "色不異法身",
       "description": "色不異法身，法身不異色；色法本一身，非離而求寂。",
       "characters": "色不異法身法身不異色色法本一身非離而求寂",
       "numCharacters": 20,
@@ -5254,7 +5345,7 @@
     },
     {
       "id": "sixzu_229",
-      "name": "六祖偈頌 229",
+      "name": "執我有生死",
       "description": "執我有生死，執法故馳求；不知夢幻事，枉受輪迴苦。",
       "characters": "執我有生死執法故馳求不知夢幻事枉受輪迴苦",
       "numCharacters": 20,
@@ -5267,7 +5358,7 @@
     },
     {
       "id": "sixzu_230",
-      "name": "六祖偈頌 230",
+      "name": "生本不曾生",
       "description": "生本不曾生，滅本不曾滅；生滅原是空，夢醒謂常樂。",
       "characters": "生本不曾生滅本不曾滅生滅原是空夢醒謂常樂",
       "numCharacters": 20,
@@ -5280,7 +5371,7 @@
     },
     {
       "id": "sixzu_231",
-      "name": "六祖偈頌 231",
+      "name": "涅槃大境界",
       "description": "涅槃大境界，非識所度計；凡愚和外道，二乘豈能知。",
       "characters": "涅槃大境界非識所度計凡愚和外道二乘豈能知",
       "numCharacters": 20,
@@ -5293,7 +5384,7 @@
     },
     {
       "id": "sixzu_232",
-      "name": "六祖偈頌 232",
+      "name": "斷常無作見",
       "description": "斷常無作見，豈是涅槃義；大根大智人，心已無取捨。",
       "characters": "斷常無作見豈是涅槃義大根大智人心已無取捨",
       "numCharacters": 20,
@@ -5306,7 +5397,7 @@
     },
     {
       "id": "sixzu_233",
-      "name": "六祖偈頌 233",
+      "name": "身心及世界",
       "description": "身心及世界，平等如夢幻；不起亦不作，不落也不執。",
       "characters": "身心及世界平等如夢幻不起亦不作不落也不執",
       "numCharacters": 20,
@@ -5319,7 +5410,7 @@
     },
     {
       "id": "sixzu_234",
-      "name": "六祖偈頌 234",
+      "name": "捨識用六根",
       "description": "捨識用六根，善分諸法相：一切盡不實，何來起妄想。",
       "characters": "捨識用六根善分諸法相一切盡不實何來起妄想",
       "numCharacters": 20,
@@ -5332,7 +5423,7 @@
     },
     {
       "id": "sixzu_235",
-      "name": "六祖偈頌 235",
+      "name": "世間無常相",
       "description": "世間無常相，成住必壞空；了悟涅槃者，真常無所礙。",
       "characters": "世間無常相成住必壞空了悟涅槃者真常無所礙",
       "numCharacters": 20,
@@ -5345,7 +5436,7 @@
     },
     {
       "id": "sixzu_236",
-      "name": "六祖偈頌 236",
+      "name": "涅槃不可說",
       "description": "涅槃不可說，強說捨邪見；言說要人解，仍須自己悟。",
       "characters": "涅槃不可說強說捨邪見言說要人解仍須自己悟",
       "numCharacters": 20,
@@ -5358,7 +5449,7 @@
     },
     {
       "id": "sixzu_237",
-      "name": "六祖偈頌 237",
+      "name": "往昔在夢中",
       "description": "往昔在夢中，今朝忽覺醒；知幻即不著，離幻乃自在。",
       "characters": "往昔在夢中今朝忽覺醒知幻即不著離幻乃自在",
       "numCharacters": 20,
@@ -5371,7 +5462,7 @@
     },
     {
       "id": "sixzu_238",
-      "name": "六祖偈頌 238",
+      "name": "行思有來歷",
       "description": "行思有來歷，直問頓悟法；常人不敢想，二乘不敢擔。",
       "characters": "行思有來歷直問頓悟法常人不敢想二乘不敢擔",
       "numCharacters": 20,
@@ -5384,7 +5475,7 @@
     },
     {
       "id": "sixzu_239",
-      "name": "六祖偈頌 239",
+      "name": "起修落階級",
       "description": "起修落階級，聖諦故不為；既是心不為，何有次第分。",
       "characters": "起修落階級聖諦故不為既是心不為何有次第分",
       "numCharacters": 20,
@@ -5397,7 +5488,7 @@
     },
     {
       "id": "sixzu_240",
-      "name": "六祖偈頌 240",
+      "name": "禪師本不為",
       "description": "禪師本不為，不為亦是為；今悟頓教法，紹化利眾生。",
       "characters": "禪師本不為不為亦是為今悟頓教法紹化利眾生",
       "numCharacters": 20,
@@ -5410,7 +5501,7 @@
     },
     {
       "id": "sixzu_241",
-      "name": "六祖偈頌 241",
+      "name": "心非是一物",
       "description": "心非是一物，言說即不中；事相當修證，理體染不得。",
       "characters": "心非是一物言說即不中事相當修證理體染不得",
       "numCharacters": 20,
@@ -5423,7 +5514,7 @@
     },
     {
       "id": "sixzu_242",
-      "name": "六祖偈頌 242",
+      "name": "智者心無染",
       "description": "智者心無染，愚者心有著；若要談修行，只此不污染。",
       "characters": "智者心無染愚者心有著若要談修行只此不污染",
       "numCharacters": 20,
@@ -5436,7 +5527,7 @@
     },
     {
       "id": "sixzu_243",
-      "name": "六祖偈頌 243",
+      "name": "經論起正見",
       "description": "經論起正見，止觀乃正行；解行有定慧，故能明心地。",
       "characters": "經論起正見止觀乃正行解行有定慧故能明心地",
       "numCharacters": 20,
@@ -5449,7 +5540,7 @@
     },
     {
       "id": "sixzu_244",
-      "name": "六祖偈頌 244",
+      "name": "永嘉大根器",
       "description": "永嘉大根器，無師能自悟；若非上根者，求師來開導。",
       "characters": "永嘉大根器無師能自悟若非上根者求師來開導",
       "numCharacters": 20,
@@ -5462,7 +5553,7 @@
     },
     {
       "id": "sixzu_245",
-      "name": "六祖偈頌 245",
+      "name": "性體無生滅",
       "description": "性體無生滅，了脫無遲速；迷時無常苦，悟時真常樂。",
       "characters": "性體無生滅了脫無遲速迷時無常苦悟時真常樂",
       "numCharacters": 20,
@@ -5475,7 +5566,7 @@
     },
     {
       "id": "sixzu_246",
-      "name": "六祖偈頌 246",
+      "name": "佛性無來去",
       "description": "佛性無來去，本自不動搖；分別一切法，不起分別想。",
       "characters": "佛性無來去本自不動搖分別一切法不起分別想",
       "numCharacters": 20,
@@ -5488,7 +5579,7 @@
     },
     {
       "id": "sixzu_247",
-      "name": "六祖偈頌 247",
+      "name": "智隍有禪功",
       "description": "智隍有禪功，聲名人皆曉；庵居長坐修，到底悟哪物。",
       "characters": "智隍有禪功聲名人皆曉庵居長坐修到底悟哪物",
       "numCharacters": 20,
@@ -5501,7 +5592,7 @@
     },
     {
       "id": "sixzu_248",
-      "name": "六祖偈頌 248",
+      "name": "有心非大定",
       "description": "有心非大定，無心如草木；有無俱雙遣，無不定時也。",
       "characters": "有心非大定無心如草木有無俱雙遣無不定時也",
       "numCharacters": 20,
@@ -5514,7 +5605,7 @@
     },
     {
       "id": "sixzu_249",
-      "name": "六祖偈頌 249",
+      "name": "見性真禪定",
       "description": "見性真禪定，不見空費力；一切本幻化，了知自如如。",
       "characters": "見性真禪定不見空費力一切本幻化了知自如如",
       "numCharacters": 20,
@@ -5527,7 +5618,7 @@
     },
     {
       "id": "sixzu_250",
-      "name": "六祖偈頌 250",
+      "name": "心空不著空",
       "description": "心空不著空，應用不執有；相對無絕對，圓融時無礙。",
       "characters": "心空不著空應用不執有相對無絕對圓融時無礙",
       "numCharacters": 20,
@@ -5540,7 +5631,7 @@
     },
     {
       "id": "sixzu_251",
-      "name": "六祖偈頌 251",
+      "name": "昔日有修行",
       "description": "昔日有修行，只欠未見性；今日疑惑除，來日化四眾。",
       "characters": "昔日有修行只欠未見性今日疑惑除來日化四眾",
       "numCharacters": 20,
@@ -5553,7 +5644,7 @@
     },
     {
       "id": "sixzu_252",
-      "name": "六祖偈頌 252",
+      "name": "說得本自有",
       "description": "說得本自有，說不何曾無；人人家中事，勿須問他人。",
       "characters": "說得本自有說不何曾無人人家中事勿須問他人",
       "numCharacters": 20,
@@ -5566,7 +5657,7 @@
     },
     {
       "id": "sixzu_253",
-      "name": "六祖偈頌 253",
+      "name": "五祖傳衣钵",
       "description": "五祖傳衣钵，一過幾十載；心地雖清淨，法衣仍須洗。",
       "characters": "五祖傳衣钵一過幾十載心地雖清淨法衣仍須洗",
       "numCharacters": 20,
@@ -5579,7 +5670,7 @@
     },
     {
       "id": "sixzu_254",
-      "name": "六祖偈頌 254",
+      "name": "祖師身不在",
       "description": "祖師身不在，法身永常住；方辯有神通，還要師開解。",
       "characters": "祖師身不在法身永常住方辯有神通還要師開解",
       "numCharacters": 20,
@@ -5592,7 +5683,7 @@
     },
     {
       "id": "sixzu_255",
-      "name": "六祖偈頌 255",
+      "name": "知事不知理",
       "description": "知事不知理，識相不識性；善塑六祖像，不解方辯佛。",
       "characters": "知事不知理識相不識性善塑六祖像不解方辯佛",
       "numCharacters": 20,
@@ -5605,7 +5696,7 @@
     },
     {
       "id": "sixzu_256",
-      "name": "六祖偈頌 256",
+      "name": "臥輪被法縛",
       "description": "臥輪被法縛，何能斷思想；對境不隨緣，菩提怎麼長。",
       "characters": "臥輪被法縛何能斷思想對境不隨緣菩提怎麼長",
       "numCharacters": 20,
@@ -5618,7 +5709,7 @@
     },
     {
       "id": "sixzu_257",
-      "name": "六祖偈頌 257",
+      "name": "師了一切法",
       "description": "師了一切法，念念心無著；對境諸根用，何處不菩提。",
       "characters": "師了一切法念念心無著對境諸根用何處不菩提",
       "numCharacters": 20,
@@ -5631,7 +5722,7 @@
     },
     {
       "id": "sixzu_258",
-      "name": "六祖偈頌 258",
+      "name": "地方有南北",
       "description": "地方有南北，個個有佛性；惠能與神秀，弘法化一方。",
       "characters": "地方有南北個個有佛性惠能與神秀弘法化一方",
       "numCharacters": 20,
@@ -5644,7 +5735,7 @@
     },
     {
       "id": "sixzu_259",
-      "name": "六祖偈頌 259",
+      "name": "佛法本一宗",
       "description": "佛法本一宗，豈有二樣情；利根即頓悟，鈍根漸進修。",
       "characters": "佛法本一宗豈有二樣情利根即頓悟鈍根漸進修",
       "numCharacters": 20,
@@ -5657,7 +5748,7 @@
     },
     {
       "id": "sixzu_260",
-      "name": "六祖偈頌 260",
+      "name": "秀師讚惠能",
       "description": "秀師讚惠能，自謙不如他：拋棄己之見，要徒往參決。",
       "characters": "秀師讚惠能自謙不如他拋棄己之見要徒往參決",
       "numCharacters": 20,
@@ -5670,7 +5761,7 @@
     },
     {
       "id": "sixzu_261",
-      "name": "六祖偈頌 261",
+      "name": "雖是一國師",
       "description": "雖是一國師，仍要聞大法；自身不能往，派徒代記之。",
       "characters": "雖是一國師仍要聞大法自身不能往派徒代記之",
       "numCharacters": 20,
@@ -5683,7 +5774,7 @@
     },
     {
       "id": "sixzu_262",
-      "name": "六祖偈頌 262",
+      "name": "佛法處處有",
       "description": "佛法處處有，一切盡佛法；看誰有本事，會意則能得。",
       "characters": "佛法處處有一切盡佛法看誰有本事會意則能得",
       "numCharacters": 20,
@@ -5696,7 +5787,7 @@
     },
     {
       "id": "sixzu_263",
-      "name": "六祖偈頌 263",
+      "name": "妄心如猿猴",
       "description": "妄心如猿猴，住心以牽制；長坐來精進，不臥有功行。",
       "characters": "妄心如猿猴住心以牽制長坐來精進不臥有功行",
       "numCharacters": 20,
@@ -5709,7 +5800,7 @@
     },
     {
       "id": "sixzu_264",
-      "name": "六祖偈頌 264",
+      "name": "執心反成病",
       "description": "執心反成病，守靜並非禪；不見自家寶，拘身有何益。",
       "characters": "執心反成病守靜並非禪不見自家寶拘身有何益",
       "numCharacters": 20,
@@ -5722,7 +5813,7 @@
     },
     {
       "id": "sixzu_265",
-      "name": "六祖偈頌 265",
+      "name": "豈是師不好",
       "description": "豈是師不好，只因己未悟；著相執此身，離相契本心。",
       "characters": "豈是師不好只因己未悟著相執此身離相契本心",
       "numCharacters": 20,
@@ -5735,7 +5826,7 @@
     },
     {
       "id": "sixzu_266",
-      "name": "六祖偈頌 266",
+      "name": "持戒不造惡",
       "description": "持戒不造惡，慧生行諸善；止惡來修善，心定自清淨。",
       "characters": "持戒不造惡慧生行諸善止惡來修善心定自清淨",
       "numCharacters": 20,
@@ -5748,7 +5839,7 @@
     },
     {
       "id": "sixzu_267",
-      "name": "六祖偈頌 267",
+      "name": "法法本無法",
       "description": "法法本無法，何人說有法；隨方解其縛，假名一切法。",
       "characters": "法法本無法何人說有法隨方解其縛假名一切法",
       "numCharacters": 20,
@@ -5761,7 +5852,7 @@
     },
     {
       "id": "sixzu_268",
-      "name": "六祖偈頌 268",
+      "name": "眾生器不同",
       "description": "眾生器不同，因人而講解；說法不離性，離體為相說。",
       "characters": "眾生器不同因人而講解說法不離性離體為相說",
       "numCharacters": 20,
@@ -5774,7 +5865,7 @@
     },
     {
       "id": "sixzu_269",
-      "name": "六祖偈頌 269",
+      "name": "心地無三毒",
       "description": "心地無三毒，即是戒定慧；自性不增減，來去皆安然。",
       "characters": "心地無三毒即是戒定慧自性不增減來去皆安然",
       "numCharacters": 20,
@@ -5787,7 +5878,7 @@
     },
     {
       "id": "sixzu_270",
-      "name": "六祖偈頌 270",
+      "name": "五蘊身心幻",
       "description": "五蘊身心幻，迴趣求真如；真假不用尋，離幻即能覺。",
       "characters": "五蘊身心幻迴趣求真如真假不用尋離幻即能覺",
       "numCharacters": 20,
@@ -5800,7 +5891,7 @@
     },
     {
       "id": "sixzu_271",
-      "name": "六祖偈頌 271",
+      "name": "並非不能立",
       "description": "並非不能立，只要不執著；並非不能破，只要破執著。",
       "characters": "並非不能立只要不執著並非不能破只要破執著",
       "numCharacters": 20,
@@ -5813,7 +5904,7 @@
     },
     {
       "id": "sixzu_272",
-      "name": "六祖偈頌 272",
+      "name": "不論立不立",
       "description": "不論立不立，見性皆自在；應用隨變化，神通任遨遊。",
       "characters": "不論立不立見性皆自在應用隨變化神通任遨遊",
       "numCharacters": 20,
@@ -5826,7 +5917,7 @@
     },
     {
       "id": "sixzu_273",
-      "name": "六祖偈頌 273",
+      "name": "諸法從本來",
       "description": "諸法從本來，常自寂滅相；不立一切法，一切法不立。",
       "characters": "諸法從本來常自寂滅相不立一切法一切法不立",
       "numCharacters": 20,
@@ -5839,7 +5930,7 @@
     },
     {
       "id": "sixzu_274",
-      "name": "六祖偈頌 274",
+      "name": "覺者為人師",
       "description": "覺者為人師，二主亡彼此；迷者是弟子，立秀欲害能。",
       "characters": "覺者為人師二主亡彼此迷者是弟子立秀欲害能",
       "numCharacters": 20,
@@ -5852,7 +5943,7 @@
     },
     {
       "id": "sixzu_275",
-      "name": "六祖偈頌 275",
+      "name": "心中無所障",
       "description": "心中無所障，自然能通達；有因必有果，欠錢不欠命。",
       "characters": "心中無所障自然能通達有因必有果欠錢不欠命",
       "numCharacters": 20,
@@ -5865,7 +5956,7 @@
     },
     {
       "id": "sixzu_276",
-      "name": "六祖偈頌 276",
+      "name": "六祖大慈悲",
       "description": "六祖大慈悲，以德來報怨；感化其行昌，出家去修行。",
       "characters": "六祖大慈悲以德來報怨感化其行昌出家去修行",
       "numCharacters": 20,
@@ -5878,7 +5969,7 @@
     },
     {
       "id": "sixzu_277",
-      "name": "六祖偈頌 277",
+      "name": "師恩難以報",
       "description": "師恩難以報，傳法度生回；若欲化他人，自先當覺悟。",
       "characters": "師恩難以報傳法度生回若欲化他人自先當覺悟",
       "numCharacters": 20,
@@ -5891,7 +5982,7 @@
     },
     {
       "id": "sixzu_278",
-      "name": "六祖偈頌 278",
+      "name": "佛性常不變",
       "description": "佛性常不變，眾生焉成佛；眾生分別心，執此故有常。",
       "characters": "佛性常不變眾生焉成佛眾生分別心執此故有常",
       "numCharacters": 20,
@@ -5904,7 +5995,7 @@
     },
     {
       "id": "sixzu_279",
-      "name": "六祖偈頌 279",
+      "name": "無常即真常",
       "description": "無常即真常，真常能緣起；有常即無常，無常因性空。",
       "characters": "無常即真常真常能緣起有常即無常無常因性空",
       "numCharacters": 20,
@@ -5917,7 +6008,7 @@
     },
     {
       "id": "sixzu_280",
-      "name": "六祖偈頌 280",
+      "name": "佛性不二法",
       "description": "佛性不二法，豈有常無常；執真亦是假，用假能成真。",
       "characters": "佛性不二法豈有常無常執真亦是假用假能成真",
       "numCharacters": 20,
@@ -5930,7 +6021,7 @@
     },
     {
       "id": "sixzu_281",
-      "name": "六祖偈頌 281",
+      "name": "佛性若不變",
       "description": "佛性若不變，何能發菩提；物物皆有性，何能遍一切。",
       "characters": "佛性若不變何能發菩提物物皆有性何能遍一切",
       "numCharacters": 20,
@@ -5943,7 +6034,7 @@
     },
     {
       "id": "sixzu_282",
-      "name": "六祖偈頌 282",
+      "name": "見相認邪常",
       "description": "見相認邪常，日用計無常；不落常無常，明體悟真常。",
       "characters": "見相認邪常日用計無常不落常無常明體悟真常",
       "numCharacters": 20,
@@ -5956,7 +6047,7 @@
     },
     {
       "id": "sixzu_283",
-      "name": "六祖偈頌 283",
+      "name": "眾生執邪常",
       "description": "眾生執邪常，佛說法無常；二乘執無常，佛說性真常。",
       "characters": "眾生執邪常佛說法無常二乘執無常佛說性真常",
       "numCharacters": 20,
@@ -5969,7 +6060,7 @@
     },
     {
       "id": "sixzu_284",
-      "name": "六祖偈頌 284",
+      "name": "若識本來樣",
       "description": "若識本來樣，必能道究竟；既然無所住，豈有所見主。",
       "characters": "若識本來樣必能道究竟既然無所住豈有所見主",
       "numCharacters": 20,
@@ -5982,7 +6073,7 @@
     },
     {
       "id": "sixzu_285",
-      "name": "六祖偈頌 285",
+      "name": "不落二邊見",
       "description": "不落二邊見，不離兩頭用；緣生來應對，緣滅去不留。",
       "characters": "不落二邊見不離兩頭用緣生來應對緣滅去不留",
       "numCharacters": 20,
@@ -5995,7 +6086,7 @@
     },
     {
       "id": "sixzu_286",
-      "name": "六祖偈頌 286",
+      "name": "覺者見己過",
       "description": "覺者見己過，迷者說人非；智人心不痛，愚人身心苦。",
       "characters": "覺者見己過迷者說人非智人心不痛愚人身心苦",
       "numCharacters": 20,
@@ -6008,7 +6099,7 @@
     },
     {
       "id": "sixzu_287",
-      "name": "六祖偈頌 287",
+      "name": "莫問人悟否",
       "description": "莫問人悟否，只問己有無；修行自家事，成就個人得。",
       "characters": "莫問人悟否只問己有無修行自家事成就個人得",
       "numCharacters": 20,
@@ -6021,7 +6112,7 @@
     },
     {
       "id": "sixzu_288",
-      "name": "六祖偈頌 288",
+      "name": "一切盡是無",
       "description": "一切盡是無，無心者識之；死守經義上，知解成宗徒。",
       "characters": "一切盡是無無心者識之死守經義上知解成宗徒",
       "numCharacters": 20,
@@ -6034,7 +6125,7 @@
     },
     {
       "id": "sixzu_289",
-      "name": "六祖偈頌 289",
+      "name": "神會終有悟",
       "description": "神會終有悟，大弘曹溪禪；南北之紛爭，由他立正宗。",
       "characters": "神會終有悟大弘曹溪禪南北之紛爭由他立正宗",
       "numCharacters": 20,
@@ -6047,7 +6138,7 @@
     },
     {
       "id": "sixzu_290",
-      "name": "六祖偈頌 290",
+      "name": "學道泯分別",
       "description": "學道泯分別，無別名實性；眾人不達理，故建一切教。",
       "characters": "學道泯分別無別名實性眾人不達理故建一切教",
       "numCharacters": 20,
@@ -6060,7 +6151,7 @@
     },
     {
       "id": "sixzu_291",
-      "name": "六祖偈頌 291",
+      "name": "名利如流水",
       "description": "名利如流水，權勢似雲煙；辭疾終林麓，隨緣度眾生。",
       "characters": "名利如流水權勢似雲煙辭疾終林麓隨緣度眾生",
       "numCharacters": 20,
@@ -6073,7 +6164,7 @@
     },
     {
       "id": "sixzu_292",
-      "name": "六祖偈頌 292",
+      "name": "漸修有次第",
       "description": "漸修有次第，持戒修諸善；由定而發慧，依此得解脫。",
       "characters": "漸修有次第持戒修諸善由定而發慧依此得解脫",
       "numCharacters": 20,
@@ -6086,7 +6177,7 @@
     },
     {
       "id": "sixzu_293",
-      "name": "六祖偈頌 293",
+      "name": "心悟不拘相",
       "description": "心悟不拘相，著相豈能悟；諸法本空寂，無生亦無滅。",
       "characters": "心悟不拘相著相豈能悟諸法本空寂無生亦無滅",
       "numCharacters": 20,
@@ -6099,7 +6190,7 @@
     },
     {
       "id": "sixzu_294",
-      "name": "六祖偈頌 294",
+      "name": "道體無明暗",
       "description": "道體無明暗，相對立假名；法本無比較，絕對無分別。",
       "characters": "道體無明暗相對立假名法本無比較絕對無分別",
       "numCharacters": 20,
@@ -6112,7 +6203,7 @@
     },
     {
       "id": "sixzu_295",
-      "name": "六祖偈頌 295",
+      "name": "二乘對治修",
       "description": "二乘對治修，以智破煩惱；大乘無相對，煩惱即菩提。",
       "characters": "二乘對治修以智破煩惱大乘無相對煩惱即菩提",
       "numCharacters": 20,
@@ -6125,7 +6216,7 @@
     },
     {
       "id": "sixzu_296",
-      "name": "六祖偈頌 296",
+      "name": "相有明暗分",
       "description": "相有明暗分，其性本無別；迷時分智愚，悟了無增減。",
       "characters": "相有明暗分其性本無別迷時分智愚悟了無增減",
       "numCharacters": 20,
@@ -6138,7 +6229,7 @@
     },
     {
       "id": "sixzu_297",
-      "name": "六祖偈頌 297",
+      "name": "凡聖性實同",
       "description": "凡聖性實同，無二亦無別；性相本如如，常住不變遷。",
       "characters": "凡聖性實同無二亦無別性相本如如常住不變遷",
       "numCharacters": 20,
@@ -6151,7 +6242,7 @@
     },
     {
       "id": "sixzu_298",
-      "name": "六祖偈頌 298",
+      "name": "外道所說法",
       "description": "外道所說法，相對生滅法；六祖言實性，本自無生滅。",
       "characters": "外道所說法相對生滅法六祖言實性本自無生滅",
       "numCharacters": 20,
@@ -6164,7 +6255,7 @@
     },
     {
       "id": "sixzu_299",
-      "name": "六祖偈頌 299",
+      "name": "修行之要訣",
       "description": "修行之要訣，分別莫思量；心體常寂淨，妙用如恆沙。",
       "characters": "修行之要訣分別莫思量心體常寂淨妙用如恆沙",
       "numCharacters": 20,
@@ -6177,7 +6268,7 @@
     },
     {
       "id": "sixzu_300",
-      "name": "六祖偈頌 300",
+      "name": "師如維摩詰",
       "description": "師如維摩詰，托疾說不二；闡揚頓教法，傳佛之心要。",
       "characters": "師如維摩詰托疾說不二闡揚頓教法傳佛之心要",
       "numCharacters": 20,
@@ -6190,7 +6281,7 @@
     },
     {
       "id": "sixzu_301",
-      "name": "六祖偈頌 301",
+      "name": "佛有十弟子",
       "description": "佛有十弟子，六祖亦如是；師在終身侍，滅度各一方。",
       "characters": "佛有十弟子六祖亦如是師在終身侍滅度各一方",
       "numCharacters": 20,
@@ -6203,7 +6294,7 @@
     },
     {
       "id": "sixzu_302",
-      "name": "六祖偈頌 302",
+      "name": "說法泯對待",
       "description": "說法泯對待，出沒離二法；兩邊既不立，中道亦不存。",
       "characters": "說法泯對待出沒離二法兩邊既不立中道亦不存",
       "numCharacters": 20,
@@ -6216,7 +6307,7 @@
     },
     {
       "id": "sixzu_303",
-      "name": "六祖偈頌 303",
+      "name": "三科含一切",
       "description": "三科含一切，身心及世界；八萬四千法，唯要人見性。",
       "characters": "三科含一切身心及世界八萬四千法唯要人見性",
       "numCharacters": 20,
@@ -6229,7 +6320,7 @@
     },
     {
       "id": "sixzu_304",
-      "name": "六祖偈頌 304",
+      "name": "自性生萬法",
       "description": "自性生萬法，藏識含善惡；思量轉為識，莫思即成智。",
       "characters": "自性生萬法藏識含善惡思量轉為識莫思即成智",
       "numCharacters": 20,
@@ -6242,7 +6333,7 @@
     },
     {
       "id": "sixzu_305",
-      "name": "六祖偈頌 305",
+      "name": "自性生邪見",
       "description": "自性生邪見，惡用眾生用；自性起正見，善用即佛用。",
       "characters": "自性生邪見惡用眾生用自性起正見善用即佛用",
       "numCharacters": 20,
@@ -6255,7 +6346,7 @@
     },
     {
       "id": "sixzu_306",
-      "name": "六祖偈頌 306",
+      "name": "有此故有彼",
       "description": "有此故有彼，有陰故陽生；無此故無彼，無陰故陽滅。",
       "characters": "有此故有彼有陰故陽生無此故無彼無陰故陽滅",
       "numCharacters": 20,
@@ -6268,7 +6359,7 @@
     },
     {
       "id": "sixzu_307",
-      "name": "六祖偈頌 307",
+      "name": "法相本無言",
       "description": "法相本無言，說法借名相；無相亦無法，無人也無說。",
       "characters": "法相本無言說法借名相無相亦無法無人也無說",
       "numCharacters": 20,
@@ -6281,7 +6372,7 @@
     },
     {
       "id": "sixzu_308",
-      "name": "六祖偈頌 308",
+      "name": "諸法無二相",
       "description": "諸法無二相，分別有對待；凡愚有彼我，聖智相安然。",
       "characters": "諸法無二相分別有對待凡愚有彼我聖智相安然",
       "numCharacters": 20,
@@ -6294,7 +6385,7 @@
     },
     {
       "id": "sixzu_309",
-      "name": "六祖偈頌 309",
+      "name": "自性生妙法",
       "description": "自性生妙法，普化一切眾；離相並離空，執著兩不通。",
       "characters": "自性生妙法普化一切眾離相並離空執著兩不通",
       "numCharacters": 20,
@@ -6307,7 +6398,7 @@
     },
     {
       "id": "sixzu_310",
-      "name": "六祖偈頌 310",
+      "name": "學禪莫執空",
       "description": "學禪莫執空，謗經不聞法；自誤又毀他，罪障深且重。",
       "characters": "學禪莫執空謗經不聞法自誤又毀他罪障深且重",
       "numCharacters": 20,
@@ -6320,7 +6411,7 @@
     },
     {
       "id": "sixzu_311",
-      "name": "六祖偈頌 311",
+      "name": "學教勿著相",
       "description": "學教勿著相，執有去求真；說有或言無，斷常不見性。",
       "characters": "學教勿著相執有去求真說有或言無斷常不見性",
       "numCharacters": 20,
@@ -6333,7 +6424,7 @@
     },
     {
       "id": "sixzu_312",
-      "name": "六祖偈頌 312",
+      "name": "不執非不做",
       "description": "不執非不做，不染非不想；當作則應作，作時心不染。",
       "characters": "不執非不做不染非不想當作則應作作時心不染",
       "numCharacters": 20,
@@ -6346,7 +6437,7 @@
     },
     {
       "id": "sixzu_313",
-      "name": "六祖偈頌 313",
+      "name": "為人演經義",
       "description": "為人演經義，無住行法施；不取於諸相，如如不動也。",
       "characters": "為人演經義無住行法施不取於諸相如如不動也",
       "numCharacters": 20,
@@ -6359,7 +6450,7 @@
     },
     {
       "id": "sixzu_314",
-      "name": "六祖偈頌 314",
+      "name": "因緣所生法",
       "description": "因緣所生法，何者不是空；彼此兩相因，何者真實有。",
       "characters": "因緣所生法何者不是空彼此兩相因何者真實有",
       "numCharacters": 20,
@@ -6372,7 +6463,7 @@
     },
     {
       "id": "sixzu_315",
-      "name": "六祖偈頌 315",
+      "name": "因有故緣有",
       "description": "因有故緣有，因去緣無蹤；窮極因與緣，緣起即性空。",
       "characters": "因有故緣有因去緣無蹤窮極因與緣緣起即性空",
       "numCharacters": 20,
@@ -6385,7 +6476,7 @@
     },
     {
       "id": "sixzu_316",
-      "name": "六祖偈頌 316",
+      "name": "六祖將入滅",
       "description": "六祖將入滅，法身實不滅；悲憫念眾人，斷疑生信心。",
       "characters": "六祖將入滅法身實不滅悲憫念眾人斷疑生信心",
       "numCharacters": 20,
@@ -6398,7 +6489,7 @@
     },
     {
       "id": "sixzu_317",
-      "name": "六祖偈頌 317",
+      "name": "弟子不捨師",
       "description": "弟子不捨師，悉皆涕淚泣；神會不動情，順逆心無礙。",
       "characters": "弟子不捨師悉皆涕淚泣神會不動情順逆心無礙",
       "numCharacters": 20,
@@ -6411,7 +6502,7 @@
     },
     {
       "id": "sixzu_318",
-      "name": "六祖偈頌 318",
+      "name": "未知生何來",
       "description": "未知生何來，不知死何去；法身本常住，無來亦無去。",
       "characters": "未知生何來不知死何去法身本常住無來亦無去",
       "numCharacters": 20,
@@ -6424,7 +6515,7 @@
     },
     {
       "id": "sixzu_319",
-      "name": "六祖偈頌 319",
+      "name": "一切既不實",
       "description": "一切既不實，諸相同虛幻；若說見真如，此見亦非真。",
       "characters": "一切既不實諸相同虛幻若說見真如此見亦非真",
       "numCharacters": 20,
@@ -6437,7 +6528,7 @@
     },
     {
       "id": "sixzu_320",
-      "name": "六祖偈頌 320",
+      "name": "欲要悟真如",
       "description": "欲要悟真如，離假即是真；自心不離假，何處覓此真。",
       "characters": "欲要悟真如離假即是真自心不離假何處覓此真",
       "numCharacters": 20,
@@ -6450,7 +6541,7 @@
     },
     {
       "id": "sixzu_321",
-      "name": "六祖偈頌 321",
+      "name": "有情可解動",
       "description": "有情可解動，無情豈能動；坐禪身不動，如同草木石。",
       "characters": "有情可解動無情豈能動坐禪身不動如同草木石",
       "numCharacters": 20,
@@ -6463,7 +6554,7 @@
     },
     {
       "id": "sixzu_322",
-      "name": "六祖偈頌 322",
+      "name": "若要真不動",
       "description": "若要真不動，隨緣心不動；不動又不起，焉能成佛道。",
       "characters": "若要真不動隨緣心不動不動又不起焉能成佛道",
       "numCharacters": 20,
@@ -6476,7 +6567,7 @@
     },
     {
       "id": "sixzu_323",
-      "name": "六祖偈頌 323",
+      "name": "善分一切相",
       "description": "善分一切相，離相性不動；若有此正見，真如自妙用。",
       "characters": "善分一切相離相性不動若有此正見真如自妙用",
       "numCharacters": 20,
@@ -6489,7 +6580,7 @@
     },
     {
       "id": "sixzu_324",
-      "name": "六祖偈頌 324",
+      "name": "學道要精進",
       "description": "學道要精進，勤行須會意；有幸聞大乘，莫當門外漢。",
       "characters": "學道要精進勤行須會意有幸聞大乘莫當門外漢",
       "numCharacters": 20,
@@ -6502,7 +6593,7 @@
     },
     {
       "id": "sixzu_325",
-      "name": "六祖偈頌 325",
+      "name": "說法當契機",
       "description": "說法當契機，共論一佛乘；若人不堪受，隨順令歡喜。",
       "characters": "說法當契機共論一佛乘若人不堪受隨順令歡喜",
       "numCharacters": 20,
@@ -6515,7 +6606,7 @@
     },
     {
       "id": "sixzu_326",
-      "name": "六祖偈頌 326",
+      "name": "佛法無所诤",
       "description": "佛法無所诤，诤非佛法意；執意論對錯，自迷不能覺。",
       "characters": "佛法無所诤诤非佛法意執意論對錯自迷不能覺",
       "numCharacters": 20,
@@ -6528,7 +6619,7 @@
     },
     {
       "id": "sixzu_327",
-      "name": "六祖偈頌 327",
+      "name": "師意若不懂",
       "description": "師意若不懂，豈能悟佛意；法脈不可斷，永續佛慧命。",
       "characters": "師意若不懂豈能悟佛意法脈不可斷永續佛慧命",
       "numCharacters": 20,
@@ -6541,7 +6632,7 @@
     },
     {
       "id": "sixzu_328",
-      "name": "六祖偈頌 328",
+      "name": "此經是法寶",
       "description": "此經是法寶，識者能得之；普願廣流通，以法度群生。",
       "characters": "此經是法寶識者能得之普願廣流通以法度群生",
       "numCharacters": 20,
@@ -6554,7 +6645,7 @@
     },
     {
       "id": "sixzu_329",
-      "name": "六祖偈頌 329",
+      "name": "今時機緣熟",
       "description": "今時機緣熟，傳法不傳衣；依法來修行，佛果自然成。",
       "characters": "今時機緣熟傳法不傳衣依法來修行佛果自然成",
       "numCharacters": 20,
@@ -6567,7 +6658,7 @@
     },
     {
       "id": "sixzu_330",
-      "name": "六祖偈頌 330",
+      "name": "自心即是佛",
       "description": "自心即是佛，切莫存狐疑；心生故法生，心滅故法滅。",
       "characters": "自心即是佛切莫存狐疑心生故法生心滅故法滅",
       "numCharacters": 20,
@@ -6580,7 +6671,7 @@
     },
     {
       "id": "sixzu_331",
-      "name": "六祖偈頌 331",
+      "name": "一相三昧者",
       "description": "一相三昧者，於相不執著；一行三昧者，於行不動心。",
       "characters": "一相三昧者於相不執著一行三昧者於行不動心",
       "numCharacters": 20,
@@ -6593,7 +6684,7 @@
     },
     {
       "id": "sixzu_332",
-      "name": "六祖偈頌 332",
+      "name": "自迷不見性",
       "description": "自迷不見性，聞法始覺醒；頓悟自本覺，究竟覺圓滿。",
       "characters": "自迷不見性聞法始覺醒頓悟自本覺究竟覺圓滿",
       "numCharacters": 20,
@@ -6606,7 +6697,7 @@
     },
     {
       "id": "sixzu_333",
-      "name": "六祖偈頌 333",
+      "name": "法無二種相",
       "description": "法無二種相，心無兩樣情；此心本清淨，莫捨有取空。",
       "characters": "法無二種相心無兩樣情此心本清淨莫捨有取空",
       "numCharacters": 20,
@@ -6619,7 +6710,7 @@
     },
     {
       "id": "sixzu_334",
-      "name": "六祖偈頌 334",
+      "name": "葉落終歸根",
       "description": "葉落終歸根，萬法源自性；來去本無言，一切總隨緣。",
       "characters": "葉落終歸根萬法源自性來去本無言一切總隨緣",
       "numCharacters": 20,
@@ -6632,7 +6723,7 @@
     },
     {
       "id": "sixzu_335",
-      "name": "六祖偈頌 335",
+      "name": "正法無有言",
       "description": "正法無有言，有道能悟之；眼藏一切智，無心自會通。",
       "characters": "正法無有言有道能悟之眼藏一切智無心自會通",
       "numCharacters": 20,
@@ -6645,7 +6736,7 @@
     },
     {
       "id": "sixzu_336",
-      "name": "六祖偈頌 336",
+      "name": "有難亦有興",
       "description": "有難亦有興，緣聚風雲起；在家及出家，依教果定成。",
       "characters": "有難亦有興緣聚風雲起在家及出家依教果定成",
       "numCharacters": 20,
@@ -6658,7 +6749,7 @@
     },
     {
       "id": "sixzu_337",
-      "name": "六祖偈頌 337",
+      "name": "古佛已無量",
       "description": "古佛已無量，今我仍眾生；古今佛眾生，自性皆平等。",
       "characters": "古佛已無量今我仍眾生古今佛眾生自性皆平等",
       "numCharacters": 20,
@@ -6671,7 +6762,7 @@
     },
     {
       "id": "sixzu_338",
-      "name": "六祖偈頌 338",
+      "name": "西天二十八",
       "description": "西天二十八，中土有五祖；合為三十三，皆為釋迦子。",
       "characters": "西天二十八中土有五祖合為三十三皆為釋迦子",
       "numCharacters": 20,
@@ -6684,7 +6775,7 @@
     },
     {
       "id": "sixzu_339",
-      "name": "六祖偈頌 339",
+      "name": "法海請師言",
       "description": "法海請師言，大師留遺教；不忍眾生苦，傳法度迷津。",
       "characters": "法海請師言大師留遺教不忍眾生苦傳法度迷津",
       "numCharacters": 20,
@@ -6697,7 +6788,7 @@
     },
     {
       "id": "sixzu_340",
-      "name": "六祖偈頌 340",
+      "name": "眾緣所生法",
       "description": "眾緣所生法，當下即是空；若識自眾生，即見自家佛。",
       "characters": "眾緣所生法當下即是空若識自眾生即見自家佛",
       "numCharacters": 20,
@@ -6710,7 +6801,7 @@
     },
     {
       "id": "sixzu_341",
-      "name": "六祖偈頌 341",
+      "name": "心佛與眾生",
       "description": "心佛與眾生，本來無分別；諂曲佛眾生，平直眾生佛。",
       "characters": "心佛與眾生本來無分別諂曲佛眾生平直眾生佛",
       "numCharacters": 20,
@@ -6723,7 +6814,7 @@
     },
     {
       "id": "sixzu_342",
-      "name": "六祖偈頌 342",
+      "name": "我心有佛種",
       "description": "我心有佛種，無種何成果；心外無萬法，萬法由心生。",
       "characters": "我心有佛種無種何成果心外無萬法萬法由心生",
       "numCharacters": 20,
@@ -6736,7 +6827,7 @@
     },
     {
       "id": "sixzu_343",
-      "name": "六祖偈頌 343",
+      "name": "真如是真佛",
       "description": "真如是真佛，邪毒乃魔王；邪來即魔生，正來即佛在。",
       "characters": "真如是真佛邪毒乃魔王邪來即魔生正來即佛在",
       "numCharacters": 20,
@@ -6749,7 +6840,7 @@
     },
     {
       "id": "sixzu_344",
-      "name": "六祖偈頌 344",
+      "name": "魔佛同自性",
       "description": "魔佛同自性，邪正各不同；正見除三毒，此魔變成佛。",
       "characters": "魔佛同自性邪正各不同正見除三毒此魔變成佛",
       "numCharacters": 20,
@@ -6762,7 +6853,7 @@
     },
     {
       "id": "sixzu_345",
-      "name": "六祖偈頌 345",
+      "name": "一身說三身",
       "description": "一身說三身，體相自如用；若能見三身，即是菩提因。",
       "characters": "一身說三身體相自如用若能見三身即是菩提因",
       "numCharacters": 20,
@@ -6775,7 +6866,7 @@
     },
     {
       "id": "sixzu_346",
-      "name": "六祖偈頌 346",
+      "name": "心染化淨性",
       "description": "心染化淨性，淨性在化中；性淨行自正，圓滿果報身。",
       "characters": "心染化淨性淨性在化中性淨行自正圓滿果報身",
       "numCharacters": 20,
@@ -6788,7 +6879,7 @@
     },
     {
       "id": "sixzu_347",
-      "name": "六祖偈頌 347",
+      "name": "貪欲本淨因",
       "description": "貪欲本淨因，離欲淨性身；性中離五欲，剎那即真佛。",
       "characters": "貪欲本淨因離欲淨性身性中離五欲剎那即真佛",
       "numCharacters": 20,
@@ -6801,7 +6892,7 @@
     },
     {
       "id": "sixzu_348",
-      "name": "六祖偈頌 348",
+      "name": "今生聞頓教",
       "description": "今生聞頓教，忽悟自性佛；若不趨向此，何處去求真。",
       "characters": "今生聞頓教忽悟自性佛若不趨向此何處去求真",
       "numCharacters": 20,
@@ -6814,7 +6905,7 @@
     },
     {
       "id": "sixzu_349",
-      "name": "六祖偈頌 349",
+      "name": "心若見其真",
       "description": "心若見其真，即是成佛因；不見外覓佛，妄動是癡人。",
       "characters": "心若見其真即是成佛因不見外覓佛妄動是癡人",
       "numCharacters": 20,
@@ -6827,7 +6918,7 @@
     },
     {
       "id": "sixzu_350",
-      "name": "六祖偈頌 350",
+      "name": "留此頓教法",
       "description": "留此頓教法，度人須自悟；欲來學道者，不見枉修行。",
       "characters": "留此頓教法度人須自悟欲來學道者不見枉修行",
       "numCharacters": 20,
@@ -6840,7 +6931,7 @@
     },
     {
       "id": "sixzu_351",
-      "name": "六祖偈頌 351",
+      "name": "師雖將滅度",
       "description": "師雖將滅度，弟子各安住；莫著世間相，離此出世間。",
       "characters": "師雖將滅度弟子各安住莫著世間相離此出世間",
       "numCharacters": 20,
@@ -6853,7 +6944,7 @@
     },
     {
       "id": "sixzu_352",
-      "name": "六祖偈頌 352",
+      "name": "自性無動靜",
       "description": "自性無動靜，本來無生滅；法身無來去，一切無對待。",
       "characters": "自性無動靜本來無生滅法身無來去一切無對待",
       "numCharacters": 20,
@@ -6866,7 +6957,7 @@
     },
     {
       "id": "sixzu_353",
-      "name": "六祖偈頌 353",
+      "name": "不動具諸善",
       "description": "不動具諸善，無為念不惡；寂靜塵勞斷，心平任隨行。",
       "characters": "不動具諸善無為念不惡寂靜塵勞斷心平任隨行",
       "numCharacters": 20,
@@ -6879,7 +6970,7 @@
     },
     {
       "id": "sixzu_354",
-      "name": "六祖偈頌 354",
+      "name": "生公說妙法",
       "description": "生公說妙法，頑石亦點頭；六祖遷化時，林白眾獸哀。",
       "characters": "生公說妙法頑石亦點頭六祖遷化時林白眾獸哀",
       "numCharacters": 20,
@@ -6892,7 +6983,7 @@
     },
     {
       "id": "sixzu_355",
-      "name": "六祖偈頌 355",
+      "name": "聖哲雖已逝",
       "description": "聖哲雖已逝，法寶遺人間；百川入大海，五宗歸曹溪。",
       "characters": "聖哲雖已逝法寶遺人間百川入大海五宗歸曹溪",
       "numCharacters": 20,
@@ -6905,7 +6996,7 @@
     },
     {
       "id": "sixzu_356",
-      "name": "六祖偈頌 356",
+      "name": "立碑彰德行",
       "description": "立碑彰德行，昭示於後人；憲宗諡稱號，大鑒禪師也。",
       "characters": "立碑彰德行昭示於後人憲宗諡稱號大鑒禪師也",
       "numCharacters": 20,
@@ -6918,7 +7009,7 @@
     },
     {
       "id": "sixzu_357",
-      "name": "六祖偈頌 357",
+      "name": "祖祖皆單傳",
       "description": "祖祖皆單傳，六祖遍地開；誰媲釋迦佛，唯有能大師。",
       "characters": "祖祖皆單傳六祖遍地開誰媲釋迦佛唯有能大師",
       "numCharacters": 20,
@@ -6931,7 +7022,7 @@
     },
     {
       "id": "sixzu_358",
-      "name": "六祖偈頌 358",
+      "name": "諸佛之秘要",
       "description": "諸佛之秘要，藏於此心中；歷祖之心法，總歸在壇經。",
       "characters": "諸佛之秘要藏於此心中歷祖之心法總歸在壇經",
       "numCharacters": 20,
@@ -6944,7 +7035,7 @@
     },
     {
       "id": "sixzu2_001",
-      "name": "六祖偈頌2 1",
+      "name": "六祖偈颂",
       "description": "身是菩提树，心如明镜台，时时勤拂拭，勿使惹尘埃",
       "characters": "身是菩提树，心如明镜台，时时勤拂拭，勿使惹尘埃",
       "numCharacters": 23,
@@ -6957,7 +7048,7 @@
     },
     {
       "id": "sixzu2_002",
-      "name": "六祖偈頌2 2",
+      "name": "菩提本无树",
       "description": "菩提本无树，明镜亦非台，本来无一物，何处惹尘埃",
       "characters": "菩提本无树，明镜亦非台，本来无一物，何处惹尘埃",
       "numCharacters": 23,
@@ -6970,7 +7061,7 @@
     },
     {
       "id": "sixzu2_003",
-      "name": "六祖偈頌2 3",
+      "name": "有情来下种",
       "description": "有情来下种，因地果还生，无情即无种，无性亦无生",
       "characters": "有情来下种，因地果还生，无情即无种，无性亦无生",
       "numCharacters": 23,
@@ -6983,7 +7074,7 @@
     },
     {
       "id": "sixzu2_004",
-      "name": "六祖偈頌2 4",
+      "name": "何名波罗蜜",
       "description": "何名波罗蜜。此是西国语。唐言到彼岸。解义离生灭。着境生灭起。如水有波浪。",
       "characters": "何名波罗蜜。此是西国语。唐言到彼岸。解义离生灭。着境生灭起。如水有波浪。",
       "numCharacters": 36,
@@ -6996,7 +7087,7 @@
     },
     {
       "id": "sixzu2_005",
-      "name": "六祖偈頌2 5",
+      "name": "即名为此岸",
       "description": "即名为此岸。离境无生灭。如水常通流。即名为彼岸。故号波罗蜜。",
       "characters": "即名为此岸。离境无生灭。如水常通流。即名为彼岸。故号波罗蜜。",
       "numCharacters": 30,
@@ -7009,7 +7100,7 @@
     },
     {
       "id": "sixzu2_006",
-      "name": "六祖偈頌2 6",
+      "name": "说通及心通",
       "description": "说通及心通，如日处虚空，唯传见性法，出世破邪宗",
       "characters": "说通及心通，如日处虚空，唯传见性法，出世破邪宗",
       "numCharacters": 23,
@@ -7022,7 +7113,7 @@
     },
     {
       "id": "sixzu2_007",
-      "name": "六祖偈頌2 7",
+      "name": "法即无顿渐",
       "description": "法即无顿渐，迷悟有迟疾，只此见性门，愚人不可悉",
       "characters": "法即无顿渐，迷悟有迟疾，只此见性门，愚人不可悉",
       "numCharacters": 23,
@@ -7035,7 +7126,7 @@
     },
     {
       "id": "sixzu2_008",
-      "name": "六祖偈頌2 8",
+      "name": "说即虽万般",
       "description": "说即虽万般，合理还归一，烦恼暗宅中，常须生慧日",
       "characters": "说即虽万般，合理还归一，烦恼暗宅中，常须生慧日",
       "numCharacters": 23,
@@ -7048,7 +7139,7 @@
     },
     {
       "id": "sixzu2_009",
-      "name": "六祖偈頌2 9",
+      "name": "邪来烦恼至",
       "description": "邪来烦恼至，正来烦恼除，邪正俱不用，清净至无余",
       "characters": "邪来烦恼至，正来烦恼除，邪正俱不用，清净至无余",
       "numCharacters": 23,
@@ -7061,7 +7152,7 @@
     },
     {
       "id": "sixzu2_010",
-      "name": "六祖偈頌2 10",
+      "name": "菩提本自性",
       "description": "菩提本自性，起心即是妄，净心在妄中，但正无三障",
       "characters": "菩提本自性，起心即是妄，净心在妄中，但正无三障",
       "numCharacters": 23,
@@ -7074,7 +7165,7 @@
     },
     {
       "id": "sixzu2_011",
-      "name": "六祖偈頌2 11",
+      "name": "世人若修道",
       "description": "世人若修道，一切尽不妨，常自见己过，与道即相当",
       "characters": "世人若修道，一切尽不妨，常自见己过，与道即相当",
       "numCharacters": 23,
@@ -7087,7 +7178,7 @@
     },
     {
       "id": "sixzu2_012",
-      "name": "六祖偈頌2 12",
+      "name": "色类自有道",
       "description": "色类自有道，各不相妨恼，离道别觅道，终身不见道",
       "characters": "色类自有道，各不相妨恼，离道别觅道，终身不见道",
       "numCharacters": 23,
@@ -7100,7 +7191,7 @@
     },
     {
       "id": "sixzu2_013",
-      "name": "六祖偈頌2 13",
+      "name": "波波度一生",
       "description": "波波度一生，到头还自懊，欲得见真道，行正即是道",
       "characters": "波波度一生，到头还自懊，欲得见真道，行正即是道",
       "numCharacters": 23,
@@ -7113,7 +7204,7 @@
     },
     {
       "id": "sixzu2_014",
-      "name": "六祖偈頌2 14",
+      "name": "自若无道心",
       "description": "自若无道心，暗行不见道，若真修道人，不见世间过",
       "characters": "自若无道心，暗行不见道，若真修道人，不见世间过",
       "numCharacters": 23,
@@ -7126,7 +7217,7 @@
     },
     {
       "id": "sixzu2_015",
-      "name": "六祖偈頌2 15",
+      "name": "若见他人非",
       "description": "若见他人非，自非却是左，他非我不非，我非自有过",
       "characters": "若见他人非，自非却是左，他非我不非，我非自有过",
       "numCharacters": 23,
@@ -7139,7 +7230,7 @@
     },
     {
       "id": "sixzu2_016",
-      "name": "六祖偈頌2 16",
+      "name": "但自却非心",
       "description": "但自却非心，打除烦恼破，憎爱不关心，长伸两脚卧",
       "characters": "但自却非心，打除烦恼破，憎爱不关心，长伸两脚卧",
       "numCharacters": 23,
@@ -7152,7 +7243,7 @@
     },
     {
       "id": "sixzu2_017",
-      "name": "六祖偈頌2 17",
+      "name": "欲拟化他人",
       "description": "欲拟化他人，自须有方便，勿令彼有疑，即是自性现",
       "characters": "欲拟化他人，自须有方便，勿令彼有疑，即是自性现",
       "numCharacters": 23,
@@ -7165,7 +7256,7 @@
     },
     {
       "id": "sixzu2_018",
-      "name": "六祖偈頌2 18",
+      "name": "佛法在世间",
       "description": "佛法在世间，不离世间觉，离世觅菩提，恰如求兔角",
       "characters": "佛法在世间，不离世间觉，离世觅菩提，恰如求兔角",
       "numCharacters": 23,
@@ -7178,7 +7269,7 @@
     },
     {
       "id": "sixzu2_019",
-      "name": "六祖偈頌2 19",
+      "name": "正见名出世",
       "description": "正见名出世，邪见是世间，邪正尽打却，菩提性宛然",
       "characters": "正见名出世，邪见是世间，邪正尽打却，菩提性宛然",
       "numCharacters": 23,
@@ -7191,7 +7282,7 @@
     },
     {
       "id": "sixzu2_020",
-      "name": "六祖偈頌2 20",
+      "name": "此颂是顿教",
       "description": "此颂是顿教，亦名大法船，迷闻经累劫，悟则刹那间",
       "characters": "此颂是顿教，亦名大法船，迷闻经累劫，悟则刹那间",
       "numCharacters": 23,
@@ -7204,7 +7295,7 @@
     },
     {
       "id": "sixzu2_021",
-      "name": "六祖偈頌2 21",
+      "name": "心平何劳持戒",
       "description": "心平何劳持戒，行直何用修禅，恩则孝养父母，义则上下相怜",
       "characters": "心平何劳持戒，行直何用修禅，恩则孝养父母，义则上下相怜",
       "numCharacters": 27,
@@ -7217,7 +7308,7 @@
     },
     {
       "id": "sixzu2_022",
-      "name": "六祖偈頌2 22",
+      "name": "让则尊卑和睦",
       "description": "让则尊卑和睦，忍则众恶无喧，若能钻木出火，淤泥定生红莲",
       "characters": "让则尊卑和睦，忍则众恶无喧，若能钻木出火，淤泥定生红莲",
       "numCharacters": 27,
@@ -7230,7 +7321,7 @@
     },
     {
       "id": "sixzu2_023",
-      "name": "六祖偈頌2 23",
+      "name": "苦口的是良药",
       "description": "苦口的是良药，逆耳必是忠言，改过必生智慧，护短心内非贤",
       "characters": "苦口的是良药，逆耳必是忠言，改过必生智慧，护短心内非贤",
       "numCharacters": 27,
@@ -7243,7 +7334,7 @@
     },
     {
       "id": "sixzu2_024",
-      "name": "六祖偈頌2 24",
+      "name": "日用常行饶益",
       "description": "日用常行饶益，成道非由施钱，菩提只向心觅，何劳向外求玄",
       "characters": "日用常行饶益，成道非由施钱，菩提只向心觅，何劳向外求玄",
       "numCharacters": 27,
@@ -7256,7 +7347,7 @@
     },
     {
       "id": "sixzu2_025",
-      "name": "六祖偈頌2 25",
+      "name": "听说依此修行",
       "description": "听说依此修行，天堂只在目前",
       "characters": "听说依此修行，天堂只在目前",
       "numCharacters": 13,
@@ -7269,7 +7360,7 @@
     },
     {
       "id": "sixzu2_026",
-      "name": "六祖偈頌2 26",
+      "name": "迷人修福不修道",
       "description": "迷人修福不修道，只言修福便是道，布施供养福无边，心中三恶元来造",
       "characters": "迷人修福不修道，只言修福便是道，布施供养福无边，心中三恶元来造",
       "numCharacters": 31,
@@ -7282,7 +7373,7 @@
     },
     {
       "id": "sixzu2_027",
-      "name": "六祖偈頌2 27",
+      "name": "拟将修福欲灭罪",
       "description": "拟将修福欲灭罪，后世得福罪还在，但向心中除罪缘，各自性中真忏悔",
       "characters": "拟将修福欲灭罪，后世得福罪还在，但向心中除罪缘，各自性中真忏悔",
       "numCharacters": 31,
@@ -7295,7 +7386,7 @@
     },
     {
       "id": "sixzu2_028",
-      "name": "六祖偈頌2 28",
+      "name": "忽悟大乘真忏悔",
       "description": "忽悟大乘真忏悔，除邪行正即无罪，学道常于自性观，即与诸佛同一类",
       "characters": "忽悟大乘真忏悔，除邪行正即无罪，学道常于自性观，即与诸佛同一类",
       "numCharacters": 31,
@@ -7308,7 +7399,7 @@
     },
     {
       "id": "sixzu2_029",
-      "name": "六祖偈頌2 29",
+      "name": "吾祖唯传此顿法",
       "description": "吾祖唯传此顿法，普愿见性同一体，若欲当来觅法身，离诸法相心中洗",
       "characters": "吾祖唯传此顿法，普愿见性同一体，若欲当来觅法身，离诸法相心中洗",
       "numCharacters": 31,
@@ -7321,7 +7412,7 @@
     },
     {
       "id": "sixzu2_030",
-      "name": "六祖偈頌2 30",
+      "name": "努力自见莫悠悠",
       "description": "努力自见莫悠悠，后念忽绝一世休，若悟大乘得自性，虔诚合掌至心求",
       "characters": "努力自见莫悠悠，后念忽绝一世休，若悟大乘得自性，虔诚合掌至心求",
       "numCharacters": 31,
@@ -7334,7 +7425,7 @@
     },
     {
       "id": "sixzu2_031",
-      "name": "六祖偈頌2 31",
+      "name": "即心元是佛",
       "description": "即心元是佛，不悟而自屈，我知定慧因，双修离诸物",
       "characters": "即心元是佛，不悟而自屈，我知定慧因，双修离诸物",
       "numCharacters": 23,
@@ -7347,7 +7438,7 @@
     },
     {
       "id": "sixzu2_032",
-      "name": "六祖偈頌2 32",
+      "name": "礼本折慢幢",
       "description": "礼本折慢幢，头奚不至地，有我罪即生，亡功福无比",
       "characters": "礼本折慢幢，头奚不至地，有我罪即生，亡功福无比",
       "numCharacters": 23,
@@ -7360,7 +7451,7 @@
     },
     {
       "id": "sixzu2_033",
-      "name": "六祖偈頌2 33",
+      "name": "汝今名法达",
       "description": "汝今名法达，勤诵未休歇，空诵但循声，明心号菩萨",
       "characters": "汝今名法达，勤诵未休歇，空诵但循声，明心号菩萨",
       "numCharacters": 23,
@@ -7373,7 +7464,7 @@
     },
     {
       "id": "sixzu2_034",
-      "name": "六祖偈頌2 34",
+      "name": "汝今有缘故",
       "description": "汝今有缘故，吾今为汝说，但信佛无言，莲华从口发",
       "characters": "汝今有缘故，吾今为汝说，但信佛无言，莲华从口发",
       "numCharacters": 23,
@@ -7386,7 +7477,7 @@
     },
     {
       "id": "sixzu2_035",
-      "name": "六祖偈頌2 35",
+      "name": "心迷法华转",
       "description": "心迷法华转，心悟转法华，诵经久不明，与义作雠家",
       "characters": "心迷法华转，心悟转法华，诵经久不明，与义作雠家",
       "numCharacters": 23,
@@ -7399,7 +7490,7 @@
     },
     {
       "id": "sixzu2_036",
-      "name": "六祖偈頌2 36",
+      "name": "无念念即正",
       "description": "无念念即正，有念念成邪，有无俱不计，常御白牛车",
       "characters": "无念念即正，有念念成邪，有无俱不计，常御白牛车",
       "numCharacters": 23,
@@ -7412,7 +7503,7 @@
     },
     {
       "id": "sixzu2_037",
-      "name": "六祖偈頌2 37",
+      "name": "经诵三千部",
       "description": "经诵三千部，曹溪一句亡，未明出世旨，宁歇累生狂",
       "characters": "经诵三千部，曹溪一句亡，未明出世旨，宁歇累生狂",
       "numCharacters": 23,
@@ -7425,7 +7516,7 @@
     },
     {
       "id": "sixzu2_038",
-      "name": "六祖偈頌2 38",
+      "name": "羊鹿牛权设",
       "description": "羊鹿牛权设，初中后善扬，谁知火宅内，元是法中王",
       "characters": "羊鹿牛权设，初中后善扬，谁知火宅内，元是法中王",
       "numCharacters": 23,
@@ -7438,7 +7529,7 @@
     },
     {
       "id": "sixzu2_039",
-      "name": "六祖偈頌2 39",
+      "name": "自性具三身",
       "description": "自性具三身，发明成四智，不离见闻缘，超然登佛地",
       "characters": "自性具三身，发明成四智，不离见闻缘，超然登佛地",
       "numCharacters": 23,
@@ -7451,7 +7542,7 @@
     },
     {
       "id": "sixzu2_040",
-      "name": "六祖偈頌2 40",
+      "name": "吾今为汝说",
       "description": "吾今为汝说，谛信永无迷，莫学驰求者，终日说菩提",
       "characters": "吾今为汝说，谛信永无迷，莫学驰求者，终日说菩提",
       "numCharacters": 23,
@@ -7464,7 +7555,7 @@
     },
     {
       "id": "sixzu2_041",
-      "name": "六祖偈頌2 41",
+      "name": "大圆镜智性清净",
       "description": "大圆镜智性清净，平等性智心无病，妙观察智见非功，成所作智同圆镜",
       "characters": "大圆镜智性清净，平等性智心无病，妙观察智见非功，成所作智同圆镜",
       "numCharacters": 31,
@@ -7477,7 +7568,7 @@
     },
     {
       "id": "sixzu2_042",
-      "name": "六祖偈頌2 42",
+      "name": "五八六七果因转",
       "description": "五八六七果因转，但用名言无实性，若于转处不留情，繁兴永处那伽定",
       "characters": "五八六七果因转，但用名言无实性，若于转处不留情，繁兴永处那伽定",
       "numCharacters": 31,
@@ -7490,7 +7581,7 @@
     },
     {
       "id": "sixzu2_043",
-      "name": "六祖偈頌2 43",
+      "name": "三身元我体",
       "description": "三身元我体，四智本心明，身智融无碍，应物任随形",
       "characters": "三身元我体，四智本心明，身智融无碍，应物任随形",
       "numCharacters": 23,
@@ -7503,7 +7594,7 @@
     },
     {
       "id": "sixzu2_044",
-      "name": "六祖偈頌2 44",
+      "name": "起修皆妄动",
       "description": "起修皆妄动，守住匪真精，妙旨因师晓，终亡染污名",
       "characters": "起修皆妄动，守住匪真精，妙旨因师晓，终亡染污名",
       "numCharacters": 23,
@@ -7516,7 +7607,7 @@
     },
     {
       "id": "sixzu2_045",
-      "name": "六祖偈頌2 45",
+      "name": "不见一法存无见",
       "description": "不见一法存无见，大似浮云遮日面，不知一法守空知，还如太虚生闪电",
       "characters": "不见一法存无见，大似浮云遮日面，不知一法守空知，还如太虚生闪电",
       "numCharacters": 31,
@@ -7529,7 +7620,7 @@
     },
     {
       "id": "sixzu2_046",
-      "name": "六祖偈頌2 46",
+      "name": "此之知见瞥然兴",
       "description": "此之知见瞥然兴，错认何曾解方便，汝当一念自知非，自己灵光常显现",
       "characters": "此之知见瞥然兴，错认何曾解方便，汝当一念自知非，自己灵光常显现",
       "numCharacters": 31,
@@ -7542,7 +7633,7 @@
     },
     {
       "id": "sixzu2_047",
-      "name": "六祖偈頌2 47",
+      "name": "无端起知见",
       "description": "无端起知见，着相求菩提，情存一念悟，宁越昔时迷",
       "characters": "无端起知见，着相求菩提，情存一念悟，宁越昔时迷",
       "numCharacters": 23,
@@ -7555,7 +7646,7 @@
     },
     {
       "id": "sixzu2_048",
-      "name": "六祖偈頌2 48",
+      "name": "自性觉源体",
       "description": "自性觉源体，随照枉迁流，不入祖师室，茫然趣两头",
       "characters": "自性觉源体，随照枉迁流，不入祖师室，茫然趣两头",
       "numCharacters": 23,
@@ -7568,7 +7659,7 @@
     },
     {
       "id": "sixzu2_049",
-      "name": "六祖偈頌2 49",
+      "name": "无上大涅槃",
       "description": "无上大涅槃，圆明常寂照，凡愚谓之死，外道执为断",
       "characters": "无上大涅槃，圆明常寂照，凡愚谓之死，外道执为断",
       "numCharacters": 23,
@@ -7581,7 +7672,7 @@
     },
     {
       "id": "sixzu2_050",
-      "name": "六祖偈頌2 50",
+      "name": "诸求二乘人",
       "description": "诸求二乘人，目以为无作，尽属情所计，六十二见本",
       "characters": "诸求二乘人，目以为无作，尽属情所计，六十二见本",
       "numCharacters": 23,
@@ -7594,7 +7685,7 @@
     },
     {
       "id": "sixzu2_051",
-      "name": "六祖偈頌2 51",
+      "name": "妄立虚假名",
       "description": "妄立虚假名，何为真实义，惟有过量人，通达无取舍",
       "characters": "妄立虚假名，何为真实义，惟有过量人，通达无取舍",
       "numCharacters": 23,
@@ -7607,7 +7698,7 @@
     },
     {
       "id": "sixzu2_052",
-      "name": "六祖偈頌2 52",
+      "name": "以知五蕴法",
       "description": "以知五蕴法，及以蕴中我，外现众色像，一一音声相",
       "characters": "以知五蕴法，及以蕴中我，外现众色像，一一音声相",
       "numCharacters": 23,
@@ -7620,7 +7711,7 @@
     },
     {
       "id": "sixzu2_053",
-      "name": "六祖偈頌2 53",
+      "name": "平等如梦幻",
       "description": "平等如梦幻，不起凡圣见，不作涅槃解，二边三际断",
       "characters": "平等如梦幻，不起凡圣见，不作涅槃解，二边三际断",
       "numCharacters": 23,
@@ -7633,7 +7724,7 @@
     },
     {
       "id": "sixzu2_054",
-      "name": "六祖偈頌2 54",
+      "name": "常应诸根用",
       "description": "常应诸根用，而不起用想，分别一切法，不起分别想",
       "characters": "常应诸根用，而不起用想，分别一切法，不起分别想",
       "numCharacters": 23,
@@ -7646,7 +7737,7 @@
     },
     {
       "id": "sixzu2_055",
-      "name": "六祖偈頌2 55",
+      "name": "劫火烧海底",
       "description": "劫火烧海底，风鼓山相击，真常寂灭乐，涅槃相如是",
       "characters": "劫火烧海底，风鼓山相击，真常寂灭乐，涅槃相如是",
       "numCharacters": 23,
@@ -7659,7 +7750,7 @@
     },
     {
       "id": "sixzu2_056",
-      "name": "六祖偈頌2 56",
+      "name": "吾今强言说",
       "description": "吾今强言说，令汝舍现见，汝勿随言解，许汝知少分",
       "characters": "吾今强言说，令汝舍现见，汝勿随言解，许汝知少分",
       "numCharacters": 23,
@@ -7672,7 +7763,7 @@
     },
     {
       "id": "sixzu2_057",
-      "name": "六祖偈頌2 57",
+      "name": "惠能没伎俩",
       "description": "惠能没伎俩，不断百思想，对境心数起，菩提作么长",
       "characters": "惠能没伎俩，不断百思想，对境心数起，菩提作么长",
       "numCharacters": 23,
@@ -7685,7 +7776,7 @@
     },
     {
       "id": "sixzu2_058",
-      "name": "六祖偈頌2 58",
+      "name": "生来坐不卧",
       "description": "生来坐不卧，死去卧不坐，一具臭骨头，何为立功过",
       "characters": "生来坐不卧，死去卧不坐，一具臭骨头，何为立功过",
       "numCharacters": 23,
@@ -7698,7 +7789,7 @@
     },
     {
       "id": "sixzu2_059",
-      "name": "六祖偈頌2 59",
+      "name": "心地无非自性戒",
       "description": "心地无非自性戒，心地无痴自性慧，心地无乱自性定，不增不减自金刚",
       "characters": "心地无非自性戒，心地无痴自性慧，心地无乱自性定，不增不减自金刚",
       "numCharacters": 31,
@@ -7711,7 +7802,7 @@
     },
     {
       "id": "sixzu2_060",
-      "name": "六祖偈頌2 60",
+      "name": "身去身来本三昧",
       "description": "身去身来本三昧",
       "characters": "身去身来本三昧",
       "numCharacters": 7,
@@ -7724,7 +7815,7 @@
     },
     {
       "id": "sixzu2_061",
-      "name": "六祖偈頌2 61",
+      "name": "五蕴幻身",
       "description": "五蕴幻身，幻何究竟，回趣真如，法还不净",
       "characters": "五蕴幻身，幻何究竟，回趣真如，法还不净",
       "numCharacters": 19,
@@ -7737,7 +7828,7 @@
     },
     {
       "id": "sixzu2_062",
-      "name": "六祖偈頌2 62",
+      "name": "因守无常心",
       "description": "因守无常心，佛说有常性，不知方便者，犹春池拾砾",
       "characters": "因守无常心，佛说有常性，不知方便者，犹春池拾砾",
       "numCharacters": 23,
@@ -7750,7 +7841,7 @@
     },
     {
       "id": "sixzu2_063",
-      "name": "六祖偈頌2 63",
+      "name": "我今不施功",
       "description": "我今不施功，佛性而现前，非师相授与，我亦无所得",
       "characters": "我今不施功，佛性而现前，非师相授与，我亦无所得",
       "numCharacters": 23,
@@ -7763,7 +7854,7 @@
     },
     {
       "id": "sixzu2_064",
-      "name": "六祖偈頌2 64",
+      "name": "一切无有真",
       "description": "一切无有真，不以见于真，若见于真者，是见尽非真",
       "characters": "一切无有真，不以见于真，若见于真者，是见尽非真",
       "numCharacters": 23,
@@ -7776,7 +7867,7 @@
     },
     {
       "id": "sixzu2_065",
-      "name": "六祖偈頌2 65",
+      "name": "若能自有真",
       "description": "若能自有真，离假即心真，自心不离假，无真何处真",
       "characters": "若能自有真，离假即心真，自心不离假，无真何处真",
       "numCharacters": 23,
@@ -7789,7 +7880,7 @@
     },
     {
       "id": "sixzu2_066",
-      "name": "六祖偈頌2 66",
+      "name": "有情即解动",
       "description": "有情即解动，无情即不动，若修不动行，同无情不动",
       "characters": "有情即解动，无情即不动，若修不动行，同无情不动",
       "numCharacters": 23,
@@ -7802,7 +7893,7 @@
     },
     {
       "id": "sixzu2_067",
-      "name": "六祖偈頌2 67",
+      "name": "若觅真不动",
       "description": "若觅真不动，动上有不动，不动是不动，无情无佛种",
       "characters": "若觅真不动，动上有不动，不动是不动，无情无佛种",
       "numCharacters": 23,
@@ -7815,7 +7906,7 @@
     },
     {
       "id": "sixzu2_068",
-      "name": "六祖偈頌2 68",
+      "name": "能善分别相",
       "description": "能善分别相，第一义不动，但作如此见，即是真如用",
       "characters": "能善分别相，第一义不动，但作如此见，即是真如用",
       "numCharacters": 23,
@@ -7828,7 +7919,7 @@
     },
     {
       "id": "sixzu2_069",
-      "name": "六祖偈頌2 69",
+      "name": "报诸学道人",
       "description": "报诸学道人，努力须用意，莫于大乘门，却执生死智",
       "characters": "报诸学道人，努力须用意，莫于大乘门，却执生死智",
       "numCharacters": 23,
@@ -7841,7 +7932,7 @@
     },
     {
       "id": "sixzu2_070",
-      "name": "六祖偈頌2 70",
+      "name": "若言下相应",
       "description": "若言下相应，即共论佛义，若实不相应，合掌令欢喜",
       "characters": "若言下相应，即共论佛义，若实不相应，合掌令欢喜",
       "numCharacters": 23,
@@ -7854,7 +7945,7 @@
     },
     {
       "id": "sixzu2_071",
-      "name": "六祖偈頌2 71",
+      "name": "此宗本无诤",
       "description": "此宗本无诤，诤即失道意，执逆诤法门，自性入生死",
       "characters": "此宗本无诤，诤即失道意，执逆诤法门，自性入生死",
       "numCharacters": 23,
@@ -7867,7 +7958,7 @@
     },
     {
       "id": "sixzu2_072",
-      "name": "六祖偈頌2 72",
+      "name": "心地含诸种",
       "description": "心地含诸种，普雨悉皆萌，顿悟华情已，菩提果自成",
       "characters": "心地含诸种，普雨悉皆萌，顿悟华情已，菩提果自成",
       "numCharacters": 23,
@@ -7880,7 +7971,7 @@
     },
     {
       "id": "sixzu2_073",
-      "name": "六祖偈頌2 73",
+      "name": "真如自性是真佛",
       "description": "真如自性是真佛，邪见三毒是魔王，邪迷之时魔在舍，正见之时佛在堂",
       "characters": "真如自性是真佛，邪见三毒是魔王，邪迷之时魔在舍，正见之时佛在堂",
       "numCharacters": 31,
@@ -7893,7 +7984,7 @@
     },
     {
       "id": "sixzu2_074",
-      "name": "六祖偈頌2 74",
+      "name": "性中邪见三毒生",
       "description": "性中邪见三毒生，即是魔王来住舍，正见自除三毒心，魔变成佛真无假",
       "characters": "性中邪见三毒生，即是魔王来住舍，正见自除三毒心，魔变成佛真无假",
       "numCharacters": 31,
@@ -7906,7 +7997,7 @@
     },
     {
       "id": "sixzu2_075",
-      "name": "六祖偈頌2 75",
+      "name": "法身报身及化身",
       "description": "法身报身及化身，三身本来是一身，若向性中能自见，即是成佛菩提因",
       "characters": "法身报身及化身，三身本来是一身，若向性中能自见，即是成佛菩提因",
       "numCharacters": 31,
@@ -7919,7 +8010,7 @@
     },
     {
       "id": "sixzu2_076",
-      "name": "六祖偈頌2 76",
+      "name": "本从化身生净性",
       "description": "本从化身生净性，净性常在化身中，性使化身行正道，当来圆满量无穷",
       "characters": "本从化身生净性，净性常在化身中，性使化身行正道，当来圆满量无穷",
       "numCharacters": 31,
@@ -7932,7 +8023,7 @@
     },
     {
       "id": "sixzu2_077",
-      "name": "六祖偈頌2 77",
+      "name": "淫性本是净性因",
       "description": "淫性本是净性因，除淫即是净性身，性中各自离五欲，见性刹那即是真",
       "characters": "淫性本是净性因，除淫即是净性身，性中各自离五欲，见性刹那即是真",
       "numCharacters": 31,
@@ -7945,7 +8036,7 @@
     },
     {
       "id": "sixzu2_078",
-      "name": "六祖偈頌2 78",
+      "name": "今生若遇顿教门",
       "description": "今生若遇顿教门，忽悟自性见世尊，若欲修行觅作佛，不知何处拟求真",
       "characters": "今生若遇顿教门，忽悟自性见世尊，若欲修行觅作佛，不知何处拟求真",
       "numCharacters": 31,
@@ -7958,7 +8049,7 @@
     },
     {
       "id": "sixzu2_079",
-      "name": "六祖偈頌2 79",
+      "name": "若能心中自见真",
       "description": "若能心中自见真，有真即是成佛因，不见自性外觅佛，起心总是大痴人",
       "characters": "若能心中自见真，有真即是成佛因，不见自性外觅佛，起心总是大痴人",
       "numCharacters": 31,
@@ -7971,7 +8062,7 @@
     },
     {
       "id": "sixzu2_080",
-      "name": "六祖偈頌2 80",
+      "name": "顿教法门今已留",
       "description": "顿教法门今已留，救度世人须自修，报汝当来学道者，不作此见太悠悠",
       "characters": "顿教法门今已留，救度世人须自修，报汝当来学道者，不作此见太悠悠",
       "numCharacters": 31,
@@ -7984,7 +8075,7 @@
     },
     {
       "id": "sixzu2_081",
-      "name": "六祖偈頌2 81",
+      "name": "兀兀不修善",
       "description": "兀兀不修善，腾腾不造恶，寂寂断见闻，荡荡心无着",
       "characters": "兀兀不修善，腾腾不造恶，寂寂断见闻，荡荡心无着",
       "numCharacters": 23,

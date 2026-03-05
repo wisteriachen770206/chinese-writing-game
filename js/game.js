@@ -357,21 +357,20 @@
                     level.description.toLowerCase().includes(query)
                 );
                 
-                // Show first 10 search results
-                levelsToDisplay = searchResults.slice(0, 10);
+                // Show first 30 search results
+                levelsToDisplay = searchResults.slice(0, 30);
 
-                log(`Search results for "${searchQuery}": ${searchResults.length} levels found, showing first 10`);
+                log(`Search results for "${searchQuery}": ${searchResults.length} levels found, showing first 30`);
             } else {
-                // No search - show 5 evenly-spaced representative levels
-                const spacing = Math.floor(totalLevels / 5);
-                for (let i = 0; i < 5; i++) {
-                    const idx = i * spacing;
-                    if (idx < totalLevels) {
-                        levelsToDisplay.push(levelConfig.levels[idx]);
-                    }
+                // No search - show all *_001 levels (first level of each series: lesson_001, poem_001, xinjing_001, etc.), first 30
+                let firstLevels = levelConfig.levels.filter(level => /_001$/.test(level.id));
+                // Exclude continue level from grid so it only appears in the "Continue" card
+                if (nextLevelId) {
+                    firstLevels = firstLevels.filter(level => level.id !== nextLevelId);
                 }
-                
-                log(`Showing 6 levels (1 continue + 5 representative) from ${totalLevels} total:`);
+                levelsToDisplay = firstLevels.slice(0, 30);
+
+                log(`Showing ${levelsToDisplay.length} default levels (all _001) from ${totalLevels} total`);
                 if (continueLevelIndex !== null) {
                     log(`  Continue level: #${continueLevelIndex + 1} (ID: ${nextLevelId})`);
                 }
