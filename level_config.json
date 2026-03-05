@@ -1471,7 +1471,7 @@
     },
     {
       "id": "xinjing_002",
-      "name": "舍利子",
+      "name": "舍利子色不异空",
       "description": "舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。",
       "characters": "舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。",
       "numCharacters": 34,
@@ -1496,11 +1496,11 @@
       "backgroundMusic": "XJ.mp3"
     },
     {
-      "id": "xinjing_004",
+      "id": "xinjing_005",
       "name": "是故空中无色",
-      "description": "是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。",
-      "characters": "是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。",
-      "numCharacters": 62,
+      "description": "是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，",
+      "characters": "是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，",
+      "numCharacters": 25,
       "totalStrokes": 0,
       "difficulty": "easy",
       "maxHP": 100,
@@ -1509,7 +1509,20 @@
       "backgroundMusic": "XJ.mp3"
     },
     {
-      "id": "xinjing_005",
+      "id": "xinjing_006",
+      "name": "是故空中无色",
+      "description": "无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。",
+      "characters": "无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。",
+      "numCharacters": 27,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_007",
       "name": "无苦集灭道",
       "description": "无苦集灭道，无智亦无得。",
       "characters": "无苦集灭道，无智亦无得。",
@@ -1522,11 +1535,11 @@
       "backgroundMusic": "XJ.mp3"
     },
     {
-      "id": "xinjing_006",
+      "id": "xinjing_008",
       "name": "以无所得故",
-      "description": "以无所得故，菩提萨埵，依般若波罗蜜多故，心无挂碍，无挂碍故，无有恐怖，远离颠倒梦想，究竟涅槃。",
-      "characters": "以无所得故，菩提萨埵，依般若波罗蜜多故，心无挂碍，无挂碍故，无有恐怖，远离颠倒梦想，究竟涅槃。",
-      "numCharacters": 47,
+      "description": "以无所得故，菩提萨埵，依般若波罗蜜多故，心无挂碍",
+      "characters": "以无所得故，菩提萨埵，依般若波罗蜜多故，心无挂碍",
+      "numCharacters": 20,
       "totalStrokes": 0,
       "difficulty": "easy",
       "maxHP": 100,
@@ -1535,7 +1548,20 @@
       "backgroundMusic": "XJ.mp3"
     },
     {
-      "id": "xinjing_007",
+      "id": "xinjing_009",
+      "name": "无挂碍故",
+      "description": "无挂碍故，无有恐怖，远离颠倒梦想，究竟涅槃。",
+      "characters": "无挂碍故，无有恐怖，远离颠倒梦想，究竟涅槃。",
+      "numCharacters": 18,
+      "totalStrokes": 0,
+      "difficulty": "easy",
+      "maxHP": 100,
+      "estimatedTime": "2-3 mins",
+      "backgroundImage": "guanyin.jpg",
+      "backgroundMusic": "XJ.mp3"
+    },
+    {
+      "id": "xinjing_010",
       "name": "三世诸佛",
       "description": "三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。",
       "characters": "三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。",
@@ -1548,7 +1574,7 @@
       "backgroundMusic": "XJ.mp3"
     },
     {
-      "id": "xinjing_008",
+      "id": "xinjing_011",
       "name": "故知般若波罗蜜多",
       "description": "故知般若波罗蜜多，是大神咒，是大明咒，是无上咒，是无等等咒，能除一切苦，真实不虚。",
       "characters": "故知般若波罗蜜多，是大神咒，是大明咒，是无上咒，是无等等咒，能除一切苦，真实不虚。",
@@ -1561,7 +1587,7 @@
       "backgroundMusic": "XJ.mp3"
     },
     {
-      "id": "xinjing_009",
+      "id": "xinjing_012",
       "name": "故说般若波罗蜜多咒",
       "description": "故说般若波罗蜜多咒，即说咒曰：揭谛揭谛，波罗揭谛，波罗僧揭谛，菩提萨婆诃。",
       "characters": "故说般若波罗蜜多咒，即说咒曰：揭谛揭谛，波罗揭谛，波罗僧揭谛，菩提萨婆诃。",
